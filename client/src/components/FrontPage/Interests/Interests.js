@@ -14,17 +14,19 @@ const Interests = () => {
   
   const topicItemList = () => {
     const list = topics.map((item) =>
-      <div key={item.key} className='row'>
-        <div className='col image'>
-          <img src={item.image} alt="topic"/>
+      <a href='/topics'>
+        <div key={item.key} className='row'>
+          <div className='col'>
+            <img src={item.image} alt="topic" className='image-topic'/>
+          </div>
+          <div className='col'>
+            <h2>{item.title}</h2>
+          </div>
+          <div className='col'>
+            <button>{item.subTitle}</button>
+          </div>
         </div>
-        <div className='col'>
-          <h2>{item.title}</h2>
-        </div>
-        <div className='col'>
-          <button>{item.subTitle}</button>
-        </div>
-        </div>
+      </a>
     );
 
     return (list);

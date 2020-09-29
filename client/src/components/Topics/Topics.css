@@ -1,0 +1,9 @@
+.main-div {
+  overflow: hidden;
+}
+
+.groups {
+  border-style: solid;
+  border-color: black;
+  margin: 20px;
+}
