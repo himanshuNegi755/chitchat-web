@@ -6,6 +6,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('./model/user');
+require('./model/interests');
+require('./model/userInterests');
 
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
@@ -17,17 +19,20 @@ mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: tru
 
 //import routes
 const authRoutes = require("./routes/auth-routes");
+const databaseApiRoutes = require("./routes/database-api-routes");
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
-
-const router = require('./router');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-app.use(cors());
-app.use(router);
+const corsOptions = {
+  credentials: true,
+  origin: true
+}
+
+app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -43,6 +48,9 @@ app.use(passport.session());
 
 //set up routes
 app.use('/api', authRoutes);
+app.use('/api', databaseApiRoutes);
+
+app.get('/', (req, res) => res.redirect(process.env.CLIENT_URI || 'http://localhost:3000'));
 
 io.on('connect', (socket) => {
   socket.on('join', ({ name, room }, callback) => {

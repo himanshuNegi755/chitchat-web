@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import './Topics.css';
 
 const Interests = () => {
-  const [groups, setFroups] = useState([
+  const [groups, setGroups] = useState([
     {category: 'Technology', title: 'mars rover', members: '7/10', language: 'English', started: '3 min ago', access: 'anyone can join', key: '1'},
     {category: 'Technology', title: 'flying winds turbine', members: '5/10', language: 'German', started: '10 min ago', access: 'anyone can join', key: '2'},
     {category: 'Technology', title: 'hydrogen fuel car', members: '10/10', language: 'Chinese', started: '15 min ago', access: 'only admin allow', key: '3'},

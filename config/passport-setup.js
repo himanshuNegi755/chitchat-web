@@ -3,8 +3,10 @@ var passport = require("passport");
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 var keys = require('./keys');
 var mongoose = require('mongoose');
+
 // model
 var User = mongoose.model('User');
+var UserInterests = mongoose.model('UserInterests');
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -25,7 +27,6 @@ passport.use(
    proxy: true
   }, (accessToken, refreshToken, profile, done) => {
      // check if user already exists in our db
-     //console.log(profile);
      User.findOne({googleId: profile.id}, function(err, currentUser) {
       if(currentUser) {
         // already have the user
@@ -39,7 +40,13 @@ passport.use(
           userEmail: profile.emails[0].value,
           userImage: profile._json.picture
         }).save().then((newUser) => {
-          console.log('new user created: ' + newUser);
+          
+          new UserInterests({
+            userEmail: newUser.userEmail  
+          }).save().then((newUserInterests) => {
+            console.log('Interests created for new user');
+          })
+          
           done(null, newUser);
        });
       }
