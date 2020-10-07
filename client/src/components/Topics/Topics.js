@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Redirect, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import queryString from 'query-string';
+import { Modal, Form } from 'react-bootstrap';
 import './Topics.css';
 
-const Interests = () => {
-  const [groups, setGroups] = useState([
+const Interests = ({ location, user }) => {
+  /*const [groups, setGroups] = useState([
     {category: 'Technology', title: 'mars rover', members: '7/10', language: 'English', started: '3 min ago', access: 'anyone can join', key: '1'},
     {category: 'Technology', title: 'flying winds turbine', members: '5/10', language: 'German', started: '10 min ago', access: 'anyone can join', key: '2'},
     {category: 'Technology', title: 'hydrogen fuel car', members: '10/10', language: 'Chinese', started: '15 min ago', access: 'only admin allow', key: '3'},
@@ -44,12 +49,42 @@ const Interests = () => {
     {category: 'Anime', title: 'one outs', members: '10/10', language: 'Chinese', started: '15 min ago', access: 'only admin allow', key: '33'},
     {category: 'Anime', title: 'no game no life', members: '2/10', language: 'Japanese', started: '1 min ago', access: 'anyone can join', key: '34'},
     {category: 'Anime', title: 'one piece', members: '4/10', language: 'Hindi', started: '4 min ago', access: 'anyone can join', key: '35'},
-  ])
+  ]);*/
+  const [title, setTitle] = useState();
+  const [members, setMembers] = useState();
+  const [access, setAccess] = useState();
+  const [language, setLanguage] = useState();
+  const [category, setCategory] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [rooms, setRooms] = useState([]);
+  const [redirect, setRedirect] = useState(false);
   
-  const groupsList = () => {
-    const list = groups.map((item) =>
-      <a href='#topics'>
-        <div key={item.key} className='groups'>
+  useEffect(() => {
+    const { interests } = queryString.parse(location.search);
+    
+    axios.get(`${process.env.REACT_APP_BACKEND_API}/room/${interests}`)
+    .then(res => { setRooms(res.data) })
+    
+  }, [location.search]);
+  
+  const createRoom = () => {
+    axios.post(`${process.env.REACT_APP_BACKEND_API}/room/create`, {
+      title: title,
+      language: language,
+      members: members,
+      access: access,
+      category: category
+    })
+    .then(res => {
+      setShowModal(!showModal);
+      setRedirect(true);
+    })
+  }
+  
+  const roomsList = () => {
+    const list = rooms.map((item) =>
+      <div key={item._id} className='groups'>
+        <Link to={`/chat?name=${user.userName}&room=${item.title}`}>
           <div className='row'>
             <div className='col'><h2>{item.title}</h2></div>
             <div className='col'><h2>{item.language}</h2></div>
@@ -57,20 +92,83 @@ const Interests = () => {
           <div className='row'>
             <div className='col'><h2>{item.members}</h2></div>
             <div className='col'><h2>{item.access}</h2></div>
-            <div className='col'><h2>{item.started}</h2></div>
+            <div className='col'><h2>{item.created}</h2></div>
           </div>
-        </div>
-      </a>
+        </Link>
+      </div>
+      
     );
 
     return (list);
   }
   
-  return (
-    <div className='main-div'>
-      {groupsList()}
-    </div>
-  );
+  const showCreateRoomModal = (showModal) => {
+    return(
+      <div>
+        <Modal
+            size="md"
+            aria-labelledby="new-room-modal"
+            centered
+            show={showModal}
+            onHide={() => { setShowModal(!showModal) }}
+            >
+          <Modal.Header closeButton>
+            <div className="Form-title">
+              CREATE NEW ROOM
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group>
+                <Form.Control type="text" placeholder="Room Title" name='title' value={title} onChange={e => setTitle(e.target.value)}/>
+              </Form.Group>
+
+              <Form.Group>
+                  <Form.Control type="text" placeholder="members" name='members' value={members} onChange={e => setMembers(e.target.value)}/>
+              </Form.Group>
+
+              <Form.Group>
+                  <Form.Control type="text" placeholder="who all can access the room" name='access' value={access} onChange={e => setAccess(e.target.value)}/>
+              </Form.Group>
+
+              <Form.Group>
+                  <Form.Control type="text" placeholder="language" name='language' value={language} onChange={e => setLanguage(e.target.value)}/>
+              </Form.Group>
+              
+              <Form.Group>
+                  <Form.Control type="text" placeholder="category" name='category' value={category} onChange={e => setCategory(e.target.value)}/>
+              </Form.Group>
+
+              <div className="btn-div">
+                <button type="button" className="submit-btn form-btn" onClick={createRoom}>
+                  Submit
+                </button>
+              </div>
+            </Form>
+
+          </Modal.Body>
+        </Modal>
+      </div>
+    )
+  }
+  
+  if(redirect) {
+    return (<Redirect to ={`/chat?name=${user.userName}&room=${title}`}/>)
+  } else {
+      return (
+        <div className='main-div'>
+          <button onClick={() => { setShowModal(!showModal) }}>CREATE ROOM</button>
+          {roomsList()}
+          {showCreateRoomModal(showModal)}
+        </div>
+      );    
+    }
 }
 
-export default Interests;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(Interests);

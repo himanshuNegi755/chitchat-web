@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import './Interests.css';
 import SampleImage from '../../../images/mosh.jpg';
@@ -22,9 +23,9 @@ const Interests = ({ userEmail }) => {
             <img src={SampleImage} alt="topic" className='image-topic'/>
           </div>
           <div className='col'>
-            <a href='/topics'>
+            <Link to={`/interest?interests=${item.interests}`}>
               <h2>{item.interests}</h2>
-            </a>
+            </Link>
           </div>
           <div className='col'>
             {followedTopics.includes(item.interests) ? <button onClick={ () => {unFollowInterests(item.interests) }}>Followed</button> : <button onClick={ () => { followInterests((item.interests).toLowerCase()) }}>Follow</button>}

@@ -16,7 +16,7 @@ const App = (props) => {
   return (
     <Router>
       <Route path="/" exact component={FrontPage} />
-      <Route path="/topics" component={Topics} />
+      <Route path="/interest" component={Topics} />
       <Route path="/join" component={Join} />
       <Route path="/chat" component={Chat} />
     </Router>

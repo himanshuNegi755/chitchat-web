@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 // model
 var UserInterests = mongoose.model('UserInterests');
 var Interests = mongoose.model('Interests');
+var Room = mongoose.model('Room');
 
 //post/add new interests
 router.post('/interests/add', function(request, response, next) {
@@ -18,7 +19,7 @@ router.post('/interests/add', function(request, response, next) {
     });
 });
 
-//remove/delete already followed interests
+//remove/delete interests from list
 router.put('/interests/delete', function(request, response, next) {
   Interests.remove({interests: request.body.interests}, function(err, interests) {
     if (err) {
@@ -70,6 +71,48 @@ router.get('/user-interests/:userEmail', function(request, response, next) {
       response.status(500).send({error: "Could not get the interests"});
     } else {
       response.send(interestsList[0].interests);
+    }
+  });
+});
+
+//////////////////////////////////////// room ////////////////////////////////////////////////////////////
+
+//post/create new room
+router.post('/room/create', function(request, response, next) {
+  var tempRoom = new Room();
+    tempRoom.title = request.body.title;
+    tempRoom.language = request.body.language;
+    tempRoom.members = request.body.members;
+    tempRoom.access = request.body.access;
+    tempRoom.category = request.body.category;
+  
+    tempRoom.save(function(err, room) {
+        if (err) {
+            response.status(500).send({error:"Could not create room"});
+        } else {
+            response.send(room);
+        }
+    });
+});
+
+//remove/delete room from db
+router.put('/room/delete', function(request, response, next) {
+  Room.removeOne({title: request.body.title}, function(err, status) {
+    if (err) {
+      response.status(500).send({error: "Could not remove the room"});
+    } else {
+      response.send(status);
+    }
+  })
+});
+
+//get the rooms for particular interests/category
+router.get('/room/:interests', function(request, response, next) {
+  Room.find({category: request.params.interests}, function(err, roomList) {
+    if(err) {
+      response.status(500).send({error: "Could not get the rooms"});
+    } else {
+      response.send(roomList);
     }
   });
 });

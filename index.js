@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 require('./model/user');
 require('./model/interests');
 require('./model/userInterests');
+require('./model/room');
 
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
