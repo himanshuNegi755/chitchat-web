@@ -34,12 +34,12 @@ const Chat = ({ location }) => {
       }
     });
   }, [ENDPOINT, location.search]);
-  
+
   useEffect(() => {
     socket.on('message', message => {
       setMessages(messages => [ ...messages, message ]);
     });
-    
+
     socket.on("roomData", ({ users }) => {
       setUsers(users);
     });
@@ -60,7 +60,6 @@ const Chat = ({ location }) => {
           <Messages messages={messages} name={name} />
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
-      <TextContainer users={users}/>
     </div>
   );
 }

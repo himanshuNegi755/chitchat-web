@@ -11,8 +11,10 @@
 .leftInnerContainer {
   flex: 0.5;
   display: flex;
+  font-family: 'Play', sans-serif;
   align-items: center;
-  margin-left: 5%;
+  padding-top: 0.35rem;
+  margin-left: 2rem;
   color: white;
 }
 
@@ -20,9 +22,10 @@
   display: flex;
   flex: 0.5;
   justify-content: flex-end;
-  margin-right: 5%;
+  margin-right: 2rem;
 }
 
 .onlineIcon {
-  margin-right: 5%;
+  height: 0.7rem;
+  margin: 0 0.5rem 0.2rem;
 }

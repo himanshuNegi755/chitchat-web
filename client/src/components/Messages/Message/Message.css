@@ -1,7 +1,8 @@
 .messageBox {
   background: #F3F3F3;
-  border-radius: 20px;
-  padding: 5px 20px;
+  border-radius: 10px;
+  padding: 8px 15px 10px;
+  margin-top: 0.5rem;
   color: white;
   display: inline-block;
   max-width: 80%;
@@ -9,9 +10,10 @@
 
 .messageText {
   width: 100%;
+  margin: 0;
   letter-spacing: 0;
   float: left;
-  font-size: 1.1em;
+  font-size: 1rem;
   word-wrap: break-word;
 }
 
@@ -22,16 +24,18 @@
 .messageContainer {
   display: flex;
   justify-content: flex-end;
-  padding: 0 5%;
-  margin-top: 3px;
+  padding: 0 3%;
 }
 
 .sentText {
   display: flex;
   align-items: center;
   font-family: Helvetica;
+  font-size: 0.8rem;
   color: #828282;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.5px;
+  padding: 11px 0;
+  margin: 0;
 }
 
 .pl-10 {
