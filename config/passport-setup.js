@@ -30,7 +30,8 @@ passport.use(
      User.findOne({googleId: profile.id}, function(err, currentUser) {
       if(currentUser) {
         // already have the user
-        console.log('user is: ', currentUser);
+        //console.log('user is: ', currentUser);
+        console.log('user logged in');
         done(null, currentUser);
       } else {
         // if not, create user in our db
@@ -44,7 +45,8 @@ passport.use(
           new UserInterests({
             userEmail: newUser.userEmail  
           }).save().then((newUserInterests) => {
-            console.log('Interests created for new user');
+            //console.log('Interests created for new user');
+            console.log('new user created');
           })
           
           done(null, newUser);

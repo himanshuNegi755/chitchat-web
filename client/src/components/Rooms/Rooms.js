@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import queryString from 'query-string';
 import { Modal, Form } from 'react-bootstrap';
-import './Topics.css';
+import './Rooms.css';
 
-const Interests = ({ location, user }) => {
+const Rooms = ({ location, user }) => {
   /*const [groups, setGroups] = useState([
     {category: 'Technology', title: 'mars rover', members: '7/10', language: 'English', started: '3 min ago', access: 'anyone can join', key: '1'},
     {category: 'Technology', title: 'flying winds turbine', members: '5/10', language: 'German', started: '10 min ago', access: 'anyone can join', key: '2'},
@@ -171,4 +171,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Interests);
+export default connect(mapStateToProps)(Rooms);

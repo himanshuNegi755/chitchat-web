@@ -6,7 +6,7 @@ import { fetchUser } from './store/actions/authActions';
 import Chat from './components/Chat/Chat';
 import Join from './components/Join/Join';
 import FrontPage from './components/FrontPage/FrontPage';
-import Topics from './components/Topics/Topics.js';
+import Rooms from './components/Rooms/Rooms.js';
 
 const App = (props) => {
   useEffect(() => {
@@ -16,7 +16,7 @@ const App = (props) => {
   return (
     <Router>
       <Route path="/" exact component={FrontPage} />
-      <Route path="/interest" component={Topics} />
+      <Route path="/interest" component={Rooms} />
       <Route path="/join" component={Join} />
       <Route path="/chat" component={Chat} />
     </Router>
