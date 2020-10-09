@@ -1,9 +1,33 @@
 .main-div {
   overflow: hidden;
+  height: 100vh;
 }
-
+.create-room{
+  display: block;
+}
 .groups {
-  border-style: solid;
-  border-color: black;
+  border-radius: 10px;
+  background-color: #e0e0e0;
   margin: 20px;
+  padding: 0.5rem 2rem;
+  width: 47%;
+  display: inline-block;
+}
+.groups:hover{
+  box-shadow: 0 0 6px #2bb5e0;
+}
+.link-div, .link-div:hover, .link-div:focus, .link-div:active{
+  text-decoration: none;
+  color: inherit;
+}
+.link-div:hover{
+  color: #086b8a;
+}
+.room-name{
+  font-family: 'Play', sans-serif;
+  font-size: 1.5rem;
+}
+.language-name{
+  padding: 0.5rem 0 0;
+  font-family: 'Bitter', serif;
 }
