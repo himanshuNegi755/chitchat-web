@@ -29,3 +29,8 @@ input:focus, textarea:focus, select:focus{
   border-radius: 0 0 4px 0;
   width: 15%;
 }
+
+.fa-chevron-right:hover{
+  transition: 0.5s;
+  transform: rotate(360deg);
+}
