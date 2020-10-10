@@ -8,7 +8,7 @@ const addUser = ({ id, name, room }) => {
 
   if(!name || !room) return { error: 'Username and room are required.' };
   if(existingUser) return { error: 'Username is taken.' };
-  if(getUsersInRoom(room).length >= 2) return { error: 'Room is full'};
+  if(getUsersInRoom(room).length >= 5) return { error: 'Room is full'};
 
   const user = { id, name, room };
 

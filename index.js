@@ -33,6 +33,8 @@ const corsOptions = {
   origin: true
 }
 
+var Room = mongoose.model('Room');
+
 app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
@@ -79,6 +81,17 @@ io.on('connect', (socket) => {
 
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
+    if(getUsersInRoom(user.room).length <=0) {
+      Room.deleteOne({title: user.room}, function(err, status) {
+        if (err) {
+          //response.status(500).send({error: "Could not remove the room"});
+          console.log('some errore occured');
+        } else {
+          //response.send(status);
+          console.log('room deleted');
+        }
+      })
+    }
 
     if(user) {
       io.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has left.` });

@@ -170,8 +170,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-<<<<<<< HEAD:client/src/components/Rooms/Rooms.js
 export default connect(mapStateToProps)(Rooms);
-=======
-export default connect(mapStateToProps)(Interests);
->>>>>>> 29b13282f4e9d229c53b4ed71ec7db70f42b0866:client/src/components/Topics/Topics.js
