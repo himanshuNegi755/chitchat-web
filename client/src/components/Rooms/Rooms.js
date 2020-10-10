@@ -156,7 +156,11 @@ const Rooms = ({ location, user }) => {
   } else {
       return (
         <div className='main-div'>
-          <button  className="create-room" onClick={() => { setShowModal(!showModal) }}>CREATE ROOM</button>
+          <div className="topbar row">
+            <div className="col-5"><h2>Rooms</h2></div>
+            <div className="col-5"></div>
+            <div className="col-2"><button  className="create-room" onClick={() => { setShowModal(!showModal) }}>CREATE ROOM</button></div>
+          </div>
           {roomsList()}
           {showCreateRoomModal(showModal)}
         </div>
@@ -170,8 +174,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-<<<<<<< HEAD:client/src/components/Rooms/Rooms.js
 export default connect(mapStateToProps)(Rooms);
-=======
-export default connect(mapStateToProps)(Interests);
->>>>>>> 29b13282f4e9d229c53b4ed71ec7db70f42b0866:client/src/components/Topics/Topics.js

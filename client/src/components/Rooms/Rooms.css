@@ -2,8 +2,22 @@
   overflow: hidden;
   height: 100vh;
 }
+.topbar{
+  background: #202020;
+  padding: 1rem 2rem;
+  color: white;
+}
 .create-room{
-  display: block;
+  transition: 0.3s;
+  padding: 0.4rem 1.2rem;
+  margin: 0.3rem;
+  border: none;
+  border-radius: 3px;
+}
+.create-room:hover{
+  transition: 0.3s;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #2bb5e0;
 }
 .groups {
   border-radius: 10px;
