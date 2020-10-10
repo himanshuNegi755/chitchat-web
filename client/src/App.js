@@ -7,11 +7,12 @@ import Chat from './components/Chat/Chat';
 import Join from './components/Join/Join';
 import FrontPage from './components/FrontPage/FrontPage';
 import Rooms from './components/Rooms/Rooms.js';
+import Home from './components/Home/Home.js';
 
 const App = (props) => {
   useEffect(() => {
-        props.fetch_user();
-    }, [props])
+    props.fetch_user();
+  }, [props])
   
   return (
     <Router>
@@ -19,6 +20,7 @@ const App = (props) => {
       <Route path="/interest" component={Rooms} />
       <Route path="/join" component={Join} />
       <Route path="/chat" component={Chat} />
+      <Route path="/home" component={Home} />
     </Router>
   );
 }
