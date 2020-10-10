@@ -1,6 +1,5 @@
 .main-div {
   overflow: hidden;
-  height: 100vh;
 }
 .topbar{
   background: #202020;
@@ -30,7 +29,7 @@
 .groups:hover{
   box-shadow: 0 0 6px #2bb5e0;
 }
-.link-div, .link-div:hover, .link-div:focus, .link-div:active{
+.linkR-div, .linkR-div:hover, .linkR-div:focus, .linkR-div:active{
   text-decoration: none;
   color: inherit;
 }
