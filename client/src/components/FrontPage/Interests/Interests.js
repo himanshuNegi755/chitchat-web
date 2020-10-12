@@ -18,22 +18,19 @@ const Interests = ({ userEmail }) => {
 
   const topicItemList = () => {
     const list = topics.map((item) =>
-        <div key={item._id} className='row interest-col'>
-          <div className='col-2 img-col'>
-            <img src={SampleImage} alt="topic" className='topic-image'/>
-          </div>
-          <div className='col-7'>
-              <div className='interest-name'>
+        <div key={item._id} className='interest-col'>
+          <div className='row'>
+              <div className='col-8 interest-name'>
                 <Link to={`/interest?interests=${item.interests}`} className='linkI-div'>
                   <p>{item.interests}</p>
                 </Link>
               </div>
-              <div className='follow-div'>
-                {followedTopics.includes(item.interests) ? <button onClick={ () => {unFollowInterests(item.interests) }}>Followed</button> : <button onClick={ () => { followInterests((item.interests).toLowerCase()) }}>Follow</button>}
+              <div className='col-4 follow-div'>
+                {followedTopics.includes(item.interests) ? <button onClick={ () => {unFollowInterests(item.interests) }}><i class="far fa-check-circle"></i></button> : <button onClick={ () => { followInterests((item.interests).toLowerCase()) }}>Follow</button>}
               </div>
           </div>
-          <div className='col-3'>
-            {followedTopics.includes(item.interests) ? <button onClick={ () => {unFollowInterests(item.interests) }}>Followed</button> : <button onClick={ () => { followInterests((item.interests).toLowerCase()) }}>Follow</button>}
+          <div className='img-col'>
+            <img src={SampleImage} alt="topic" className='topic-image'/>
           </div>
         </div>
     );
