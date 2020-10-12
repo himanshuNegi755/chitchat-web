@@ -1,13 +1,10 @@
 .main-div {
   overflow: hidden;
-<<<<<<< HEAD
-=======
 }
 .topbar{
   background: #202020;
   padding: 1rem 2rem;
   color: white;
->>>>>>> 3bcf107e42cf0347af7ec3349a1ac3ee1bd2a8d4
 }
 .create-room{
   transition: 0.3s;
