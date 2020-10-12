@@ -7,18 +7,21 @@ const Home = ({ user }) => {
   const [rooms, setRooms] = useState([]);
   const [interests, setInterests] = useState([]);
 
-  /*useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_API}/user-interests/${user.userEmail}`)
-    .then(res => { setInterests(res.data) })
-    
-    interests.forEach( interests => {
-      axios.get(`${process.env.REACT_APP_BACKEND_API}/room/${interests}`)
-      .then(res => { setRooms([...rooms, res.data]) })
+  useEffect(() => {
+    if(user) {
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/user-interests/${user.userEmail}`)
+      .then(res => { setInterests(res.data) })    
+    }
+  }, [user]);
+  
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BACKEND_API}/room`, {
+      params: { interests: interests }
     })
+    .then(res => { setRooms(res.data) })
+  }, [interests]);
 
-  }, []);*/
-
-  /*const roomsList = () => {
+  const roomsList = () => {
     const list = rooms.map((item) =>
       <div key={item._id} className='groups'>
         <Link to={`/chat?name=${user.userName}&room=${item.title}`} className='link-div'>
@@ -36,12 +39,12 @@ const Home = ({ user }) => {
     );
 
     return (list);
-  }*/
+  }
   
   return (
     <div className='main-div'>
       <h1>Home</h1>
-      
+      {roomsList()}
     </div>
   );
 }

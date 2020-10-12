@@ -117,4 +117,37 @@ router.get('/room/:interests', function(request, response, next) {
   });
 });
     
+//this is how to pass array in url get request or any request
+//get the rooms by array of interests for home page
+router.get('/room', function(request, response, next) {
+  Room.find({category: {$in: request.query.interests}}, function(err, roomList) {
+    if(err) {
+      response.status(500).send({error: "Could not get the rooms"});
+    } else {
+      response.send(roomList);
+    }
+  });  
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports = router;
