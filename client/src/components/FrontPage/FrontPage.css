@@ -1,4 +1,16 @@
 .main-div {
+<<<<<<< HEAD
+  overflow: hidden;
+}
+.interest-div{
+  margin: 0 20%;
+}
+=======
   overflow: auto;
+<<<<<<< HEAD
   height: auto;
 }
+=======
+}
+>>>>>>> 20a80bb4b4e6b39c24c1a539ccd92e7de6e3ea65
+>>>>>>> 3bcf107e42cf0347af7ec3349a1ac3ee1bd2a8d4

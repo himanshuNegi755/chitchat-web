@@ -84,7 +84,7 @@ const Rooms = ({ location, user }) => {
   const roomsList = () => {
     const list = rooms.map((item) =>
       <div key={item._id} className='groups'>
-        <Link to={`/chat?name=${user.userName}&room=${item.title}`} className='link-div'>
+        <Link to={`/chat?name=${user.userName}&room=${item.title}`} className='linkR-div'>
           <div className='row row-one'>
             <div className='col-8 room-name'><p>{item.title}</p></div>
             <div className='col-4 language-name'><p>Language: {item.language}</p></div>
@@ -156,7 +156,11 @@ const Rooms = ({ location, user }) => {
   } else {
       return (
         <div className='main-div'>
-          <button  className="create-room" onClick={() => { setShowModal(!showModal) }}>CREATE ROOM</button>
+          <div className="topbar row">
+            <div className="col-5"><h2>Rooms</h2></div>
+            <div className="col-5"></div>
+            <div className="col-2"><button  className="create-room" onClick={() => { setShowModal(!showModal) }}>CREATE ROOM</button></div>
+          </div>
           {roomsList()}
           {showCreateRoomModal(showModal)}
         </div>

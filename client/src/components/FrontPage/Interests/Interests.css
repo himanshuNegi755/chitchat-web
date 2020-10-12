@@ -1,4 +1,42 @@
-.image-topic {
-  width: 100px;
-  height: 100px;
+.interest-col{
+  margin: 1rem;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  padding: 0.7rem 1.5rem;
+}
+.img-col{
+  padding: 0;
+}
+.topic-image {
+  width: 5.5rem;
+  height: 5.5rem;
+}
+.interest-name{
+  font-family: 'Prompt', sans-serif;
+  font-size: 2rem;
+}
+.interest-name p{
+  transition: 0.2s;
+  margin-bottom: 0.2rem;
+}
+.interest-name p:hover{
+  transition: 0.2s;
+  letter-spacing: 3px;
+}
+.linkI-div, .linkI-div:hover, .linkI-div:focus, .linkI-div:active{
+  text-decoration: none;
+  color: inherit;
+}
+.follow-div button{
+  border: none;
+  border-radius: 15px;
+  padding: 0 1rem;
+  background-color: #086b8a;
+  color: white;
+}
+.follow-div button:hover{
+  transition: 0.2s;
+  box-shadow: 0 0 5px #303030;
+  background-color: #086b8a;
+  color: white;
 }

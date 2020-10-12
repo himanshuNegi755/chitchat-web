@@ -7,7 +7,7 @@ import GoogleButton from './GoogleButton/GoogleButton';
 import Interests from './Interests/Interests';
 
 const FrontPage = ({ user }) => {
-  
+
   const renderContent = () => {
         switch(user) {
             case null:
@@ -28,14 +28,14 @@ const FrontPage = ({ user }) => {
                         <b>LOG OUT</b>
                       </Button>
                     </a>
-                    <div>
+                    <div className="interest-div">
                       <Interests userEmail={user.userEmail} />
                     </div>
                   </div>
                 )
         }
     }
-  
+
   return (
     <div className='main-div'>
       {renderContent()}
