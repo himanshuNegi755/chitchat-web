@@ -81,7 +81,7 @@ io.on('connect', (socket) => {
 
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
-    if(getUsersInRoom(user.room).length <=0) {
+    /*if(getUsersInRoom(user.room).length <=0) {
       Room.deleteOne({title: user.room}, function(err, status) {
         if (err) {
           //response.status(500).send({error: "Could not remove the room"});
@@ -91,7 +91,7 @@ io.on('connect', (socket) => {
           console.log('room deleted');
         }
       })
-    }
+    }*/
 
     if(user) {
       io.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has left.` });
