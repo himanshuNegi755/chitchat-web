@@ -129,25 +129,4 @@ router.get('/room', function(request, response, next) {
   });  
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = router;
