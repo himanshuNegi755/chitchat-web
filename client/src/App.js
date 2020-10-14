@@ -8,6 +8,7 @@ import Join from './components/Join/Join';
 import FrontPage from './components/FrontPage/FrontPage';
 import Rooms from './components/Rooms/Rooms.js';
 import Home from './components/Home/Home.js';
+import ProfilePage from './components/ProfilePage/ProfilePage.js';
 
 const App = (props) => {
   useEffect(() => {
@@ -21,6 +22,7 @@ const App = (props) => {
       <Route path="/join" component={Join} />
       <Route path="/chat" component={Chat} />
       <Route path="/home" component={Home} />
+      <Route path="/profile" component={ProfilePage} />
     </Router>
   );
 }
