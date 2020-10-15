@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
 import { Form, Row, Col, Button, Modal } from 'react-bootstrap';
 
 import './ProfilePage.css';
 
 const ProfilePage = ({ user }) => {  
+  const [userName, setUserName] = useState('');
+  
+  useEffect(() => {
+    if(user) {
+      setUserName(user.userName)
+    }
+  }, [user]);
   
   return (
     <div className='main-div'>
@@ -40,7 +47,7 @@ const ProfilePage = ({ user }) => {
                 User Name
               </Form.Label>
               <Col sm="10">
-                <Form.Control plaintext readOnly defaultValue={user ? user.userName : null} />
+                <Form.Control type="text" placeholder="userName" name='userName' value={userName} onChange={e => setUserName(e.target.value)} />
               </Col>
               <Button> Submit </Button>
             </Form.Group>

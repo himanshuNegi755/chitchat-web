@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var UserInterests = mongoose.model('UserInterests');
 var Interests = mongoose.model('Interests');
 var Room = mongoose.model('Room');
+var User = mongoose.model('User');
 
 //post/add new interests
 router.post('/interests/add', function(request, response, next) {
@@ -128,5 +129,32 @@ router.get('/room', function(request, response, next) {
     }
   });  
 });
+
+////////////////////////////////////// profile ///////////////////////////////////////////////////////////
+
+//change/update the userName
+router.put('/user-name/update', function(request, response, next) {
+  User.updateOne({userEmail: request.body.userEmail}, {$set: {"userName": request.body.userName}}, function(err, userName) {
+    if (err) {
+      //const error = new Error('Could not update the menu Item');
+      //next(error);
+      response.status(500).send({error: "Could not update the userName"});
+    } else {
+      response.send(userName); 
+    }
+  });
+});
+
+//check if userName exist or not, sending response in string
+router.get('/user-name/find/:userName', function(request, response, next) {
+  User.find({userName: request.params.userName}).count().exec(function(err, userName) {
+    if(err) {
+      response.status(500).send({error: "Could not get the userName"});
+    } else {
+      response.send(userName.toString());
+    }
+  });  
+});
+
 
 module.exports = router;
