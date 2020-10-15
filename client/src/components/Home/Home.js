@@ -20,11 +20,16 @@ const Home = ({ user }) => {
     })
     .then(res => { setRooms(res.data) })
   }, [interests]);
+  
+  const showAlert = (e) => {
+    alert('Please First create user name in profile');
+    e.preventDefault()
+  }
 
   const roomsList = () => {
     const list = rooms.map((item) =>
       <div key={item._id} className='groups'>
-        <Link to={`/chat?name=${user.userName}&room=${item.title}`} className='link-div'>
+        <Link onClick={e => user.userName ? null : showAlert(e)} to={`/chat?name=${user.userName}&room=${item.title}`} className='link-div'>
           <div className='row row-one'>
             <div className='col-8 room-name'><p>{item.title}</p></div>
             <div className='col-4 language-name'><p>Language: {item.language}</p></div>

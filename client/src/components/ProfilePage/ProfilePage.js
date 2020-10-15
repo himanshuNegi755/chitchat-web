@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
-import { Form, Row, Col, Button, Modal } from 'react-bootstrap';
+import axios from 'axios';
+import { Form, Row, Col } from 'react-bootstrap';
 
 import './ProfilePage.css';
 
 const ProfilePage = ({ user }) => {  
   const [userName, setUserName] = useState('');
+  const [message, setMessage] = useState('');
   
   useEffect(() => {
     if(user) {
@@ -13,6 +15,30 @@ const ProfilePage = ({ user }) => {
     }
   }, [user]);
 
+  const changeUserName = () => {
+    if(userName.match("^[A-Za-z0-9]+$")) {
+      
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/user-name/find/${userName}`)
+      .then(res => { 
+        if(res.data === 0) {
+          axios.put(`${process.env.REACT_APP_BACKEND_API}/user-name/update`, {
+            userEmail: user.userEmail,
+            userName: userName
+          })
+          .then(res => {
+            //show userName update msg here
+            setMessage('userName updated');
+          })          
+        } else {
+          setMessage('userName already exist');
+        }
+      })
+      
+    } else {
+      setMessage('userName not accepted');
+    }
+  }
+  
   return (
     <div className='main-div profilePage'>
       <div className="topbar"><h2>Profile Page</h2></div>
@@ -29,7 +55,7 @@ const ProfilePage = ({ user }) => {
       <div className="profileDetails">
           <Form>
 
-            <Form.Group as={Row} controlId="formPlaintextEmail">
+            <Form.Group as={Row}>
               <Form.Label column sm="2">
                 Email
               </Form.Label>
@@ -38,7 +64,7 @@ const ProfilePage = ({ user }) => {
               </Col>
             </Form.Group>
 
-            <Form.Group as={Row} controlId="formPlaintextEmail">
+            <Form.Group as={Row}>
               <Form.Label column sm="2">
                 User Name
               </Form.Label>
@@ -46,8 +72,11 @@ const ProfilePage = ({ user }) => {
                 <Form.Control type="text" placeholder="userName" name='userName' value={userName} onChange={e => setUserName(e.target.value)} />
               </Col>
             </Form.Group>
-            <div className="profile-submit"><button className="submitBtn"> Submit </button></div>
+            
+            <div> {message} </div>
+            
           </Form>
+        <div className="profile-submit"><button className="submitBtn" onClick={changeUserName}> Submit </button></div>
       </div>
 
 

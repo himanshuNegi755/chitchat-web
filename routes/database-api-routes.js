@@ -147,7 +147,7 @@ router.put('/user-name/update', function(request, response, next) {
 
 //check if userName exist or not, sending response in string
 router.get('/user-name/find/:userName', function(request, response, next) {
-  User.find({userName: request.params.userName}).count().exec(function(err, userName) {
+  User.find({userName: request.params.userName}).countDocuments().exec(function(err, userName) {
     if(err) {
       response.status(500).send({error: "Could not get the userName"});
     } else {
