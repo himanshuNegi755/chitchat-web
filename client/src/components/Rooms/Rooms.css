@@ -21,10 +21,9 @@
 .groups {
   border-radius: 10px;
   background-color: #e0e0e0;
-  margin: 20px;
+  margin: 1.5rem 15%;
   padding: 0.5rem 2rem;
-  width: 47%;
-  display: inline-block;
+  display: block;
 }
 .groups:hover{
   box-shadow: 0 0 6px #2bb5e0;

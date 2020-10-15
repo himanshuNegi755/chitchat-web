@@ -12,27 +12,23 @@ const ProfilePage = ({ user }) => {
       setUserName(user.userName)
     }
   }, [user]);
-  
+
   return (
-    <div className='main-div'>
-      <h1>profile page</h1>
-      
-      <div className="overlap-div">
-        <div className="aling-name-and-image row">
-            <div className="col image-col-div">
-                <img className="profile-image" alt="profile" src={user ? user.userImage : null} />
-            </div>
-            <div className="col name-col-div">
-                <h5>{user ? user.userName : null}</h5>
-            </div>
-        </div>
+    <div className='main-div profilePage'>
+      <div className="topbar"><h2>Profile Page</h2></div>
+
+      <div className="overlap-div image-name row">
+          <div className="col-2 image-col-div">
+              <img className="profileImage" alt="profile" src={user ? user.userImage : null} />
+          </div>
+          <div className="col-10 profileName">
+              <h2>{user ? user.userName : null}</h2>
+          </div>
       </div>
-                
-      <div className="row">
-        <div className="col-1"></div>
-        <div className="col-9">       
+
+      <div className="profileDetails">
           <Form>
-            
+
             <Form.Group as={Row} controlId="formPlaintextEmail">
               <Form.Label column sm="2">
                 Email
@@ -49,17 +45,12 @@ const ProfilePage = ({ user }) => {
               <Col sm="10">
                 <Form.Control type="text" placeholder="userName" name='userName' value={userName} onChange={e => setUserName(e.target.value)} />
               </Col>
-              <Button> Submit </Button>
             </Form.Group>
-
+            <div className="profile-submit"><button className="submitBtn"> Submit </button></div>
           </Form>
-        </div>
-        <div className="col-2">
-        </div>
+      </div>
 
-      </div>  
-      
-      
+
     </div>
   );
 }
