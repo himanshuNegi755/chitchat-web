@@ -1,5 +1,5 @@
 .profilePage{
-  background-color: #f0f0f0;
+  background-image: linear-gradient(#e0e0e0, white);
 }
 .overlap-div, .profileDetails{
   padding: 3rem 15% 1rem;

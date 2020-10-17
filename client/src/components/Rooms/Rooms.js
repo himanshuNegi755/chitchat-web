@@ -84,7 +84,7 @@ const Rooms = ({ location, user }) => {
   const roomsList = () => {
     const list = rooms.map((item) =>
       <div key={item._id} className='groups'>
-        <Link onClick={e => user.userName ? null : showAlert(e)} to={`/chat?name=${user.userName}&room=${item.title}`} className='linkR-div'>
+        <Link onClick={e => {entryValidation(e, item.members)}} to={`/chat?name=${user.userName}&room=${item.title}`} className='linkR-div'>
           <div className='row row-one'>
             <div className='col-8 room-name'><p>{item.title}</p></div>
             <div className='col-4 language-name'><p>Language: {item.language}</p></div>
@@ -101,9 +101,14 @@ const Rooms = ({ location, user }) => {
     return (list);
   }
 
-  const showAlert = (e) => {
-    alert('Please First create user name in profile');
-    e.preventDefault()
+  const entryValidation = (e, members) => {
+    if(!user.userName) {
+      alert('Please First create user name in profile');
+      e.preventDefault()
+    } else if (members >= 11) {
+      alert('Room Already full, pls try another room');
+      e.preventDefault();
+    }
   }
   
   const showCreateRoomModal = (showModal) => {

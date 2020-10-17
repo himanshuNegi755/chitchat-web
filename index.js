@@ -63,6 +63,16 @@ io.on('connect', (socket) => {
 
     socket.join(user.room);
 
+    /*Room.updateOne({title: user.room}, {$set: {"members": getUsersInRoom(user.room).length}}, function(err, status) {
+      if (err) {
+        //response.status(500).send({error: "Could not update room members"});
+        console.log('some errore occured while updating members');
+      } else {
+        //response.send(status);
+        console.log('members updated');
+      }
+    });*/
+    
     socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
     socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
 
@@ -89,6 +99,16 @@ io.on('connect', (socket) => {
         } else {
           //response.send(status);
           console.log('room deleted');
+        }
+      })
+    } else {
+      Room.updateOne({title: user.room}, {$set: {"members": getUsersInRoom(user.room).length}}, function(err, status) {
+        if (err) {
+          //response.status(500).send({error: "Could not update room members"});
+          console.log('some errore occured while updating members');
+        } else {
+          //response.send(status);
+          console.log('members updated');
         }
       })
     }*/
