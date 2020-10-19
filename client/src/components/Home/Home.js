@@ -30,6 +30,11 @@ const Home = ({ user }) => {
       e.preventDefault();
     }
   }
+  
+  /*const convertUTCToLocalTime = (utcDateAndTime) => {
+    var date = new Date('6/29/2011 4:52:48 PM UTC');
+    return date.toString()
+  }*/
 
   const roomsList = () => {
     const list = rooms.map((item) =>
@@ -40,7 +45,7 @@ const Home = ({ user }) => {
             <div className='col-4 language-name'><p>Language: {item.language}</p></div>
           </div>
           <div className='row row-two'>
-            <div className='col-5 access-status'><p>Access: {item.access}</p></div>
+            <div className='col-5 access-status'><p>{item.category}</p></div>
             <div className='col-3 members-no'><p>Members: {item.members}</p></div>
             <div className='col-4 time-div'><p>{item.created}</p></div>
           </div>
