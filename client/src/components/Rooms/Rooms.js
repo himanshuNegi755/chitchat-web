@@ -84,13 +84,13 @@ const Rooms = ({ location, user }) => {
   const roomsList = () => {
     const list = rooms.map((item) =>
       <div key={item._id} className='groups'>
-        <Link to={`/chat?name=${user.userName}&room=${item.title}`} className='linkR-div'>
+        <Link onClick={e => {entryValidation(e, item.members)}} to={`/chat?name=${user.userName}&room=${item.title}`} className='linkR-div'>
           <div className='row row-one'>
             <div className='col-8 room-name'><p>{item.title}</p></div>
             <div className='col-4 language-name'><p>Language: {item.language}</p></div>
           </div>
           <div className='row row-two'>
-            <div className='col-5 access-status'><p>Access: {item.access}</p></div>
+            <div className='col-5 access-status'><p>{item.category}</p></div>
             <div className='col-3 members-no'><p>Members: {item.members}</p></div>
             <div className='col-4 time-div'><p>{item.created}</p></div>
           </div>
@@ -101,6 +101,16 @@ const Rooms = ({ location, user }) => {
     return (list);
   }
 
+  const entryValidation = (e, members) => {
+    if(!user.userName) {
+      alert('Please First create user name in profile');
+      e.preventDefault()
+    } else if (members >= 11) {
+      alert('Room Already full, pls try another room');
+      e.preventDefault();
+    }
+  }
+  
   const showCreateRoomModal = (showModal) => {
     return(
       <div>
@@ -150,8 +160,16 @@ const Rooms = ({ location, user }) => {
       </div>
     )
   }
+  
+  const showRoomCreateModalOrNot = () => {
+    if(user.userName) {
+      setShowModal(!showModal)
+    } else {
+      alert('Please First create user name in profile');
+    }
+  }
 
-  if(redirect) {
+  if(redirect && user.userName) {
     return (<Redirect to ={`/chat?name=${user.userName}&room=${title}`}/>)
   } else {
       return (
@@ -159,7 +177,7 @@ const Rooms = ({ location, user }) => {
           <div className="topbar row">
             <div className="col-5"><h2>Rooms</h2></div>
             <div className="col-5"></div>
-            <div className="col-2"><button  className="create-room" onClick={() => { setShowModal(!showModal) }}>CREATE ROOM</button></div>
+            <div className="col-2"><button  className="create-room" onClick={showRoomCreateModalOrNot}>CREATE ROOM</button></div>
           </div>
           {roomsList()}
           {showCreateRoomModal(showModal)}

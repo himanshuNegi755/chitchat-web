@@ -6,6 +6,7 @@ var UserInterests = mongoose.model('UserInterests');
 var Interests = mongoose.model('Interests');
 var Room = mongoose.model('Room');
 var User = mongoose.model('User');
+var Chat = mongoose.model('Chat');
 
 //post/add new interests
 router.post('/interests/add', function(request, response, next) {
@@ -78,7 +79,7 @@ router.get('/user-interests/:userEmail', function(request, response, next) {
 
 //////////////////////////////////////// room ////////////////////////////////////////////////////////////
 
-//post/create new room
+//post/create new room and new chat for that room
 router.post('/room/create', function(request, response, next) {
   var tempRoom = new Room();
     tempRoom.title = request.body.title;
@@ -91,7 +92,12 @@ router.post('/room/create', function(request, response, next) {
         if (err) {
             response.status(500).send({error:"Could not create room"});
         } else {
-            response.send(room);
+  
+          new Chat({roomId: room._id, roomName: room.title}).save().then((newChat) => {
+            console.log('chat updated');
+          })
+          
+          response.send(room);
         }
     });
 });
@@ -147,7 +153,7 @@ router.put('/user-name/update', function(request, response, next) {
 
 //check if userName exist or not, sending response in string
 router.get('/user-name/find/:userName', function(request, response, next) {
-  User.find({userName: request.params.userName}).count().exec(function(err, userName) {
+  User.find({userName: request.params.userName}).countDocuments().exec(function(err, userName) {
     if(err) {
       response.status(500).send({error: "Could not get the userName"});
     } else {
@@ -156,5 +162,43 @@ router.get('/user-name/find/:userName', function(request, response, next) {
   });  
 });
 
+////////////////////////////////////// chat /////////////////////////////////////////////////////////////
+
+//add messages in chat collection
+router.put('/chat/add-message', function(request, response, next) {
+  Chat.updateOne({roomId: request.body.roomId}, {$push: {chat: {userName: request.body.userName, message: request.body.message}}}, function(err, chat) {
+    if (err) {
+      //const error = new Error('Could not update the menu');
+      //next(error);
+      response.status(500).send({error: "Could not update the menu"});
+    } else {
+        response.send(chat);
+    }
+  });
+});
+
+//delete/remove room chat from collection
+router.put('/chat/delete', function(request, response, next) {
+  Room.removeOne({roomId: request.body.roomId}, function(err, status) {
+    if (err) {
+      response.status(500).send({error: "Could not remove the chat for this room"});
+    } else {
+      response.send(status);
+    }
+  })
+});
+
+//get all messages from chat collection for room
+router.get('/chat/:roomId', function(request, response, next) {
+  Chat.find({roomId: request.params.roomId}, {_id: 0, chat: 1}).exec(function(err, chat) {
+    if(err) {
+      //const error = new Error('No Menu For this Shop');
+      //next(error);
+      response.status(500).send({error: "No Chat For this Room"});
+    } else {
+      response.send(chat[0].chat);
+    }
+  });
+});
 
 module.exports = router;

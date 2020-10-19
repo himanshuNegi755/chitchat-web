@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import queryString from 'query-string';
 import io from "socket.io-client";
+import axios from 'axios';
 
 import Messages from '../Messages/Messages';
 import InfoBar from '../InfoBar/InfoBar';
@@ -26,12 +27,16 @@ const Chat = ({ location }) => {
 
     setRoom(room);
     setName(name)
-
+    
     socket.emit('join', { name, room }, (error) => {
       if(error) {
         alert(error);
       }
     });
+    
+    /*axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/5f8d866d12c28951e04050b9`)
+    .then(res => { setMessages(res.data) })*/
+    
   }, [ENDPOINT, location.search]);
 
   useEffect(() => {
