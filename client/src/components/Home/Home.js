@@ -10,10 +10,10 @@ const Home = ({ user }) => {
   useEffect(() => {
     if(user) {
       axios.get(`${process.env.REACT_APP_BACKEND_API}/user-interests/${user.userEmail}`)
-      .then(res => { setInterests(res.data) })    
+      .then(res => { setInterests(res.data) })
     }
   }, [user]);
-  
+
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BACKEND_API}/room`, {
       params: { interests: interests }
@@ -24,7 +24,7 @@ const Home = ({ user }) => {
   const roomsList = () => {
     const list = rooms.map((item) =>
       <div key={item._id} className='groups'>
-        <Link to={`/chat?name=${user.userName}&room=${item.title}`} className='link-div'>
+        <Link to={`/chat?name=${user.userName}&room=${item.title}`} className='linkR-div'>
           <div className='row row-one'>
             <div className='col-8 room-name'><p>{item.title}</p></div>
             <div className='col-4 language-name'><p>Language: {item.language}</p></div>
@@ -40,10 +40,10 @@ const Home = ({ user }) => {
 
     return (list);
   }
-  
+
   return (
     <div className='main-div'>
-      <h1>Home</h1>
+      <div className="topbar"><h2>Home</h2></div>
       {roomsList()}
     </div>
   );

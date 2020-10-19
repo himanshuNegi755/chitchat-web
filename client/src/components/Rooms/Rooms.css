@@ -19,6 +19,7 @@
   box-shadow: 0 0 10px #2bb5e0;
 }
 .groups {
+  transition: 0.6s;
   border-radius: 10px;
   background-color: #e0e0e0;
   margin: 1.5rem 15%;
@@ -26,6 +27,8 @@
   display: block;
 }
 .groups:hover{
+  transition: 0.2s;
+  background-color: #d8d8d8;
   box-shadow: 0 0 6px #2bb5e0;
 }
 .linkR-div, .linkR-div:hover, .linkR-div:focus, .linkR-div:active{
