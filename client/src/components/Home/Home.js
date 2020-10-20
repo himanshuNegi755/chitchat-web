@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import NavBar from '../NavBar/NavBar';
+
 const Home = ({ user }) => {
   const [rooms, setRooms] = useState([]);
   const [interests, setInterests] = useState([]);
@@ -46,7 +48,7 @@ const Home = ({ user }) => {
           </div>
           <div className='row row-two'>
             <div className='col-5 access-status'><p>{item.category}</p></div>
-            <div className='col-3 members-no'><p>Members: {item.members}</p></div>
+            <div className='col-3 members-no'><p>Members: {item.members}/10</p></div>
             <div className='col-4 time-div'><p>{item.created}</p></div>
           </div>
         </Link>
@@ -58,7 +60,7 @@ const Home = ({ user }) => {
 
   return (
     <div className='main-div'>
-      <div className="topbar"><h2>Home</h2></div>
+      <NavBar pageTitle='Home'/>
       {roomsList()}
     </div>
   );

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Form, Row, Col } from 'react-bootstrap';
 
 import './ProfilePage.css';
+import NavBar from '../NavBar/NavBar';
 
 const ProfilePage = ({ user }) => {  
   const [userName, setUserName] = useState('');
@@ -41,7 +42,7 @@ const ProfilePage = ({ user }) => {
   
   return (
     <div className='main-div profilePage'>
-      <div className="topbar"><h2>Profile Page</h2></div>
+      <NavBar pageTitle='Profile Page'/>
 
       <div className="overlap-div image-name row">
           <div className="col-2 image-col-div">

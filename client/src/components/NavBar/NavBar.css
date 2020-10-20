@@ -1,0 +1,57 @@
+.topbar{
+  background: #202020;
+  padding: 1rem 2rem;
+  color: white;
+}
+
+
+.home-nav.navbar{
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+  background-color: #000;
+  position: relative;
+  z-index: 4;
+  padding: 0;
+}
+.nag {
+    padding: 0;
+}
+#brand-logo{
+  width: auto;
+  height: 4rem;
+}
+#navbar-brand{
+  position: relative;
+  z-index: 5;
+  width: auto;
+  padding: 0;
+  margin: 0.3rem 3%;
+}
+.navbar-dark .navbar-nav .nav-link{
+  color: #b0b0b0;
+}
+.nav-item{
+  text-align: center;
+  position: relative;
+  z-index: 5;
+  padding: 0 15px;
+}
+.nav-link{
+  font-size: 1.2rem;
+  font-weight: lighter;
+}
+.navbar-toggler{
+  margin-right: 5%;
+}
+.navbar-toggler-icon{
+  position: relative;
+  z-index: 5;
+}
+/*############### Mobile ################*/
+@media screen and (max-width: 991px) {
+  #navbar-brand{
+    margin: 0.1rem 3%;
+  }
+    .navbar-nav{
+        float: none;
+  }
+}

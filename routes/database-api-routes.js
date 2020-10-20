@@ -84,8 +84,6 @@ router.post('/room/create', function(request, response, next) {
   var tempRoom = new Room();
     tempRoom.title = request.body.title;
     tempRoom.language = request.body.language;
-    tempRoom.members = request.body.members;
-    tempRoom.access = request.body.access;
     tempRoom.category = request.body.category;
   
     tempRoom.save(function(err, room) {
