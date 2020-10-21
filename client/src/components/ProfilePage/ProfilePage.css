@@ -4,14 +4,18 @@
 .overlap-div, .profileDetails{
   padding: 3rem 15% 1rem;
 }
+.image-col-div{
+    padding: 2%;
+    display: inline-block;
+}
 .profileImage{
     width: 8rem;
     border-radius: 50%;
-    margin: 1rem;
     box-shadow: 0 0 10px #96b5ff;
 }
 .profileName{
   padding: 4rem 1rem;
+  display: inline-block;
   font-family: 'Caveat Brush', cursive;
 }
 .form-group{
@@ -34,6 +38,7 @@
 }
 .profile-submit{
   text-align: center;
+  margin-top: 3rem;
 }
 .submitBtn{
   transition: 0.2s;
@@ -51,4 +56,25 @@
   transition: 0.2s;
   background-color: #101010;
   box-shadow: 0 0 15px #7aa2ff;
+}
+@media (max-width:1200px){
+  .profileImage{
+      width: 7rem;
+  }
+  .profileName{
+    padding: 3rem 1rem;
+  }
+}
+@media (max-width: 900px){
+  .overlap-div, .profileDetails{
+    padding: 3rem 10% 1rem;
+  }
+}
+@media (max-width: 768px){
+  .image-col-div{
+      width: 25%;
+  }
+  .profileName{
+    width: 75%;
+  }
 }

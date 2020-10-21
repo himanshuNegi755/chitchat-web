@@ -34,7 +34,7 @@
 
 .interest-name p:hover{
   transition: 0.2s;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 }
 
 .linkI-div, .linkI-div:hover, .linkI-div:focus, .linkI-div:active{
@@ -60,4 +60,28 @@
   box-shadow: 0 0 5px #303030;
   background-color: #086b8a;
   color: white;
+}
+@media (max-width: 1200px){
+  .interest-name{
+    font-size: 1.4rem;
+    padding: 0.3rem 1.6rem;
+  }
+  .interest-name p:hover{
+    letter-spacing: 1px;
+  }
+  .follow-div{
+    padding: 0.5rem 1.4rem 0 0;
+  }
+}
+@media (max-width: 1000px){
+  .interest-col{
+    margin: 0.8rem 1.5%;
+    width: 47%;
+  }
+}
+@media (max-width: 650px){
+  .interest-col{
+    margin: 0.8rem 1.5%;
+    width: 97%;
+  }
 }

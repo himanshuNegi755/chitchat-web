@@ -37,7 +37,7 @@ const FrontPage = ({ user }) => {
     }
 
   return (
-    <div className='main-div'>
+    <div className='main-div frontPage-div'>
       {renderContent()}
     </div>
   );

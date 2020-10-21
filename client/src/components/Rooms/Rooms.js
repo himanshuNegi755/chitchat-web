@@ -66,13 +66,13 @@ const Rooms = ({ location, user }) => {
       <div key={item._id} className='groups'>
         <Link onClick={e => {entryValidation(e, item.members)}} to={`/chat?name=${user.userName}&room=${item.title}`} className='linkR-div'>
           <div className='row row-one'>
-            <div className='col-8 room-name'><p>{item.title}</p></div>
-            <div className='col-4 language-name'><p>Language: {item.language}</p></div>
+            <div className='col-lg-8 col-md-6 col-sm-6 room-name'><p>{item.title}</p></div>
+            <div className='col-lg-4 col-md-6 col-sm-6 language-name'><p>Language: {item.language}</p></div>
           </div>
           <div className='row row-two'>
-            <div className='col-5 access-status'><p>{item.category}</p></div>
-            <div className='col-3 members-no'><p>Members: {item.members}/10</p></div>
-            <div className='col-4 time-div'><p>{item.created}</p></div>
+            <div className='col-lg-5 col-md-3 col-sm-3 access-status'><p>{item.category}</p></div>
+            <div className='col-lg-3 col-md-4 col-sm-4 members-no'><p>Members: {item.members}/10</p></div>
+            <div className='col-lg-4 col-md-5 col-sm-5 time-div'><p>{item.created}</p></div>
           </div>
         </Link>
       </div>
