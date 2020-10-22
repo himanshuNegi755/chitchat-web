@@ -34,6 +34,7 @@ const corsOptions = {
   origin: true
 }
 
+const {ObjectId} = require('mongodb');
 var Room = mongoose.model('Room');
 var Chat = mongoose.model('Chat');
 
@@ -58,14 +59,15 @@ app.use('/api', databaseApiRoutes);
 app.get('/', (req, res) => res.redirect(process.env.CLIENT_URI || 'http://localhost:3000'));
 
 io.on('connect', (socket) => {
-  socket.on('join', ({ name, room }, callback) => {
-    const { error, user } = addUser({ id: socket.id, name, room });
+  socket.on('join', ({ name, room, roomId }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, roomId, room });
 
     if(error) return callback(error);
 
-    socket.join(user.room);
+    socket.join(user.roomId);
 
-    /*Room.updateOne({title: user.room}, {$set: {"members": getUsersInRoom(user.room).length}}, function(err, status) {
+    //update members in room when somebody joins the room
+    /*Room.updateOne({_id: ObjectId(user.roomId)}, {$set: {"members": getUsersInRoom(user.roomId).length}}, function(err, status) {
       if (err) {
         //response.status(500).send({error: "Could not update room members"});
         console.log('some errore occured while updating members');
@@ -75,7 +77,7 @@ io.on('connect', (socket) => {
       }
     });*/
     
-    /*Chat.updateOne({roomId: '5f8c5de722e5fe4ea8c47bbb'}, {$push: {chat: {userName: 'admin', message: `welcome to room ${user.room}.`}}}, function(err, chat) {
+    /*Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {userName: 'admin', message: `welcome to room ${user.room}.`}}}, function(err, chat) {
       if (err) {
         //response.status(500).send({error: "Could not update the menu"});
         console.log('error occurred while sending msg');
@@ -87,7 +89,7 @@ io.on('connect', (socket) => {
     
     socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
     
-    /*Chat.updateOne({roomId: '5f8c5de722e5fe4ea8c47bbb'}, {$push: {chat: {userName: 'admin', message: `${user.name} has joined!`}}}, function(err, chat) {
+    /*Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {userName: 'admin', message: `${user.name} has joined!`}}}, function(err, chat) {
       if (err) {
         //response.status(500).send({error: "Could not update the menu"});
         console.log('error occurred while sending msg');
@@ -97,7 +99,7 @@ io.on('connect', (socket) => {
       }
     });*/
     
-    socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+    socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
 
     //io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
 
@@ -107,7 +109,7 @@ io.on('connect', (socket) => {
   socket.on('sendMessage', (message, callback) => {
     const user = getUser(socket.id);
 
-    /*Chat.updateOne({roomId: '5f8d866d12c28951e04050b9'}, {$push: {chat: {user: user.name, text: message}}}, function(err, chat) {
+    /*Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: user.name, text: message}}}, function(err, chat) {
       if (err) {
         //response.status(500).send({error: "Could not update the menu"});
         console.log('error occurred while sending msg');
@@ -116,25 +118,35 @@ io.on('connect', (socket) => {
         console.log('message sen');
       }
     });*/    
-    io.to(user.room).emit('message', { user: user.name, text: message });
+    io.to(user.roomId).emit('message', { user: user.name, text: message });
 
     callback();
   });
 
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
-    /*if(getUsersInRoom(user.room).length <=0) {
-      Room.deleteOne({title: user.room}, function(err, status) {
+    /*if(getUsersInRoom(user.roomId).length <=0) {
+      Room.deleteOne({_id: ObjectId(user.roomId)}, function(err, status) {
         if (err) {
           //response.status(500).send({error: "Could not remove the room"});
           console.log('some errore occured');
         } else {
           //response.send(status);
-          console.log('room deleted');
+          //remove room as well as chat
+          Room.removeOne({roomId: ObjectId(user.roomId)}, function(err, status) {
+            if (err) {
+              //response.status(500).send({error: "Could not remove the chat for this room"});
+            } else {
+              //response.send(status);
+            }
+          })
+          
+          console.log('room deleted and chats too');
         }
       })
     } else {
-      Room.updateOne({title: user.room}, {$set: {"members": getUsersInRoom(user.room).length}}, function(err, status) {
+      //update members in room when somebody leaves the room and if it is not the last person
+      Room.updateOne({_id: ObjectId(user.roomId)}, {$set: {"members": getUsersInRoom(user.roomId).length}}, function(err, status) {
         if (err) {
           //response.status(500).send({error: "Could not update room members"});
           console.log('some errore occured while updating members');
@@ -147,7 +159,7 @@ io.on('connect', (socket) => {
 
     if(user) {
       
-      Chat.updateOne({roomId: '5f8c5de722e5fe4ea8c47bbb'}, {$push: {chat: {user: 'admin', text: `${user.name} has left.`}}}, function(err, chat) {
+      /*Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name} has left.`}}}, function(err, chat) {
         if (err) {
           //response.status(500).send({error: "Could not update the menu"});
           console.log('error occurred while sending msg');
@@ -155,10 +167,10 @@ io.on('connect', (socket) => {
           //response.send(chat);
           console.log('message sent');
         }
-      });
+      });*/
       
-      io.to(user.room).emit('message', { user: 'admin', text: `${user.name} has left.` });
-      io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
+      io.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has left.` });
+      io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId)});
     }
   })
 });

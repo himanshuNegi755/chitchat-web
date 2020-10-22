@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import moment from 'moment';
 
 import NavBar from '../NavBar/NavBar';
 
@@ -41,7 +42,7 @@ const Home = ({ user }) => {
   const roomsList = () => {
     const list = rooms.map((item) =>
       <div key={item._id} className='groups'>
-        <Link onClick={e => {entryValidation(e, item.members)}} to={`/chat?name=${user.userName}&room=${item.title}`} className='linkR-div'>
+        <Link onClick={e => {entryValidation(e, item.members)}} to={`/chat?name=${user.userName}&room=${item.title}&roomId=${item._id}`} className='linkR-div'>
           <div className='row row-one'>
             <div className='col-8 room-name'><p>{item.title}</p></div>
             <div className='col-4 language-name'><p>Language: {item.language}</p></div>
@@ -49,7 +50,7 @@ const Home = ({ user }) => {
           <div className='row row-two'>
             <div className='col-5 access-status'><p>{item.category}</p></div>
             <div className='col-3 members-no'><p>Members: {item.members}/10</p></div>
-            <div className='col-4 time-div'><p>{item.created}</p></div>
+            <div className='col-4 time-div'><p>{moment(item.created).fromNow()}</p></div>
           </div>
         </Link>
       </div>

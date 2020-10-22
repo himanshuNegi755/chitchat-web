@@ -16,19 +16,21 @@ let socket;
 const Chat = ({ location }) => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
+  const [roomId, setRoomId] = useState('');
   //const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const { name, room } = queryString.parse(location.search);
+    const { name, room, roomId } = queryString.parse(location.search);
 
     socket = io(ENDPOINT);
 
     setRoom(room);
     setName(name)
+    setRoomId(roomId);
     
-    socket.emit('join', { name, room }, (error) => {
+    socket.emit('join', { name, room, roomId }, (error) => {
       if(error) {
         alert(error);
       }
