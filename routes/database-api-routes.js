@@ -8,6 +8,7 @@ var Room = mongoose.model('Room');
 var User = mongoose.model('User');
 var Chat = mongoose.model('Chat');
 
+///////////////////////////////////////// interests ///////////////////////////////////////////////////////
 //post/add new interests
 router.post('/interests/add', function(request, response, next) {
   var tempInterests = new Interests();
@@ -100,17 +101,6 @@ router.post('/room/create', function(request, response, next) {
     });
 });
 
-//remove/delete room from db
-router.put('/room/delete', function(request, response, next) {
-  Room.removeOne({title: request.body.title}, function(err, status) {
-    if (err) {
-      response.status(500).send({error: "Could not remove the room"});
-    } else {
-      response.send(status);
-    }
-  })
-});
-
 //get the rooms for particular interests/category
 router.get('/room/:interests', function(request, response, next) {
   Room.find({category: request.params.interests}, function(err, roomList) {
@@ -161,30 +151,6 @@ router.get('/user-name/find/:userName', function(request, response, next) {
 });
 
 ////////////////////////////////////// chat /////////////////////////////////////////////////////////////
-
-//add messages in chat collection
-router.put('/chat/add-message', function(request, response, next) {
-  Chat.updateOne({roomId: request.body.roomId}, {$push: {chat: {userName: request.body.userName, message: request.body.message}}}, function(err, chat) {
-    if (err) {
-      //const error = new Error('Could not update the menu');
-      //next(error);
-      response.status(500).send({error: "Could not update the menu"});
-    } else {
-        response.send(chat);
-    }
-  });
-});
-
-//delete/remove room chat from collection
-router.put('/chat/delete', function(request, response, next) {
-  Room.removeOne({roomId: request.body.roomId}, function(err, status) {
-    if (err) {
-      response.status(500).send({error: "Could not remove the chat for this room"});
-    } else {
-      response.send(status);
-    }
-  })
-});
 
 //get all messages from chat collection for room
 router.get('/chat/:roomId', function(request, response, next) {

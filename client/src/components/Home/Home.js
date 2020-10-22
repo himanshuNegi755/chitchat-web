@@ -28,16 +28,11 @@ const Home = ({ user }) => {
     if(!user.userName) {
       alert('Please First create user name in profile');
       e.preventDefault()
-    } else if (members >= 3) {
+    } else if (members >= 2) {
       alert('Room Already full, pls try another room');
       e.preventDefault();
     }
   }
-
-  /*const convertUTCToLocalTime = (utcDateAndTime) => {
-    var date = new Date('6/29/2011 4:52:48 PM UTC');
-    return date.toString()
-  }*/
 
   const roomsList = () => {
     const list = rooms.map((item) =>

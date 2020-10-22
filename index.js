@@ -67,7 +67,7 @@ io.on('connect', (socket) => {
     socket.join(user.roomId);
 
     //update members in room when somebody joins the room
-    /*Room.updateOne({_id: ObjectId(user.roomId)}, {$set: {"members": getUsersInRoom(user.roomId).length}}, function(err, status) {
+    Room.updateOne({_id: ObjectId(user.roomId)}, {$set: {"members": getUsersInRoom(user.roomId).length}}, function(err, status) {
       if (err) {
         //response.status(500).send({error: "Could not update room members"});
         console.log('some errore occured while updating members');
@@ -75,30 +75,9 @@ io.on('connect', (socket) => {
         //response.send(status);
         console.log('members updated');
       }
-    });*/
+    });
     
-    /*Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {userName: 'admin', message: `welcome to room ${user.room}.`}}}, function(err, chat) {
-      if (err) {
-        //response.status(500).send({error: "Could not update the menu"});
-        console.log('error occurred while sending msg');
-      } else {
-        //response.send(chat);
-        console.log('message sent');
-      }
-    });*/
-    
-    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
-    
-    /*Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {userName: 'admin', message: `${user.name} has joined!`}}}, function(err, chat) {
-      if (err) {
-        //response.status(500).send({error: "Could not update the menu"});
-        console.log('error occurred while sending msg');
-      } else {
-        //response.send(chat);
-        console.log('message sent');
-      }
-    });*/
-    
+    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});    
     socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
 
     //io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
@@ -108,16 +87,17 @@ io.on('connect', (socket) => {
 
   socket.on('sendMessage', (message, callback) => {
     const user = getUser(socket.id);
-
-    /*Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: user.name, text: message}}}, function(err, chat) {
+    
+    //add messages in chat collection to the particular room
+    Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: user.name, text: message}}}, function(err, chat) {
       if (err) {
         //response.status(500).send({error: "Could not update the menu"});
         console.log('error occurred while sending msg');
       } else {
         //response.send(chat);
-        console.log('message sen');
+        console.log('message sent');
       }
-    });*/    
+    });  
     io.to(user.roomId).emit('message', { user: user.name, text: message });
 
     callback();
@@ -125,15 +105,15 @@ io.on('connect', (socket) => {
 
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
-    /*if(getUsersInRoom(user.roomId).length <=0) {
+    if(getUsersInRoom(user.roomId).length <=0) {
+      //remove the room
       Room.deleteOne({_id: ObjectId(user.roomId)}, function(err, status) {
         if (err) {
           //response.status(500).send({error: "Could not remove the room"});
           console.log('some errore occured');
         } else {
-          //response.send(status);
-          //remove room as well as chat
-          Room.removeOne({roomId: ObjectId(user.roomId)}, function(err, status) {
+          //remove chat
+          Chat.deleteOne({roomId: ObjectId(user.roomId)}, function(err, status) {
             if (err) {
               //response.status(500).send({error: "Could not remove the chat for this room"});
             } else {
@@ -155,19 +135,9 @@ io.on('connect', (socket) => {
           console.log('members updated');
         }
       })
-    }*/
+    }
 
     if(user) {
-      
-      /*Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name} has left.`}}}, function(err, chat) {
-        if (err) {
-          //response.status(500).send({error: "Could not update the menu"});
-          console.log('error occurred while sending msg');
-        } else {
-          //response.send(chat);
-          console.log('message sent');
-        }
-      });*/
       
       io.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has left.` });
       io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId)});

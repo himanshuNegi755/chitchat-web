@@ -36,8 +36,8 @@ const Chat = ({ location }) => {
       }
     });
     
-    /*axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/5f8d866d12c28951e04050b9`)
-    .then(res => { setMessages(res.data) })*/
+    axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/${roomId}`)
+    .then(res => { setMessages(res.data) })
     
   }, [ENDPOINT, location.search]);
 

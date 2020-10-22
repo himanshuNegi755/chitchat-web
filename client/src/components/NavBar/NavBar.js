@@ -12,6 +12,7 @@ const NavBar = ({ pageTitle, user }) => {
   const [language, setLanguage] = useState();
   const [category, setCategory] = useState();
   const [redirect, setRedirect] = useState(false);
+  const [roomId, setRoomId] = useState('');
   
   const createRoom = () => {
     axios.post(`${process.env.REACT_APP_BACKEND_API}/room/create`, {
@@ -20,6 +21,7 @@ const NavBar = ({ pageTitle, user }) => {
       category: category
     })
     .then(res => {
+      setRoomId(res.data._id);
       setShowModal(!showModal);
       setRedirect(true);
     })
@@ -76,7 +78,7 @@ const NavBar = ({ pageTitle, user }) => {
   }
   
   if(redirect && user.userName) {
-    return (<Redirect to ={`/chat?name=${user.userName}&room=${title}`}/>)
+    return (<Redirect to ={`/chat?name=${user.userName}&room=${title}&roomId=${roomId}`}/>)
   } else {
     return (
       <div>
