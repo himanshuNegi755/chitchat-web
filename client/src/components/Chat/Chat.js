@@ -39,7 +39,7 @@ const Chat = ({ location }) => {
     axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/${roomId}`)
     .then(res => { setMessages(res.data) })
     
-  }, [ENDPOINT, location.search]);
+  }, [location.search]);
 
   useEffect(() => {
     socket.on('message', message => {
