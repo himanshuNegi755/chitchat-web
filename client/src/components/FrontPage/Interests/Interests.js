@@ -26,7 +26,7 @@ const Interests = ({ userEmail }) => {
                 </Link>
               </div>
               <div className='col-4 follow-div'>
-                {followedTopics.includes(item.interests) ? <button onClick={ () => {unFollowInterests(item.interests) }}><i class="far fa-check-circle"></i></button> : <button onClick={ () => { followInterests((item.interests).toLowerCase()) }}>Follow</button>}
+                {followedTopics.includes(item.interests) ? <button onClick={ () => {unFollowInterests(item.interests) }}><i className="far fa-check-circle"></i></button> : <button onClick={ () => { followInterests((item.interests).toLowerCase()) }}>Follow</button>}
               </div>
           </div>
           <div className='img-col'>

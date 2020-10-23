@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -9,12 +9,13 @@ import NavBar from '../NavBar/NavBar';
 const Home = ({ user }) => {
   const [rooms, setRooms] = useState([]);
   const [interests, setInterests] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   useEffect(() => {
     if(user) {
       axios.get(`${process.env.REACT_APP_BACKEND_API}/user-interests/${user.userEmail}`)
       .then(res => { setInterests(res.data) })
-    }
+    } else if(user === false) {setLoggedIn(false)}
   }, [user]);
 
   useEffect(() => {
@@ -54,12 +55,16 @@ const Home = ({ user }) => {
     return (list);
   }
 
-  return (
-    <div className='main-div'>
-      <NavBar pageTitle='Home'/>
-      {roomsList()}
-    </div>
-  );
+  if(!loggedIn) {
+    return <Redirect to='/' />;
+  } else {
+    return (
+      <div className='main-div'>
+        <NavBar pageTitle='Home'/>
+        {roomsList()}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state) => {

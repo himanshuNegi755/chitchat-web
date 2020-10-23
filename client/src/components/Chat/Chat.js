@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import io from "socket.io-client";
 import axios from 'axios';
@@ -13,47 +15,55 @@ const ENDPOINT = 'http://localhost:8000/';
 
 let socket;
 
-const Chat = ({ location }) => {
+const Chat = ({ location, user }) => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [roomId, setRoomId] = useState('');
   //const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   useEffect(() => {
     const { name, room, roomId } = queryString.parse(location.search);
+    
+    if(user) {      
+      socket = io(ENDPOINT);
 
-    socket = io(ENDPOINT);
+      setRoom(room);
+      setName(name)
+      setRoomId(roomId);
 
-    setRoom(room);
-    setName(name)
-    setRoomId(roomId);
+      socket.emit('join', { name, room, roomId }, (error) => {
+        if(error) {
+          alert(error);
+        }
+      });
+
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/${roomId}`)
+      .then(res => { setMessages(res.data) })
+    } else if (user === false) {
+      setLoggedIn(false)
+    }
     
-    socket.emit('join', { name, room, roomId }, (error) => {
-      if(error) {
-        alert(error);
-      }
-    });
-    
-    axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/${roomId}`)
-    .then(res => { setMessages(res.data) })
-    
-  }, [location.search]);
+  }, [location.search, user]);
 
   useEffect(() => {
-    socket.on('message', message => {
-      setMessages(messages => [ ...messages, message ]);
-    });
-
+    if(user) {
+      socket.on('message', message => {
+        setMessages(messages => [ ...messages, message ]);
+      });
+    }
     /*socket.on("roomData", ({ users }) => {
       setUsers(users);
     });*/
 }, []);
   
   //component unmount
-  useEffect(() => {    
-    return () => socket.close();
+  useEffect(() => {
+    if(user) {
+      return () => socket.close();
+    }
   },[])
 
   const sendMessage = (event) => {
@@ -64,15 +74,25 @@ const Chat = ({ location }) => {
     }
   }
 
-  return (
-    <div className="outerContainer">
-      <div className="container">
+  if(!loggedIn) {
+    return <Redirect to='/' />;
+  } else {
+    return (
+      <div className="outerContainer">
+        <div className="container">
           <InfoBar room={room} />
           <Messages messages={messages} name={name} />
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-export default Chat;
+const mapStateToProps = (state) => {
+    return {
+        user: state.auth
+    }
+}
+
+export default connect(mapStateToProps)(Chat);
