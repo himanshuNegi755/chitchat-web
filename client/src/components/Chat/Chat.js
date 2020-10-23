@@ -57,14 +57,14 @@ const Chat = ({ location, user }) => {
     /*socket.on("roomData", ({ users }) => {
       setUsers(users);
     });*/
-}, []);
+}, [user]);
   
   //component unmount
   useEffect(() => {
     if(user) {
       return () => socket.close();
     }
-  },[])
+  },[user])
 
   const sendMessage = (event) => {
     event.preventDefault();
