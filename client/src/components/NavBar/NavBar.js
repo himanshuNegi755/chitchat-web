@@ -1,10 +1,14 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import io from "socket.io-client";
 import { Modal, Form } from 'react-bootstrap';
 
 import './NavBar.css';
+
+const ENDPOINT = 'http://localhost:8000/';
+let socket;
 
 const NavBar = ({ pageTitle, user }) => {
   const [showModal, setShowModal] = useState(false);
@@ -13,6 +17,18 @@ const NavBar = ({ pageTitle, user }) => {
   const [category, setCategory] = useState();
   const [redirect, setRedirect] = useState(false);
   const [roomId, setRoomId] = useState('');
+  const [onlineUsers, setOnlineUsers] = useState(0);
+  
+  useEffect(() => {
+    
+    if(user) {      
+      socket = io(ENDPOINT);
+      
+      socket.on('onlineUser', user => {
+        setOnlineUsers(user.onlineUser);
+      });
+    }    
+  }, [user]);
   
   const createRoom = () => {
     axios.post(`${process.env.REACT_APP_BACKEND_API}/room/create`, {
@@ -89,6 +105,9 @@ const NavBar = ({ pageTitle, user }) => {
 
           <div className="collapse navbar-collapse" id="myNavigation">
             <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <a className="nav-link" href="#nothing">{onlineUsers} Users Online</a>
+              </li>
               <li className="nav-item">
                 <a className="nav-link" href="/home">Home</a>
               </li>

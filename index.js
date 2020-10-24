@@ -37,6 +37,8 @@ const corsOptions = {
 const {ObjectId} = require('mongodb');
 var Room = mongoose.model('Room');
 var Chat = mongoose.model('Chat');
+var noOfUserOnline = 0;
+var $ipsConnected = [];
 
 app.use(cors(corsOptions));
 
@@ -59,6 +61,14 @@ app.use('/api', databaseApiRoutes);
 app.get('/', (req, res) => res.redirect(process.env.CLIENT_URI || 'http://localhost:3000'));
 
 io.on('connect', (socket) => {
+  
+  var $ipAddress = socket.handshake.address;
+  if (!$ipsConnected.hasOwnProperty($ipAddress)) {
+  	$ipsConnected[$ipAddress] = 1;
+  	noOfUserOnline++;
+    socket.emit('onlineUser', { onlineUser: noOfUserOnline});
+  }   
+  
   socket.on('join', ({ name, room, roomId }, callback) => {
     const { error, user } = addUser({ id: socket.id, name, roomId, room });
 
@@ -98,6 +108,7 @@ io.on('connect', (socket) => {
         console.log('message sent');
       }
     });  
+    
     io.to(user.roomId).emit('message', { user: user.name, text: message });
 
     callback();
@@ -105,7 +116,9 @@ io.on('connect', (socket) => {
 
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
-    if(getUsersInRoom(user.roomId).length <=0) {
+
+    if(user) {
+      if(getUsersInRoom(user.roomId).length <=0) {
       //remove the room
       Room.deleteOne({_id: ObjectId(user.roomId)}, function(err, status) {
         if (err) {
@@ -136,11 +149,15 @@ io.on('connect', (socket) => {
         }
       })
     }
-
-    if(user) {
       
       io.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has left.` });
       io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId)});
+    } else {
+      if ($ipsConnected.hasOwnProperty($ipAddress)) {
+  		delete $ipsConnected[$ipAddress];
+	    noOfUserOnline--;
+	    socket.emit('onlineUser', { onlineUser: noOfUserOnline});
+  	   }
     }
   })
 });

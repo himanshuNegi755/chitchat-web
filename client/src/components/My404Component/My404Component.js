@@ -2,7 +2,7 @@ import React from "react";
 
 import './My404Component.css';
 
-const My404Component = ({ user }) => {
+const My404Component = () => {
 
   return (
     <div className='pagebody'>

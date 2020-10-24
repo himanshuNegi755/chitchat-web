@@ -12,7 +12,6 @@ import Input from '../Input/Input';
 import './Chat.css';
 
 const ENDPOINT = 'http://localhost:8000/';
-
 let socket;
 
 const Chat = ({ location, user }) => {
