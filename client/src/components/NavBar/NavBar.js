@@ -106,7 +106,7 @@ const NavBar = ({ pageTitle, user }) => {
           <div className="collapse navbar-collapse" id="myNavigation">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <a className="nav-link" href="#nothing">{onlineUsers} Users Online</a>
+                <span className="nav-link">{onlineUsers} Users Online</span>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/home">Home</a>
