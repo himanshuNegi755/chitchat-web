@@ -16,7 +16,7 @@ const Home = ({ user }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [roomTitle, setRoomTitle] = useState(''); //for searching titles
   const [showSearchBar, setShowSearchBar] = useState('hidden'); //for searching titles
-  
+
   //this.suggestionRef = React.createRef();
 
   useEffect(() => {
@@ -31,11 +31,11 @@ const Home = ({ user }) => {
       params: { interests: interests }
     })
     .then(res => { setRooms(res.data) })
-    
+
     axios.get(`${process.env.REACT_APP_BACKEND_API}/all-rooms`)
     .then(res => { setAllRoomsList(res.data)
                  setShowSearchBar('visible')})
-    
+
   }, [interests]);
 
   const entryValidation = (e, members) => {
@@ -67,7 +67,7 @@ const Home = ({ user }) => {
 
     return (list);
   }
-  
+
   //autocomplete functions
   const onTextChanged = (e) => {
     //document.addEventListener('mousedown', this.handleClickOutside);
@@ -79,12 +79,12 @@ const Home = ({ user }) => {
     setSuggestions(suggestions);
     setRoomTitle(value);
   }
-    
+
   const renderSuggestions = () => {
     if(suggestions.length === 0) {
       return null;
     }
-    
+
     const list = suggestions.map((item) =>
       <div key={item._id} className='groups'>
         <Link onClick={e => {entryValidation(e, item.members)}} to={`/chat?name=${user.userName}&room=${item.title}&roomId=${item._id}`} className='linkR-div'>
@@ -103,7 +103,7 @@ const Home = ({ user }) => {
 
     return (list);
   }
-    
+
   /*const suggestionSelected = (value) => {
     setRoomTitle(value);
     setSuggestions([]);
@@ -113,9 +113,9 @@ const Home = ({ user }) => {
     return <Redirect to='/' />;
   } else {
     return (
-      <div className='main-div'>
+      <div className='main-div home-page'>
         <NavBar pageTitle='Home'/>
-        
+
         <div className="searchBar" style={{visibility: showSearchBar}}>
           <InputGroup>
               <InputGroup.Prepend>
@@ -133,7 +133,7 @@ const Home = ({ user }) => {
               </div>
           </InputGroup>
         </div>
-        
+
         {roomsList()}
       </div>
     );
