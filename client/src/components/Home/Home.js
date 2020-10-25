@@ -3,13 +3,21 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
+import { InputGroup, FormControl } from 'react-bootstrap';
 
+import './Home.css';
 import NavBar from '../NavBar/NavBar';
 
 const Home = ({ user }) => {
-  const [rooms, setRooms] = useState([]);
+  const [rooms, setRooms] = useState([]); //rooms as per user follow interests
   const [interests, setInterests] = useState([]);
   const [loggedIn, setLoggedIn] = useState(true);
+  const [allRoomsList, setAllRoomsList] = useState([]);  //all rooms
+  const [suggestions, setSuggestions] = useState([]);
+  const [roomTitle, setRoomTitle] = useState(''); //for searching titles
+  const [showSearchBar, setShowSearchBar] = useState('hidden'); //for searching titles
+  
+  //this.suggestionRef = React.createRef();
 
   useEffect(() => {
     if(user) {
@@ -23,6 +31,11 @@ const Home = ({ user }) => {
       params: { interests: interests }
     })
     .then(res => { setRooms(res.data) })
+    
+    axios.get(`${process.env.REACT_APP_BACKEND_API}/all-rooms`)
+    .then(res => { setAllRoomsList(res.data)
+                 setShowSearchBar('visible')})
+    
   }, [interests]);
 
   const entryValidation = (e, members) => {
@@ -54,6 +67,47 @@ const Home = ({ user }) => {
 
     return (list);
   }
+  
+  //autocomplete functions
+  const onTextChanged = (e) => {
+    //document.addEventListener('mousedown', this.handleClickOutside);
+    const value = e.target.value;
+    let suggestions = [];
+    if (value.length > 0) {
+      suggestions = allRoomsList.filter(v => (v.title).toLowerCase().includes(value.toLowerCase()));
+    }
+    setSuggestions(suggestions);
+    setRoomTitle(value);
+  }
+    
+  const renderSuggestions = () => {
+    if(suggestions.length === 0) {
+      return null;
+    }
+    
+    const list = suggestions.map((item) =>
+      <div key={item._id} className='groups'>
+        <Link onClick={e => {entryValidation(e, item.members)}} to={`/chat?name=${user.userName}&room=${item.title}&roomId=${item._id}`} className='linkR-div'>
+          <div className='row row-one'>
+            <div className='col-8 room-name'><p>{item.title}</p></div>
+            <div className='col-4 language-name'><p>Language: {item.language}</p></div>
+          </div>
+          <div className='row row-two'>
+            <div className='col-5 access-status'><p>{item.category}</p></div>
+            <div className='col-3 members-no'><p>Members: {item.members}/10</p></div>
+            <div className='col-4 time-div'><p>{moment(item.created).fromNow()}</p></div>
+          </div>
+        </Link>
+      </div>
+    );
+
+    return (list);
+  }
+    
+  /*const suggestionSelected = (value) => {
+    setRoomTitle(value);
+    setSuggestions([]);
+  }*/
 
   if(!loggedIn) {
     return <Redirect to='/' />;
@@ -61,6 +115,25 @@ const Home = ({ user }) => {
     return (
       <div className='main-div'>
         <NavBar pageTitle='Home'/>
+        
+        <div className="searchBar" style={{visibility: showSearchBar}}>
+          <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text ><span role="img" aria-label="search"><i className="fas fa-search"></i></span></InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                  placeholder="What can we help you find?"
+                  aria-label="What can we help you find"
+                  onChange={onTextChanged}
+                  type='text'
+                  value={roomTitle}
+              />
+              <div className="mb-3 suggestion">
+                {renderSuggestions()}
+              </div>
+          </InputGroup>
+        </div>
+        
         {roomsList()}
       </div>
     );

@@ -1,0 +1,41 @@
+.searchBar {
+    display: flex;
+    background-color: #ffe100;
+    padding: 0.82rem 0.5rem;
+    width: inherit;
+    margin: 0;
+}
+
+.searchBar .input-group .form-control{
+    border-radius: 0 20px 20px 0;
+}
+
+.suggestion {
+    padding-left: 40px;
+    background-color: #404040;
+    color: white;
+    width: inherit;
+    border-radius: 20px;
+    box-shadow: 0 0 4px #101010;
+    position: absolute;
+    top: 2.4rem;
+    z-index: 1;
+}
+
+/*dineezy ke shopPage.css or shopPage.js me dhekna*/
+/*.suggestion ul {
+    list-style: none;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+.suggestion li {
+    border-radius: 0 20px 20px 0;
+    padding: 2%;
+    cursor: pointer;
+}
+.suggestion li:hover {
+    transition: 0.1s;
+    font-size: 1.01rem;
+    background-color: #303030;
+}*/

@@ -124,6 +124,17 @@ router.get('/room', function(request, response, next) {
   });  
 });
 
+//get all the rooms
+router.get('/all-rooms', function(request, response, next) {
+  Room.find({}, function(err, roomList) {
+    if(err) {
+      response.status(500).send({error: "Could not get the rooms"});
+    } else {
+      response.send(roomList);
+    }
+  });  
+});
+
 ////////////////////////////////////// profile ///////////////////////////////////////////////////////////
 
 //change/update the userName

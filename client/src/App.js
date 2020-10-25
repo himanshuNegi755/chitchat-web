@@ -18,7 +18,7 @@ const App = (props) => {
   
   return (
     <Switch>
-      <Route exact path="/" exact component={FrontPage} />
+      <Route exact path="/" component={FrontPage} />
       <Route exact path="/interest" component={Rooms} />
       <Route exact path="/join" component={Join} />
       <Route exact path="/chat" component={Chat} />
