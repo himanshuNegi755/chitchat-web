@@ -41,10 +41,10 @@ const ProfilePage = ({ user }) => {
       setMessage('userName not accepted');
     }
   }
-  
+
   const showPopup = () => {
     var popup = document.getElementById("popupMsg");
-    popup.style.display = 'inline-block';
+    popup.style.display = 'absolute';
     setTimeout(function(){ popup.style.display = 'none' }, 1000);
   }
 
@@ -56,10 +56,10 @@ const ProfilePage = ({ user }) => {
         <NavBar pageTitle='Profile Page'/>
 
         <div className="overlap-div image-name row">
-            <div className="col-lg-3 col-md-4 col-sm-6 image-col-div">
+            <div className="col-lg-3 col-md-4 image-col-div">
                 <img className="profileImage" alt="profile" src={user ? user.userImage : null} />
             </div>
-            <div className="col-lg-9 col-md-8 col-sm-6 profileName">
+            <div className="col-lg-9 col-md-8 profileName">
                 <h2>{user ? user.userName : null}</h2>
             </div>
         </div>
@@ -85,13 +85,13 @@ const ProfilePage = ({ user }) => {
                 </Col>
               </Form.Group>
 
-              <div id='popupMsg'> {message} </div>
+              <div className="popup-div"><span id='popupMsg'> {message} </span></div>
 
             </Form>
           <div className="profile-submit"><button className="submitBtn" onClick={ () => {changeUserName()
                                                                                         showPopup()}}> Submit </button></div>
         </div>
-        
+
       </div>
     );
   }

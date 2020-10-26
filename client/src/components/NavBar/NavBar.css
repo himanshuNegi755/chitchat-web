@@ -1,10 +1,12 @@
 .topbar{
   background: #202020;
-  padding: 1rem 2rem;
+  padding: 0.8rem 2rem;
   color: white;
 }
-
-
+.topbar p{
+  font-size: 2rem;
+  margin: 0;
+}
 .home-nav.navbar{
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   background-color: #000;
@@ -13,7 +15,7 @@
   padding: 0;
 }
 .nag {
-    padding: 0;
+  padding: 0;
 }
 #brand-logo{
   width: auto;
@@ -48,10 +50,16 @@
 }
 /*############### Mobile ################*/
 @media screen and (max-width: 991px) {
-  #navbar-brand{
-    margin: 0.1rem 3%;
+  .topbar{
+    padding: 0.5rem 1.2rem;
   }
-    .navbar-nav{
-        float: none;
+  .topbar p{
+    font-size: 1.5rem;
+  }
+  #brand-logo{
+    height: 3rem;
+  }
+  #navbar-brand{
+    margin: 0.1rem 2%;
   }
 }

@@ -38,7 +38,7 @@
 }
 .profile-submit{
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 .submitBtn{
   transition: 0.2s;
@@ -56,6 +56,10 @@
   transition: 0.2s;
   background-color: #101010;
   box-shadow: 0 0 15px #7aa2ff;
+}
+.popup-div{
+  text-align: center;
+  min-height: 1.8rem;
 }
 @media (max-width:1200px){
   .profileImage{
@@ -76,5 +80,21 @@
   }
   .profileName{
     width: 75%;
+    padding-left: 3rem;
+  }
+}
+@media (max-width: 576px){
+  .form-label{
+    font-size: 1.1rem;
+    letter-spacing: 0.2px;
+    width: 40%;
+    margin-bottom: 0.5rem;
+    border-radius: 20px 20px 5px 20px;
+  }
+  .form-control-plaintext, .form-control{
+    font-size: 1rem;
+    width: 90%;
+    margin-left: 3rem;
+    border-radius: 5px 20px 20px 20px;
   }
 }

@@ -18,18 +18,18 @@ const NavBar = ({ pageTitle, user }) => {
   const [redirect, setRedirect] = useState(false);
   const [roomId, setRoomId] = useState('');
   const [onlineUsers, setOnlineUsers] = useState(0);
-  
+
   useEffect(() => {
-    
-    if(user) {      
+
+    if(user) {
       socket = io(ENDPOINT);
-      
+
       socket.on('onlineUser', user => {
         setOnlineUsers(user.onlineUser);
       });
-    }    
+    }
   }, [user]);
-  
+
   const createRoom = () => {
     axios.post(`${process.env.REACT_APP_BACKEND_API}/room/create`, {
       title: title,
@@ -42,7 +42,7 @@ const NavBar = ({ pageTitle, user }) => {
       setRedirect(true);
     })
   }
-  
+
   const showRoomCreateModalOrNot = () => {
     if(user.userName) {
       setShowModal(!showModal)
@@ -50,7 +50,7 @@ const NavBar = ({ pageTitle, user }) => {
       alert('Please First create user name in profile');
     }
   }
-  
+
   const showCreateRoomModal = (showModal) => {
     return(
       <div>
@@ -92,7 +92,7 @@ const NavBar = ({ pageTitle, user }) => {
       </div>
     )
   }
-  
+
   if(redirect && user.userName) {
     return (<Redirect to ={`/chat?name=${user.userName}&room=${title}&roomId=${roomId}`}/>)
   } else {
@@ -100,7 +100,7 @@ const NavBar = ({ pageTitle, user }) => {
       <div>
         <nav className="home-nav navbar navbar-expand-lg navbar-dark">
           <div className="topbar">
-            <h2>{ pageTitle }</h2>
+            <p>{ pageTitle }</p>
           </div>
 
           <div className="collapse navbar-collapse" id="myNavigation">
@@ -125,7 +125,7 @@ const NavBar = ({ pageTitle, user }) => {
         </nav>
 
         {showCreateRoomModal(showModal)}
-        
+
       </div>
     );
   }
