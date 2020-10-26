@@ -42,8 +42,8 @@ const Rooms = ({ location, user }) => {
                 <div className='col-lg-4 col-md-6 col-sm-6 language-name'><p>Language: {item.language}</p></div>
               </div>
               <div className='row row-two'>
-                <div className='col-lg-5 col-md-3 col-sm-3 access-status'><p>{item.category}</p></div>
-                <div className='col-lg-3 col-md-4 col-sm-4 members-no'><p>Members: {item.members}/10</p></div>
+                <div className='col-lg-4 col-md-3 col-sm-3 genre-status'><p>{item.category}</p></div>
+                <div className='col-lg-4 col-md-4 col-sm-4 members-no'><p>Members: {item.members}/10</p></div>
                 <div className='col-lg-4 col-md-5 col-sm-5 time-div'><p>{moment(item.created).fromNow()}</p></div>
               </div>
             </Link>
@@ -51,7 +51,7 @@ const Rooms = ({ location, user }) => {
         );
 
       return (list);
-        
+
       } else {
         return <div>No rooms in this interest</div>
       }

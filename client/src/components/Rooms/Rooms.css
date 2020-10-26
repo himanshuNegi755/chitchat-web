@@ -52,7 +52,7 @@
     margin: 1.2rem 9%;
     padding: 0.4rem 1.5rem;
   }
-  .access-status, .members-no, .time-div{
+  .genre-status, .members-no, .time-div{
     font-size: 0.9rem;
   }
 }
@@ -68,7 +68,7 @@
     padding: 0.4rem 0 0;
     font-size: 0.8rem;
   }
-  .access-status, .members-no, .time-div{
+  .genre-status, .members-no, .time-div{
     font-size: 0.8rem;
   }
 }
@@ -85,7 +85,7 @@
     padding: 0.3rem 0 0;
     width: 50%;
   }
-  .access-status, .members-no, .time-div{
+  .genre-status, .members-no, .time-div{
     font-size: 0.7rem;
     padding-right: 0;
   }

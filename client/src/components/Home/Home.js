@@ -93,9 +93,9 @@ const Home = ({ user }) => {
             <div className='col-4 language-name'><p>Language: {item.language}</p></div>
           </div>
           <div className='row row-two'>
-            <div className='col-5 access-status'><p>{item.category}</p></div>
-            <div className='col-3 members-no'><p>Members: {item.members}/10</p></div>
-            <div className='col-4 time-div'><p>{moment(item.created).fromNow()}</p></div>
+            <div className='col-lg-4 col-md-3 genre-status'><p>{item.category}</p></div>
+            <div className='col-lg-4 col-md-4 members-no'><p>Members: {item.members}/10</p></div>
+            <div className='col-lg-4 col-md-5 time-div'><p>{moment(item.created).fromNow()}</p></div>
           </div>
         </Link>
       </div>

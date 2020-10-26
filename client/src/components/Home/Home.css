@@ -48,3 +48,32 @@
     background-color: #101010;
     box-shadow: 0 0 4px #1fe5ff;
 }
+@media (max-width: 1360px){
+  .suggestion {
+      width: 140%;
+      left: -20%;
+  }
+}
+@media (max-width: 900px){
+  .searchBar {
+      padding: 0.8rem 20% 2rem;
+  }
+  .suggestion {
+      width: 150%;
+      left: -25%;
+      max-height: 70vh;
+  }
+  .suggestion .groups{
+      margin: 1rem;
+      padding: 0.5rem 1.5rem;
+  }
+  .suggestion .genre-status{
+      width: 25%;
+  }
+  .suggestion .members-no{
+      width: 33.33%;
+  }
+  .suggestion .time-div{
+      width: 41.66%;
+  }
+}

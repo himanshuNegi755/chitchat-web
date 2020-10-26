@@ -91,7 +91,7 @@
     margin-bottom: 0.5rem;
     border-radius: 20px 20px 5px 20px;
   }
-  .form-control-plaintext, .form-control{
+  .form-control-plaintext, .profile-form-control{
     font-size: 1rem;
     width: 90%;
     margin-left: 3rem;
