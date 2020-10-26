@@ -72,7 +72,7 @@ const ProfilePage = ({ user }) => {
                   Email
                 </Form.Label>
                 <Col md="9" sm="8">
-                  <Form.Control plaintext readOnly defaultValue={user ? user.userEmail : null} />
+                  <Form.Control className="profile-form-control" plaintext readOnly defaultValue={user ? user.userEmail : null} />
                 </Col>
               </Form.Group>
 
@@ -81,7 +81,7 @@ const ProfilePage = ({ user }) => {
                   User Name
                 </Form.Label>
                 <Col md="9" sm="8">
-                  <Form.Control type="text" placeholder="userName" name='userName' value={userName} onChange={e => setUserName(e.target.value)} />
+                  <Form.Control className="profile-form-control" type="text" placeholder="userName" name='userName' value={userName} onChange={e => setUserName(e.target.value)} />
                 </Col>
               </Form.Group>
 
