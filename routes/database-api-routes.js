@@ -33,6 +33,7 @@ router.put('/interests/delete', function(request, response, next) {
   })
 });
 
+//get all interests
 router.get('/interests', function(request, response, next) {
    Interests.find({}, function(err, interests) {
         if(err) {
@@ -102,16 +103,28 @@ router.post('/room/create', function(request, response, next) {
 });
 
 //get the rooms for particular interests/category
-router.get('/room/:interests', function(request, response, next) {
-  Room.find({category: request.params.interests}, function(err, roomList) {
+router.get('/room/:interests', function(request, response, next) { 
+  Interests.find({interests: request.params.interests}, {_id: 1}).exec(function(err, interestId) {
     if(err) {
-      response.status(500).send({error: "Could not get the rooms"});
+      response.status(500).send({error: "No Chat For this Room"});
     } else {
-      response.send(roomList);
+      if(interestId.length > 0) {
+        Room.find({category: request.params.interests}, function(err, roomList) {
+          if(err) {
+            response.status(500).send({error: "Could not get the rooms"});
+          } else {
+            response.send(roomList);
+          }
+        });
+      } else {
+        response.send('No such interest found');
+      }
     }
   });
 });
     
+//db.your_collection.find({..criteria..}, {"_id" : 1});
+
 //this is how to pass array in url get request or any request
 //get the rooms by array of interests for home page
 router.get('/room', function(request, response, next) {

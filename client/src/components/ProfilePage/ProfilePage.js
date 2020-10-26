@@ -44,7 +44,7 @@ const ProfilePage = ({ user }) => {
 
   const showPopup = () => {
     var popup = document.getElementById("popupMsg");
-    popup.style.display = 'absolute';
+    popup.style.display = 'inline-block';
     setTimeout(function(){ popup.style.display = 'none' }, 1000);
   }
 

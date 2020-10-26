@@ -12,20 +12,22 @@ let socket;
 
 const NavBar = ({ pageTitle, user }) => {
   const [showModal, setShowModal] = useState(false);
+  
+  //show modal entry field
   const [title, setTitle] = useState('');
   const [language, setLanguage] = useState('');
   const [category, setCategory] = useState('');
+  
+  const [categoryList, setCategoryList] = useState([]);  
   const [redirect, setRedirect] = useState(false);
   const [roomId, setRoomId] = useState('');
   const [onlineUsers, setOnlineUsers] = useState(0);
-<<<<<<< HEAD
+  
+  //status message for create room modal
   const [titleMsg, setTitleMsg] = useState('');
   const [languageMsg, setLanguageMsg] = useState('');
   const [categoryMsg, setCategoryMsg] = useState('');
   
-=======
-
->>>>>>> 9de1f0df491536583d4f7ccab6e17ae762a29776
   useEffect(() => {
 
     if(user) {
@@ -34,6 +36,10 @@ const NavBar = ({ pageTitle, user }) => {
       socket.on('onlineUser', user => {
         setOnlineUsers(user.onlineUser);
       });
+      
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/interests`)
+      .then(res => { setCategoryList(res.data) })
+      
     }
   }, [user]);
 
@@ -43,7 +49,7 @@ const NavBar = ({ pageTitle, user }) => {
     } else if (language === '') {
       setLanguageMsg('Please enter Language');
     } else if (category === '') {
-      setCategoryMsg('Please enter Category');
+      setCategoryMsg('Please select Category');
     } else {
       axios.post(`${process.env.REACT_APP_BACKEND_API}/room/create`, {
         title: title,
@@ -64,6 +70,13 @@ const NavBar = ({ pageTitle, user }) => {
     } else {
       alert('Please First create user name in profile');
     }
+  }
+  
+  const optionsForCategory = () => {
+    const list = categoryList.map((item) =>
+      <option value={item.interests} key={item.interests}>{item.interests}</option>
+    );
+    return (list);
   }
 
   const showCreateRoomModal = (showModal) => {
@@ -94,10 +107,15 @@ const NavBar = ({ pageTitle, user }) => {
                 setLanguageMsg('')}}/>
                 <div>{languageMsg}</div>
               </Form.Group>
-
+              
               <Form.Group>
-                <Form.Control type="text" placeholder="category" name='category' value={category} onChange={e => {setCategory(e.target.value)
-                setCategoryMsg('')}}/>
+                <select className="custom-select" type="text" placeholder="category" name='category' value={category} onChange={e => {
+                    setCategory(e.target.value)
+                    setCategoryMsg('')
+                  }}>
+                  <option value='' selected>category</option>
+                  {optionsForCategory()}
+                </select>
                 <div>{categoryMsg}</div>
               </Form.Group>
 
@@ -123,7 +141,10 @@ const NavBar = ({ pageTitle, user }) => {
           <div className="topbar">
             <p>{ pageTitle }</p>
           </div>
-
+          
+          <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#myNavigation" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span></button>
+          
           <div className="collapse navbar-collapse" id="myNavigation">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">

@@ -62,6 +62,7 @@ app.get('/', (req, res) => res.redirect(process.env.CLIENT_URI || 'http://localh
 
 io.on('connect', (socket) => {
   
+  //user count on the basis of ip address of the user
   var $ipAddress = socket.handshake.address;
   if (!$ipsConnected.hasOwnProperty($ipAddress)) {
   	$ipsConnected[$ipAddress] = 1;

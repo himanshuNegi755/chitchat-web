@@ -48,27 +48,3 @@
     background-color: #101010;
     box-shadow: 0 0 4px #1fe5ff;
 }
-<<<<<<< HEAD
-/*dineezy ke shopPage.css or shopPage.js me dhekna*/
-/* **********OKAY**********
-lol
-.suggestion ul {
-    list-style: none;
-    text-align: left;
-    padding: 0;
-    margin: 0;
-=======
-
-@media (max-width:1000px){
-  .suggestion {
-      left: -30%;
-      width: 160%;
-  }
-}
-@media (max-width:550px){
-  .suggestion {
-      left: -40%;
-      width: 180%;
-  }
->>>>>>> 9de1f0df491536583d4f7ccab6e17ae762a29776
-}
