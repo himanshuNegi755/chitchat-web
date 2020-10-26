@@ -70,8 +70,9 @@ io.on('connect', (socket) => {
     socket.emit('onlineUser', { onlineUser: noOfUserOnline});
   }   
   
-  socket.on('join', ({ name, room, roomId }, callback) => {
+  socket.on('join', ({ name, room, roomId, userEmail }, callback) => {
     const { error, user } = addUser({ id: socket.id, name, roomId, room });
+    console.log(userEmail);
 
     if(error) return callback(error);
 
