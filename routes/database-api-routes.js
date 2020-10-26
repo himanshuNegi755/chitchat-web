@@ -104,11 +104,12 @@ router.post('/room/create', function(request, response, next) {
 
 //get the rooms for particular interests/category
 router.get('/room/:interests', function(request, response, next) { 
-  Interests.find({interests: request.params.interests}, {_id: 1}).exec(function(err, interestId) {
+  Interests.find({interests: request.params.interests}).exec(function(err, interestId) {
     if(err) {
       response.status(500).send({error: "No Chat For this Room"});
     } else {
-      if(interestId.length > 0) {
+      response.send(interestId);
+      /*if(interestId.length > 0) {
         Room.find({category: request.params.interests}, function(err, roomList) {
           if(err) {
             response.status(500).send({error: "Could not get the rooms"});
@@ -118,7 +119,7 @@ router.get('/room/:interests', function(request, response, next) {
         });
       } else {
         response.send('No such interest found');
-      }
+      }*/
     }
   });
 });
