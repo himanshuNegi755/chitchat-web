@@ -12,22 +12,22 @@ let socket;
 
 const NavBar = ({ pageTitle, user }) => {
   const [showModal, setShowModal] = useState(false);
-  
+
   //show modal entry field
   const [title, setTitle] = useState('');
   const [language, setLanguage] = useState('');
   const [category, setCategory] = useState('');
-  
-  const [categoryList, setCategoryList] = useState([]);  
+
+  const [categoryList, setCategoryList] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [roomId, setRoomId] = useState('');
   const [onlineUsers, setOnlineUsers] = useState(0);
-  
+
   //status message for create room modal
   const [titleMsg, setTitleMsg] = useState('');
   const [languageMsg, setLanguageMsg] = useState('');
   const [categoryMsg, setCategoryMsg] = useState('');
-  
+
   useEffect(() => {
 
     if(user) {
@@ -36,10 +36,10 @@ const NavBar = ({ pageTitle, user }) => {
       socket.on('onlineUser', user => {
         setOnlineUsers(user.onlineUser);
       });
-      
+
       axios.get(`${process.env.REACT_APP_BACKEND_API}/interests`)
       .then(res => { setCategoryList(res.data) })
-      
+
     }
   }, [user]);
 
@@ -60,7 +60,7 @@ const NavBar = ({ pageTitle, user }) => {
         setRoomId(res.data._id);
         setShowModal(!showModal);
         setRedirect(true);
-      })      
+      })
     }
   }
 
@@ -71,7 +71,7 @@ const NavBar = ({ pageTitle, user }) => {
       alert('Please First create user name in profile');
     }
   }
-  
+
   const optionsForCategory = () => {
     const list = categoryList.map((item) =>
       <option value={item.interests} key={item.interests}>{item.interests}</option>
@@ -107,7 +107,7 @@ const NavBar = ({ pageTitle, user }) => {
                 setLanguageMsg('')}}/>
                 <div>{languageMsg}</div>
               </Form.Group>
-              
+
               <Form.Group>
                 <select className="custom-select" type="text" placeholder="category" name='category' value={category} onChange={e => {
                     setCategory(e.target.value)
@@ -141,10 +141,10 @@ const NavBar = ({ pageTitle, user }) => {
           <div className="topbar">
             <p>{ pageTitle }</p>
           </div>
-          
-          <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#myNavigation" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavigation" aria-controls="myNavigation" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span></button>
-          
+
           <div className="collapse navbar-collapse" id="myNavigation">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
