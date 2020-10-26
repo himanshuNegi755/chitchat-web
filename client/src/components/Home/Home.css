@@ -22,6 +22,7 @@
 }
 
 .suggestion {
+    overflow: auto;
     background-color: #f0f0f0;
     color: white;
     width: inherit;
@@ -30,6 +31,7 @@
     position: absolute;
     top: 2.4rem;
     z-index: 1;
+    max-height: 60vh;
 }
 .suggestion .groups{
     transition: 0.2s;
@@ -46,6 +48,7 @@
     background-color: #101010;
     box-shadow: 0 0 4px #1fe5ff;
 }
+<<<<<<< HEAD
 /*dineezy ke shopPage.css or shopPage.js me dhekna*/
 /* **********OKAY**********
 lol
@@ -54,9 +57,18 @@ lol
     text-align: left;
     padding: 0;
     margin: 0;
+=======
+
+@media (max-width:1000px){
+  .suggestion {
+      left: -30%;
+      width: 160%;
+  }
 }
-.suggestion li {
-    border-radius: 0 20px 20px 0;
-    padding: 2%;
-    cursor: pointer;
-}*/
+@media (max-width:550px){
+  .suggestion {
+      left: -40%;
+      width: 180%;
+  }
+>>>>>>> 9de1f0df491536583d4f7ccab6e17ae762a29776
+}
