@@ -12,12 +12,15 @@ let socket;
 
 const NavBar = ({ pageTitle, user }) => {
   const [showModal, setShowModal] = useState(false);
-  const [title, setTitle] = useState();
-  const [language, setLanguage] = useState();
-  const [category, setCategory] = useState();
+  const [title, setTitle] = useState('');
+  const [language, setLanguage] = useState('');
+  const [category, setCategory] = useState('');
   const [redirect, setRedirect] = useState(false);
   const [roomId, setRoomId] = useState('');
   const [onlineUsers, setOnlineUsers] = useState(0);
+  const [titleMsg, setTitleMsg] = useState('');
+  const [languageMsg, setLanguageMsg] = useState('');
+  const [categoryMsg, setCategoryMsg] = useState('');
   
   useEffect(() => {
     
@@ -31,16 +34,24 @@ const NavBar = ({ pageTitle, user }) => {
   }, [user]);
   
   const createRoom = () => {
-    axios.post(`${process.env.REACT_APP_BACKEND_API}/room/create`, {
-      title: title,
-      language: language,
-      category: category
-    })
-    .then(res => {
-      setRoomId(res.data._id);
-      setShowModal(!showModal);
-      setRedirect(true);
-    })
+    if(title === '') {
+      setTitleMsg('Please enter Title');
+    } else if (language === '') {
+      setLanguageMsg('Please enter Language');
+    } else if (category === '') {
+      setCategoryMsg('Please enter Category');
+    } else {
+      axios.post(`${process.env.REACT_APP_BACKEND_API}/room/create`, {
+        title: title,
+        language: language,
+        category: category
+      })
+      .then(res => {
+        setRoomId(res.data._id);
+        setShowModal(!showModal);
+        setRedirect(true);
+      })      
+    }
   }
   
   const showRoomCreateModalOrNot = () => {
@@ -69,15 +80,21 @@ const NavBar = ({ pageTitle, user }) => {
           <Modal.Body>
             <Form>
               <Form.Group>
-                <Form.Control type="text" placeholder="Room Title" name='title' value={title} onChange={e => setTitle(e.target.value)}/>
+                <Form.Control type="text" placeholder="Room Title" name='title' value={title} onChange={e => {setTitle(e.target.value)
+                                                                                                             setTitleMsg('')}}/>
+                <div>{titleMsg}</div>
               </Form.Group>
 
               <Form.Group>
-                  <Form.Control type="text" placeholder="language" name='language' value={language} onChange={e => setLanguage(e.target.value)}/>
+                <Form.Control type="text" placeholder="language" name='language' value={language} onChange={e => {setLanguage(e.target.value)
+                setLanguageMsg('')}}/>
+                <div>{languageMsg}</div>
               </Form.Group>
 
               <Form.Group>
-                  <Form.Control type="text" placeholder="category" name='category' value={category} onChange={e => setCategory(e.target.value)}/>
+                <Form.Control type="text" placeholder="category" name='category' value={category} onChange={e => {setCategory(e.target.value)
+                setCategoryMsg('')}}/>
+                <div>{categoryMsg}</div>
               </Form.Group>
 
               <div className="btn-div">
@@ -118,7 +135,14 @@ const NavBar = ({ pageTitle, user }) => {
                 <a className="nav-link" href="/profile">Profile</a>
               </li>
               <li className="nav-item">
-                <button  className="create-room" onClick={showRoomCreateModalOrNot}>CREATE ROOM</button>
+                <button className="create-room" onClick={showRoomCreateModalOrNot}>CREATE ROOM</button>
+              </li>
+              <li className="nav-item">
+                <a href={`${process.env.REACT_APP_BACKEND_API}/auth/logout`}>
+                  <button variant="primary" className="create-room">
+                    <b>LOG OUT</b>
+                  </button>
+                </a>
               </li>
             </ul>
           </div>

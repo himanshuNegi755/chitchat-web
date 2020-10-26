@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { Button } from 'react-bootstrap';
+//import { Button } from 'react-bootstrap';
 
 import './FrontPage.css';
 import GoogleButton from './GoogleButton/GoogleButton';
 import Interests from './Interests/Interests';
+import NavBar from '../NavBar/NavBar';
 
 const FrontPage = ({ user }) => {
 
@@ -23,11 +24,7 @@ const FrontPage = ({ user }) => {
             default:
                 return (
                   <div>
-                    <a href={`${process.env.REACT_APP_BACKEND_API}/auth/logout`}>
-                      <Button variant="primary">
-                        <b>LOG OUT</b>
-                      </Button>
-                    </a>
+                    <NavBar pageTitle='Interests'/>
                     <div className="interest-div">
                       <Interests userEmail={user.userEmail} />
                     </div>
