@@ -25,6 +25,7 @@ const Chat = ({ location, user }) => {
 
   useEffect(() => {
     const { name, room, roomId } = queryString.parse(location.search);
+    const userEmail = user.userEmail;
     
     if(user) {      
       socket = io(ENDPOINT);
@@ -33,7 +34,7 @@ const Chat = ({ location, user }) => {
       setName(name)
       setRoomId(roomId);
 
-      socket.emit('join', { name, room, roomId }, (error) => {
+      socket.emit('join', { name, room, roomId, userEmail }, (error) => {
         if(error) {
           alert(error);
         }
