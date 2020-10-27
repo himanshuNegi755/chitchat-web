@@ -1,6 +1,7 @@
 const router = require('express').Router();
 var mongoose = require('mongoose');
 
+const {ObjectId} = require('mongodb');
 // model
 var UserInterests = mongoose.model('UserInterests');
 var Interests = mongoose.model('Interests');
@@ -94,7 +95,7 @@ router.post('/room/create', function(request, response, next) {
         } else {
   
           new Chat({roomId: room._id, roomName: room.title}).save().then((newChat) => {
-            console.log('chat updated');
+            console.log('chat created');
           })
           
           response.send(room);
@@ -123,8 +124,6 @@ router.get('/room/:interests', function(request, response, next) {
     }
   });
 });
-    
-//db.your_collection.find({..criteria..}, {"_id" : 1});
 
 //this is how to pass array in url get request or any request
 //get the rooms by array of interests for home page
@@ -147,6 +146,17 @@ router.get('/all-rooms', function(request, response, next) {
       response.send(roomList);
     }
   });  
+});
+
+//get room by room id
+router.get('/room-with-id/:roomId', function(request, response, next) {
+  Room.find({_id: ObjectId(request.params.roomId)}, function(err, roomArr) {
+    if(err) {
+      response.status(500).send({error: "can't find the room"});
+    } else {
+      response.send(roomArr);
+    }
+  });
 });
 
 ////////////////////////////////////// profile ///////////////////////////////////////////////////////////

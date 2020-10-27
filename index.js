@@ -73,7 +73,7 @@ io.on('connect', (socket) => {
   socket.on('join', ({ name, room, roomId, userEmail }, callback) => {
     
     //check the url for changes made by users
-    /*Room.find({_id: ObjectId(roomId)}).exec(function(err, room) {
+    Room.find({_id: ObjectId(roomId)}, function(err, room) {
       if(err) {
         console.log("Can't find the room");
       } else {
@@ -86,7 +86,7 @@ io.on('connect', (socket) => {
           return callback("room doesn't exist ");
         }
       }
-    });*/
+    });
     
     const { error, user } = addUser({ id: socket.id, name, roomId, room, userEmail });
     if(error) return callback(error);
