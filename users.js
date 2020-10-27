@@ -10,11 +10,7 @@ const addUser = ({ id, name, roomId, room, userEmail }) => {
       //response.status(500).send({error: "Can't find the room"});
       console.log("Can't get the user");
     } else {
-      if(user[0].userName === name) {
-        continue;
-      } else {
-        return { error: 'url is wrong, pls check the url'};
-      }
+      if(user[0].userName !== name) return { error: 'url is wrong, pls check the url'};
     }
   });*/
   

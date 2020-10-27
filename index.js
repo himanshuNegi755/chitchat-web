@@ -75,25 +75,20 @@ io.on('connect', (socket) => {
     //check the url for changes made by users
     /*Room.find({_id: ObjectId(roomId)}).exec(function(err, room) {
       if(err) {
-        //response.status(500).send({error: "Can't find the room"});
         console.log("Can't find the room");
       } else {
         if(room.length > 0) {
-          if(room[0].title === room) {
-            continue;
-          } else {
-            const error = "room doesn't exist ";
-            if(error) return callback(error);
+          if(room[0].title !== room) {
+            return callback("room doesn't exist ");
           }
         } else {
-          const error = "room doesn't exist ";
-          if(error) return callback(error);
+          console.log(room);
+          return callback("room doesn't exist ");
         }
       }
     });*/
     
     const { error, user } = addUser({ id: socket.id, name, roomId, room, userEmail });
-
     if(error) return callback(error);
 
     socket.join(user.roomId);
@@ -101,10 +96,8 @@ io.on('connect', (socket) => {
     //update members in room when somebody joins the room
     Room.updateOne({_id: ObjectId(user.roomId)}, {$set: {"members": getUsersInRoom(user.roomId).length}}, function(err, status) {
       if (err) {
-        //response.status(500).send({error: "Could not update room members"});
-        console.log('some errore occured while updating members');
+        console.log('some error occured while updating members');
       } else {
-        //response.send(status);
         console.log('members updated');
       }
     });

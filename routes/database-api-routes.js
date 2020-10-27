@@ -108,8 +108,8 @@ router.get('/room/:interests', function(request, response, next) {
     if(err) {
       response.status(500).send({error: "No Chat For this Room"});
     } else {
-      response.send(interestId);
-      /*if(interestId.length > 0) {
+      //response.send(interestId);
+      if(interestId.length > 0) {
         Room.find({category: request.params.interests}, function(err, roomList) {
           if(err) {
             response.status(500).send({error: "Could not get the rooms"});
@@ -119,7 +119,7 @@ router.get('/room/:interests', function(request, response, next) {
         });
       } else {
         response.send('No such interest found');
-      }*/
+      }
     }
   });
 });
