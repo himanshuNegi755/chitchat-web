@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 //import { Button } from 'react-bootstrap';
 
 import './FrontPage.css';
-import GoogleButton from './GoogleButton/GoogleButton';
+import Introduction from './Introduction/Introduction';
 import Interests from './Interests/Interests';
 import NavBar from '../NavBar/NavBar';
 
@@ -20,7 +20,7 @@ const FrontPage = ({ user }) => {
                     </React.Fragment>
                 )
             case false:
-                return (<GoogleButton />)
+                return (<Introduction />)
             default:
                 return (
                   <div>

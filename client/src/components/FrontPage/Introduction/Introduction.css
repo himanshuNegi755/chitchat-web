@@ -1,0 +1,24 @@
+.before-logIn{
+  padding: 4rem 15%;
+  background-color: #adffff;
+}
+.welcome-heading{
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 3rem;
+}
+.intro-text{
+  text-align: center;
+  font-family: 'Alice', serif;
+  font-size: 1.7rem;
+  letter-spacing: 3px;
+}
+.info-section, .steps-to-use{
+  text-align: justify;
+  letter-spacing: 1px;
+  font-family: 'Montserrat', sans-serif;
+}
+.steps-to-use{
+  line-height: 2rem;
+  font-size: 1.1rem;
+}

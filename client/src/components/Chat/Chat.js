@@ -25,7 +25,6 @@ const Chat = ({ location, user }) => {
 
   useEffect(() => {
     const { name, room, roomId } = queryString.parse(location.search);
-    const userEmail = user.userEmail;
     
     if(user) {      
       socket = io(ENDPOINT);
@@ -33,15 +32,16 @@ const Chat = ({ location, user }) => {
       setRoom(room);
       setName(name)
       setRoomId(roomId);
+      const userEmail = user.userEmail;
 
       socket.emit('join', { name, room, roomId, userEmail }, (error) => {
         if(error) {
           alert(error);
+        } else {
+          /*axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/${roomId}`)
+          .then(res => { setMessages(res.data) })*/
         }
       });
-
-      axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/${roomId}`)
-      .then(res => { setMessages(res.data) })
     } else if (user === false) {
       setLoggedIn(false)
     }
