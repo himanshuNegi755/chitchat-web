@@ -1,6 +1,7 @@
 .before-logIn{
   padding: 4rem 15%;
   background-color: #adffff;
+  min-height: 100vh;
 }
 .welcome-heading{
   text-align: center;
@@ -21,4 +22,50 @@
 .steps-to-use{
   line-height: 2rem;
   font-size: 1.1rem;
+}
+
+@media (max-width: 1000px){
+  .before-logIn{
+    padding: 3.5rem 10%;
+  }
+}
+@media (max-width: 772px){
+  .before-logIn{
+    padding: 3.5rem 8%;
+  }
+  .welcome-heading{
+    font-size: 2.2rem;
+  }
+  .intro-text{
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+  }
+  .info-section, .steps-to-use{
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+  }
+  .steps-to-use{
+    line-height: 1.8rem;
+    font-size: 1rem;
+  }
+}
+@media (max-width: 550px){
+  .before-logIn{
+    padding: 3rem 8%;
+  }
+  .welcome-heading{
+    font-size: 1.8rem;
+  }
+  .intro-text{
+    font-size: 1rem;
+    letter-spacing: 1.2px;
+  }
+  .info-section, .steps-to-use{
+    letter-spacing: 0.2px;
+    font-size: 0.8rem;
+  }
+  .steps-to-use{
+    line-height: 1.5rem;
+    font-size: 0.9rem;
+  }
 }

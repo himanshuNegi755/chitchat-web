@@ -15,7 +15,7 @@
     border: 0;
     border-radius: 30px;
     padding: 4px 18px;
-    text-align: left;
+    text-align: center;
     outline: none;
     background-color: #505050;
     letter-spacing: 0.5px;
@@ -41,4 +41,24 @@
  height: 37px;
  display: inline-block;
  text-shadow: 0 0 5px black;
+}
+@media (max-width: 1000px){
+  .log-in-btn{
+      margin: 3rem 25% 5rem;
+  }
+}
+@media (max-width: 772px){
+  .log-in-btn{
+      margin: 3rem 20% 4rem;
+  }
+}
+@media (max-width: 550px){
+  .log-in-btn{
+      margin: 2.5rem 10% 3rem;
+  }
+  .button {
+      padding: 3px 15px;
+      letter-spacing: 0.3px;
+      font-size: 0.8rem;
+  }
 }
