@@ -1,20 +1,9 @@
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
-
 const users = [];
 
-const addUser = ({ id, name, roomId, room, userEmail }) => {
-  
-  User.find({userEmail: userEmail}, function(err, user) {
-    if(err) {
-      //response.status(500).send({error: "Can't find the room"});
-      console.log("Can't get the user");
-    } else {
-      if(user[0].userName !== name) return { error: 'url is wrong, pls check the url'};
-    }
-  });
-  
-  name = name.trim().toLowerCase();
+const addUser = ({ id, userName, roomId, room }) => {
+
+  console.log('creating user');
+  name = userName.trim().toLowerCase();
   roomId = roomId.trim();
   room = room.trim();
 

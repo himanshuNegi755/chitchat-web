@@ -9,7 +9,7 @@ const My404Component = () => {
       <a href='/home'>
         <span className="text-3d">404</span>
       </a>
-      <span className="caption">Click to Return Home</span>
+      <span className="caption">Page Not Found, Click to Return Home</span>
     </div>
   );
 }

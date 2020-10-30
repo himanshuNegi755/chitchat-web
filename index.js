@@ -37,7 +37,7 @@ const corsOptions = {
 const {ObjectId} = require('mongodb');
 var Room = mongoose.model('Room');
 var Chat = mongoose.model('Chat');
-var noOfUserOnline = 0;
+var noOfUserOnline = 50;
 var $ipsConnected = [];
 
 app.use(cors(corsOptions));
@@ -70,25 +70,28 @@ io.on('connect', (socket) => {
     socket.emit('onlineUser', { onlineUser: noOfUserOnline});
   }   
   
-  socket.on('join', ({ name, room, roomId, userEmail }, callback) => {
+  socket.on('join',  async ({ userName, room, roomId }, callback) => {
     
     //check the url for changes made by users
-    Room.find({_id: ObjectId(roomId)}, function(err, room) {
-      if(err) {
-        console.log("Can't find the room");
-      } else {
-        if(room.length > 0) {
-          if(room[0].title !== room) {
-            return callback("room doesn't exist ");
-          }
-        } else {
-          console.log(room);
-          return callback("room doesn't exist ");
+    var errorOccured = new Promise((resolve, reject) => {
+      resolve(Room.find({_id: ObjectId(roomId)}, function(err, roomArr) {
+        if(err) {
+          console.log("Can't find the room");
         }
-      }
+        return roomArr;
+      })
+      )
     });
     
-    const { error, user } = addUser({ id: socket.id, name, roomId, room, userEmail });
+    var temp = await errorOccured;
+    if(temp.length > 0) {
+      if(temp[0].title !== room) return callback("room doesn't exist, pls check url.");
+    } else {
+      return callback("room doesn't exist, pls check url.");
+    }
+    
+    
+    const { error, user } = addUser({ id: socket.id, userName, roomId, room });
     if(error) return callback(error);
 
     socket.join(user.roomId);
@@ -106,7 +109,7 @@ io.on('connect', (socket) => {
     socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
 
     //io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
-
+    
     callback();
   });
 
