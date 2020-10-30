@@ -133,7 +133,7 @@ const NavBar = ({ pageTitle, user }) => {
   }
 
   if(redirect && user.userName) {
-    return (<Redirect to ={`/chat?name=${user.userName}&room=${title}&roomId=${roomId}`}/>)
+    return (<Redirect to ={`/chat?room=${title}&roomId=${roomId}`}/>)
   } else {
     return (
       <div>

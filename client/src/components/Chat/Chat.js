@@ -22,21 +22,23 @@ const Chat = ({ location, user }) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [loggedIn, setLoggedIn] = useState(true);
+  const [redirectTo404, setRedirectTo404] = useState(true);
 
   useEffect(() => {
-    const { name, room, roomId } = queryString.parse(location.search);
+    const { room, roomId } = queryString.parse(location.search);
     
     if(user) {      
       socket = io(ENDPOINT);
 
       setRoom(room);
-      setName(name)
+      setName(user.userName);
       setRoomId(roomId);
-      const userEmail = user.userEmail;
+      const userName = user.userName;
 
-      socket.emit('join', { name, room, roomId, userEmail }, (error) => {
+      socket.emit('join', { userName, room, roomId }, (error) => {
         if(error) {
-          alert(error);
+          setRedirectTo404(false)
+          //alert(error);
         } else {
           /*axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/${roomId}`)
           .then(res => { setMessages(res.data) })*/
@@ -76,6 +78,8 @@ const Chat = ({ location, user }) => {
 
   if(!loggedIn) {
     return <Redirect to='/' />;
+  } else if(!redirectTo404) {
+    return <Redirect to='/pageNotFound' />;
   } else {
     return (
       <div className="outerContainer">
