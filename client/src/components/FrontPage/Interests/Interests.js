@@ -30,7 +30,7 @@ const Interests = ({ userEmail }) => {
               </div>
           </div>
           <div className='img-col'>
-            <img src={SampleImage} alt="topic" className='topic-image'/>
+            <img src="https://images.pexels.com/photos/147413/twitter-facebook-together-exchange-of-information-147413.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" className='topic-image'/>
           </div>
         </div>
     );

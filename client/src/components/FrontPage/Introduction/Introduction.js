@@ -2,6 +2,7 @@ import React from "react";
 
 import './Introduction.css';
 import GoogleButton from '../GoogleButton/GoogleButton';
+import Footer from '../../Footer/Footer';
 
 const Introduction = ({ userEmail }) => {
 
@@ -21,6 +22,8 @@ const Introduction = ({ userEmail }) => {
         <li>People of same interest can join your room or you can share your room name with your friends so they can join too.</li>
       </ol>
       <p className="info-section">Be polite and respectful to everyone.</p>
+      
+      <Footer />
     </div>
   );
 }
