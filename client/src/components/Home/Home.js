@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
@@ -12,12 +12,12 @@ const Home = ({ user }) => {
   const [rooms, setRooms] = useState([]); //rooms as per user follow interests
   const [interests, setInterests] = useState([]);
   const [loggedIn, setLoggedIn] = useState(true);
-  const [allRoomsList, setAllRoomsList] = useState([]);  //all rooms
+  const [allRoomsList, setAllRoomsList] = useState([]); //all rooms
   const [suggestions, setSuggestions] = useState([]);
   const [roomTitle, setRoomTitle] = useState(''); //for searching titles
   const [showSearchBar, setShowSearchBar] = useState('hidden'); //for searching titles
 
-  //this.suggestionRef = React.createRef();
+  const suggestionRef = useRef(null);
 
   useEffect(() => {
     if(user) {
@@ -30,10 +30,7 @@ const Home = ({ user }) => {
     axios.get(`${process.env.REACT_APP_BACKEND_API}/room`, {
       params: { interests: interests }
     })
-    .then(res => { setRooms(res.data) })
-
-    axios.get(`${process.env.REACT_APP_BACKEND_API}/all-rooms`)
-    .then(res => { setAllRoomsList(res.data)
+    .then(res => { setRooms(res.data)
                  setShowSearchBar('visible')})
 
   }, [interests]);
@@ -70,8 +67,12 @@ const Home = ({ user }) => {
 
   //autocomplete functions
   const onTextChanged = (e) => {
-    //document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     const value = e.target.value;
+    
+    axios.get(`${process.env.REACT_APP_BACKEND_API}/all-rooms`)
+    .then(res => { setAllRoomsList(res.data)})
+    
     let suggestions = [];
     if (value.length > 0) {
       suggestions = allRoomsList.filter(v => (v.title).toLowerCase().includes(value.toLowerCase()));
@@ -103,6 +104,13 @@ const Home = ({ user }) => {
 
     return (list);
   }
+  
+  const handleClickOutside = (event) => {
+    if (suggestionRef && !suggestionRef.current.contains(event.target)) {
+      //setRoomTitle('');
+      setSuggestions([]);
+    }
+  }
 
   /*const suggestionSelected = (value) => {
     setRoomTitle(value);
@@ -128,7 +136,7 @@ const Home = ({ user }) => {
                   type='text'
                   value={roomTitle}
               />
-              <div className="mb-3 suggestion">
+              <div className="mb-3 suggestion" ref={suggestionRef}>
                 {renderSuggestions()}
               </div>
           </InputGroup>

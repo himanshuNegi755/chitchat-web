@@ -111,7 +111,7 @@ router.get('/room/:interests', function(request, response, next) {
     } else {
       //response.send(interestId);
       if(interestId.length > 0) {
-        Room.find({category: request.params.interests}, function(err, roomList) {
+        Room.find({category: request.params.interests}).sort({'created': -1}).exec(function(err, roomList) {
           if(err) {
             response.status(500).send({error: "Could not get the rooms"});
           } else {
@@ -128,7 +128,7 @@ router.get('/room/:interests', function(request, response, next) {
 //this is how to pass array in url get request or any request
 //get the rooms by array of interests for home page
 router.get('/room', function(request, response, next) {
-  Room.find({category: {$in: request.query.interests}}, function(err, roomList) {
+  Room.find({category: {$in: request.query.interests}}).sort({'created': -1}).exec(function(err, roomList) {
     if(err) {
       response.status(500).send({error: "Could not get the rooms"});
     } else {
@@ -139,7 +139,7 @@ router.get('/room', function(request, response, next) {
 
 //get all the rooms
 router.get('/all-rooms', function(request, response, next) {
-  Room.find({}, function(err, roomList) {
+  Room.find({}).sort({'created': -1}).exec(function(err, roomList) {
     if(err) {
       response.status(500).send({error: "Could not get the rooms"});
     } else {
@@ -181,6 +181,17 @@ router.get('/user-name/find/:userName', function(request, response, next) {
       response.status(500).send({error: "Could not get the userName"});
     } else {
       response.send(userName.toString());
+    }
+  });  
+});
+
+//get userName from email, for profile page
+router.get('/user-name/get/:userEmail', function(request, response, next) {
+  User.find({userEmail: request.params.userEmail}, function(err, user) {
+    if(err) {
+      response.status(500).send({error: "Could not get the userName"});
+    } else {
+      response.send(user[0].userName);
     }
   });  
 });

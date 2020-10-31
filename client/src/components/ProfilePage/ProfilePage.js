@@ -11,6 +11,7 @@ const ProfilePage = ({ user }) => {
   const [userName, setUserName] = useState('');
   const [message, setMessage] = useState('');
   const [loggedIn, setLoggedIn] = useState(true);
+  const [newUserName, setNewUserName] = useState(''); //get and store userName after updating
 
   useEffect(() => {
     if(user) {
@@ -30,6 +31,9 @@ const ProfilePage = ({ user }) => {
           })
           .then(res => {
             //show userName update msg here
+            axios.get(`${process.env.REACT_APP_BACKEND_API}/user-name/get/${user.userEmail}`)
+            .then(res => {setNewUserName(res.data)})
+            
             setMessage('userName updated');
           })
         } else {
@@ -60,7 +64,7 @@ const ProfilePage = ({ user }) => {
                 <img className="profileImage" alt="profile" src={user ? user.userImage : null} />
             </div>
             <div className="col-lg-9 col-md-8 profileName">
-                <h2>{user ? user.userName : null}</h2>
+                <h2>{newUserName !== '' ? newUserName : (user ? user.userName: null)}</h2>
             </div>
         </div>
 

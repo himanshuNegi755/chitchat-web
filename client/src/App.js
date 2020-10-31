@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { fetchUser } from './store/actions/authActions';
 
 import Chat from './components/Chat/Chat';
-import Join from './components/Join/Join';
 import FrontPage from './components/FrontPage/FrontPage';
 import Rooms from './components/Rooms/Rooms.js';
 import Home from './components/Home/Home.js';
@@ -20,7 +19,6 @@ const App = (props) => {
     <Switch>
       <Route exact path="/" component={FrontPage} />
       <Route exact path="/interest" component={Rooms} />
-      <Route exact path="/join" component={Join} />
       <Route exact path="/chat" component={Chat} />
       <Route exact path="/home" component={Home} />
       <Route exact path="/profile" component={ProfilePage} />
