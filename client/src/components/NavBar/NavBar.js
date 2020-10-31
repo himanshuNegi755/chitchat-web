@@ -103,7 +103,7 @@ const NavBar = ({ pageTitle, user }) => {
               </Form.Group>
 
               <Form.Group>
-                <Form.Control type="text" placeholder="language" name='language' value={language} onChange={e => {setLanguage(e.target.value)
+                <Form.Control type="text" placeholder="Language" name='language' value={language} onChange={e => {setLanguage(e.target.value)
                 setLanguageMsg('')}}/>
                 <div>{languageMsg}</div>
               </Form.Group>
