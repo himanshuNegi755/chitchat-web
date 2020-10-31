@@ -1,5 +1,5 @@
 .home-page{
-    background-image: linear-gradient(#f7f7f7, #f7f7f7, #f7f7f7, #fff, #f7f7f7, #f7f7f7, #f7f7f7, #ffff38);
+    background-image: linear-gradient(#f7f7f7, #fff);
 }
 .searchBar {
     display: flex;
@@ -75,5 +75,10 @@
   }
   .suggestion .time-div{
       width: 41.66%;
+  }
+}
+@media (max-width: 686px){
+  .lang-span{
+    display: none;
   }
 }
