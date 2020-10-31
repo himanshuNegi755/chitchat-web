@@ -35,7 +35,7 @@ const Interests = ({ user }) => {
               </div>
           </div>
           <div className='img-col'>
-            <img src={item.imageUrl} className='topic-image'/>
+            <img src={item.imageUrl} alt="topic" className='topic-image'/>
           </div>
         </div>
     );
@@ -66,9 +66,10 @@ const Interests = ({ user }) => {
     return <Redirect to='/' />;
   } else {
     return (
-      <div className='main-div frontPage-div'>
+      <div className='main-div'>
         <NavBar pageTitle='Interests'/>
-        {topicItemList()}
+        { user ? (user.userIsNew ? <div className="noRooms-msg"><span>Please create userName is profile to join chat room and follow any topic you like</span></div> : null) : null}
+        <div className="interest-div">{topicItemList()}</div>
       </div>
     );
   }

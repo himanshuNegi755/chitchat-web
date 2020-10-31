@@ -53,7 +53,7 @@ const Rooms = ({ location, user }) => {
       return (list);
 
       } else {
-        return <div className="noRooms-msg">No rooms in this interest. But you can create one ✌️.</div>
+        return <div className="noRooms-msg">No rooms in this interest. But you can create one <span role="img" aria-label="peace">✌️</span>.</div>
       }
     } else {
       return <div className="noRooms-msg">{interestStatus}</div>

@@ -116,6 +116,12 @@ const Home = ({ user }) => {
     setRoomTitle(value);
     setSuggestions([]);
   }*/
+  
+  const showStatusInHome = () => {
+    if(interests.length > 0 && user) {
+      if(rooms.length === 0) { return <div className="noRooms-msg"><span>No room found, feed is empty</span></div> }      
+    } else { return <div className="noRooms-msg"><span>Please follow any topic to see chat room in home</span></div> }
+  }
 
   if(!loggedIn) {
     return <Redirect to='/' />;
@@ -141,7 +147,7 @@ const Home = ({ user }) => {
               </div>
           </InputGroup>
         </div>
-
+        {showStatusInHome()}
         {roomsList()}
       </div>
     );

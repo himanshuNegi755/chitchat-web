@@ -26,6 +26,7 @@
 .google-button-a-tag:hover{
     transition: 0.4s;
     background-color: #101010;
+    color: #1fe5ff;
     text-shadow: 0 0 8px #404040;
     border-radius: 5px;
     letter-spacing: 1px;
