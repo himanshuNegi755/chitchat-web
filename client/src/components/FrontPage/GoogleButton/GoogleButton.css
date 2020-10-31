@@ -1,6 +1,6 @@
 .log-in-btn{
     padding: 0;
-    margin: 3rem 30% 5rem;
+    margin: 3rem 30% 4rem;
 }
 .btn-space{
     text-align: center;
@@ -8,8 +8,6 @@
 .google-button-a-tag {
     -webkit-tap-highlight-color: transparent;
     text-decoration: none !important;
-}
-.button {
     transition: 0.1s;
     display: inline-block;
     border: 0;
@@ -18,9 +16,11 @@
     text-align: center;
     outline: none;
     background-color: #505050;
+    color: white;
+    width: 100%;
     letter-spacing: 0.5px;
 }
-.button:hover{
+.google-button-a-tag:hover{
     transition: 0.4s;
     background-color: #101010;
     text-shadow: 0 0 8px #404040;
@@ -35,7 +35,7 @@
   top: 0.15rem;
   margin-top: 5%;
 }
-.button .svgIcon {
+.google-button-a-tag .svgIcon {
  vertical-align: middle;
  padding-right: 4px;
  height: 37px;
@@ -56,7 +56,7 @@
   .log-in-btn{
       margin: 2.5rem 10% 3rem;
   }
-  .button {
+  .google-button-a-tag {
       padding: 3px 15px;
       letter-spacing: 0.3px;
       font-size: 0.8rem;

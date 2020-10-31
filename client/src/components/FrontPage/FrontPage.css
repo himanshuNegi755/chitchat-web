@@ -3,13 +3,11 @@
 }
 .frontPage-div{
   padding-top: 1rem 1.2rem;
+  background-image: linear-gradient(#1fe5ff, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7);
 }
 .interest-div{
   margin: 2% 4%;
   padding: 1rem auto;
-  border: 1px solid #e5e5e5;
-  border-radius: 20px;
-  box-shadow: 0 0 7px #e5e5e5;
   text-align: center;
   min-width: 17.5rem;
 }
