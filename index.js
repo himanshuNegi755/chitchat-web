@@ -59,6 +59,7 @@ app.use('/api', authRoutes);
 app.use('/api', databaseApiRoutes);
 
 app.get('/', (req, res) => res.redirect(process.env.CLIENT_URI || 'http://localhost:3000'));
+app.get('/interests', (req, res) => res.redirect(process.env.CLIENT_URI || 'http://localhost:3000/interests'));
 
 io.on('connect', (socket) => {
   

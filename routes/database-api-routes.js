@@ -24,6 +24,18 @@ router.post('/interests/add', function(request, response, next) {
   });
 });
 
+//add imageUrl to interests which is already added to the db (version)
+router.put('/interests/image', function(request, response, next) {
+  Interests.updateOne({interests: request.body.interests}, {$set: {"imageUrl": request.body.imageUrl}}, function(err, interestWithImage) {
+    if (err) {
+      response.status(500).send({error: "Could not update the userName"});
+    } else {
+      response.send(interestWithImage); 
+    }
+  });
+});
+
+
 //remove/delete interests from list
 router.put('/interests/delete', function(request, response, next) {
   Interests.remove({interests: request.body.interests}, function(err, interests) {
@@ -44,41 +56,6 @@ router.get('/interests', function(request, response, next) {
             response.send(interests);
         }
     }); 
-});
-
-///////////////////////////////////////// users ///////////////////////////////////////////////////////////
-
-//post/add new user interests
-router.put('/user-interests/add', function(request, response, next) {
-  UserInterests.updateOne({userEmail: request.body.userEmail}, {$addToSet: {interests: request.body.interests}}, function(err, interests) {
-    if (err) {
-      response.status(500).send({error: "Could not add user interests"});
-    } else {
-      response.send(interests);
-    }
-  });
-});
-
-//remove/delete already followed user interests
-router.put('/user-interests/delete', function(request, response, next) {
-  UserInterests.updateOne({userEmail: request.body.userEmail}, {$pull : {"interests": {$in : request.body.interests}}}, function(err, interests) {
-    if (err) {
-      response.status(500).send({error: "Could not remove the user interests"});
-    } else {
-      response.send(interests);
-    }
-  })
-});
-
-//get the interest of a particular user
-router.get('/user-interests/:userEmail', function(request, response, next) {
-  UserInterests.find({userEmail: request.params.userEmail}, {_id:0, "interests": 1}).exec(function(err, interestsList) {
-    if(err) {
-      response.status(500).send({error: "Could not get the interests"});
-    } else {
-      response.send(interestsList[0].interests);
-    }
-  });
 });
 
 //////////////////////////////////////// room ////////////////////////////////////////////////////////////
@@ -160,11 +137,46 @@ router.get('/room-with-id/:roomId', function(request, response, next) {
   });
 });
 
+///////////////////////////////////////// users ///////////////////////////////////////////////////////////
+
+//post/add new user interests
+router.put('/user-interests/add', function(request, response, next) {
+  UserInterests.updateOne({userEmail: request.body.userEmail}, {$addToSet: {interests: request.body.interests}}, function(err, interests) {
+    if (err) {
+      response.status(500).send({error: "Could not add user interests"});
+    } else {
+      response.send(interests);
+    }
+  });
+});
+
+//remove/delete already followed user interests
+router.put('/user-interests/delete', function(request, response, next) {
+  UserInterests.updateOne({userEmail: request.body.userEmail}, {$pull : {"interests": {$in : request.body.interests}}}, function(err, interests) {
+    if (err) {
+      response.status(500).send({error: "Could not remove the user interests"});
+    } else {
+      response.send(interests);
+    }
+  })
+});
+
+//get the interest of a particular user
+router.get('/user-interests/:userEmail', function(request, response, next) {
+  UserInterests.find({userEmail: request.params.userEmail}, {_id:0, "interests": 1}).exec(function(err, interestsList) {
+    if(err) {
+      response.status(500).send({error: "Could not get the interests"});
+    } else {
+      response.send(interestsList[0].interests);
+    }
+  });
+});
+
 ////////////////////////////////////// profile ///////////////////////////////////////////////////////////
 
-//change/update the userName
+//change/update the userName and change the status of user from new to old when username is entered first time
 router.put('/user-name/update', function(request, response, next) {
-  User.updateOne({userEmail: request.body.userEmail}, {$set: {"userName": request.body.userName}}, function(err, userName) {
+  User.updateOne({userEmail: request.body.userEmail}, {$set: {"userName": request.body.userName, "userIsNew": false}}, function(err, userName) {
     if (err) {
       //const error = new Error('Could not update the menu Item');
       //next(error);

@@ -151,10 +151,10 @@ const NavBar = ({ pageTitle, user }) => {
                 <span className="nav-link">{onlineUsers} Users Online</span>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/home">Home</a>
+                <a className="nav-link" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">Interest</a>
+                <a className="nav-link" href="/interests">Interest</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/profile">Profile</a>

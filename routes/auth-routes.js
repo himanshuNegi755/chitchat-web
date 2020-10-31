@@ -12,6 +12,7 @@ router.get(
   "/auth/google/callback",
   passport.authenticate("google"),
   (req, res) => {
+    if(req.user.userIsNew) { return res.redirect('/interests'); }
     res.redirect("/");
   }
 );

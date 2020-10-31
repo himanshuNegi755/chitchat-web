@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 
 import './FrontPage.css';
 import Introduction from './Introduction/Introduction';
-import Interests from './Interests/Interests';
-import NavBar from '../NavBar/NavBar';
+import Home from '../Home/Home';
 
 const FrontPage = ({ user }) => {
 
@@ -24,10 +23,7 @@ const FrontPage = ({ user }) => {
             default:
                 return (
                   <div>
-                    <NavBar pageTitle='Interests'/>
-                    <div className="interest-div">
-                      <Interests userEmail={user.userEmail} />
-                    </div>
+                    <Home />
                   </div>
                 )
         }

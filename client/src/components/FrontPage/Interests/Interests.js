@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import './Interests.css';
-import SampleImage from '../../../images/mosh.jpg';
 
-const Interests = ({ userEmail }) => {
+import './Interests.css';
+import NavBar from '../../NavBar/NavBar';
+
+const Interests = ({ user }) => {
   const [topics, setTopics] = useState([]);
   const [followedTopics, setFollowedTopics] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_API}/user-interests/${userEmail}`)
-    .then(res => { setFollowedTopics(res.data) })
+    if(user) {
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/user-interests/${user.userEmail}`)
+      .then(res => { setFollowedTopics(res.data) })
 
-    axios.get(`${process.env.REACT_APP_BACKEND_API}/interests`)
-    .then(res => { setTopics(res.data) })
-  }, [userEmail]);
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/interests`)
+      .then(res => { setTopics(res.data) })
+    } else if(user === false) {setLoggedIn(false)}
+  }, [user]);
 
   const topicItemList = () => {
     const list = topics.map((item) =>
         <div key={item._id} className='interest-col'>
           <div className='row'>
               <div className='col-8 interest-name'>
-                <Link to={`/interest?interests=${item.interests}`} className='linkI-div'>
+                <Link to={`/rooms?interests=${item.interests}`} className='linkI-div'>
                   <p>{item.interests}</p>
                 </Link>
               </div>
@@ -30,7 +35,7 @@ const Interests = ({ userEmail }) => {
               </div>
           </div>
           <div className='img-col'>
-            <img src="https://images.pexels.com/photos/147413/twitter-facebook-together-exchange-of-information-147413.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" className='topic-image'/>
+            <img src={item.imageUrl} className='topic-image'/>
           </div>
         </div>
     );
@@ -40,7 +45,7 @@ const Interests = ({ userEmail }) => {
 
   const followInterests = (interests) => {
     axios.put(`${process.env.REACT_APP_BACKEND_API}/user-interests/add`, {
-      userEmail: userEmail,
+      userEmail: user.userEmail,
       interests: interests
     })
     .then(res => { setFollowedTopics([...followedTopics, interests]); })
@@ -48,7 +53,7 @@ const Interests = ({ userEmail }) => {
 
   const unFollowInterests = (interests) => {
     axios.put(`${process.env.REACT_APP_BACKEND_API}/user-interests/delete`, {
-      userEmail: userEmail,
+      userEmail: user.userEmail,
       interests: interests
     })
     .then(res => {
@@ -57,7 +62,22 @@ const Interests = ({ userEmail }) => {
     })
   }
 
-  return (topicItemList());
+  if(!loggedIn) {
+    return <Redirect to='/' />;
+  } else {
+    return (
+      <div className='main-div frontPage-div'>
+        <NavBar pageTitle='Interests'/>
+        {topicItemList()}
+      </div>
+    );
+  }
 }
 
-export default Interests;
+const mapStateToProps = (state) => {
+    return {
+        user: state.auth
+    }
+}
+
+export default connect(mapStateToProps)(Interests);
