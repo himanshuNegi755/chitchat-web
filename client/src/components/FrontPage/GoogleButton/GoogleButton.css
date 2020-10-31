@@ -19,7 +19,13 @@
     color: white;
     width: 100%;
     letter-spacing: 0.5px;
+    color: white;
+    width: 100%;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> aafb6644591ed5b2485023ae010358fb81ec8e6b
 .google-button-a-tag:hover{
     transition: 0.4s;
     background-color: #101010;

@@ -13,14 +13,15 @@ var Chat = mongoose.model('Chat');
 //post/add new interests
 router.post('/interests/add', function(request, response, next) {
   var tempInterests = new Interests();
-    tempInterests.interests = request.body.interests;
-    tempInterests.save(function(err, savedInterests) {
-        if (err) {
-            response.status(500).send({error:"Could not save new Interests"});
-        } else {
-            response.send(savedInterests);
-        }
-    });
+  tempInterests.interests = request.body.interests;
+  tempInterests.imageUrl = request.body.imageUrl;
+  tempInterests.save(function(err, savedInterests) {
+      if (err) {
+          response.status(500).send({error:"Could not save new Interests"});
+      } else {
+          response.send(savedInterests);
+      }
+  });
 });
 
 //remove/delete interests from list

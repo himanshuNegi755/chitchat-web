@@ -48,6 +48,30 @@
   position: relative;
   z-index: 5;
 }
+.custom-select{
+  padding: 0.375rem 1.5rem;
+  font-size: 1.1rem;
+  border-radius: 5px 20px 20px 5px;
+  box-shadow: 0 0 5px #b3caff;
+}
+.btn-div{
+  text-align: center;
+}
+.submit-btn{
+  transition: 0.2s;
+  border: 0;
+  border-radius: 20px;
+  padding: 0.3rem 1.5rem;
+  background-color: #202020;
+  color: white;
+}
+.submit-btn:hover{
+  transition: 0.2s;
+  color: #1fe5ff;
+  letter-spacing: 0.06rem;
+  padding: 0.3rem 1.3rem;
+  box-shadow: 0 0 5px #808080;
+}
 /*############### Mobile ################*/
 @media screen and (max-width: 991px) {
   .topbar{
