@@ -66,9 +66,9 @@ const Interests = ({ user }) => {
     return <Redirect to='/' />;
   } else {
     return (
-      <div className='main-div frontPage-div'>
+      <div className='main-div'>
         <NavBar pageTitle='Interests'/>
-        {topicItemList()}
+        <div className="interest-div">{topicItemList()}</div>
       </div>
     );
   }
