@@ -2,6 +2,7 @@
   padding: 3.5rem 15%;
   background-color: #adffff;
   min-height: 100vh;
+  width: 100%;
 }
 .welcome-heading{
   text-align: center;
