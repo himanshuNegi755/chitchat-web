@@ -1,14 +1,15 @@
 .footer {
     background-color: black;
-    padding: 3% 10% 1%;
+    padding: 1rem 10% 1%;
 }
 .contact-details{
   text-align: center;
 }
 .contact-us {
     font-family: 'Lexend Zetta', sans-serif;
-    letter-spacing: 0.5rem;
-    color: #ffe100;;
+    letter-spacing: 0.7rem;
+    color: #000;
+    text-shadow: -1px 0 25px #1fe5ff, 0 1px 25px #1fe5ff, 1px 0 25px #1fe5ff, 0 -1px 25px #1fe5ff;
     padding: 2% 15%;
 }
 .contact-text {
@@ -17,6 +18,7 @@
     letter-spacing: 0.2rem;
     color: white;
     opacity: 0.6;
+    margin-bottom: 2rem;
 }
 .contact-divider{
   width: 40%;
@@ -40,6 +42,7 @@
     letter-spacing: 0.3rem;
     color: white;
     opacity: 0.5;
+    margin-bottom: 2rem;
 }
 @media (max-width: 600px) {
   .footer {

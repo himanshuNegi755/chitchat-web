@@ -1,7 +1,14 @@
 .main-div {
   overflow: hidden;
 }
-
+.noRooms-msg{
+  display: block;
+  margin: 3rem 5rem;
+  text-align: center;
+  font-family: 'Caveat Brush', cursive;
+  font-size: 3rem;
+  letter-spacing: 2px;
+}
 .create-room{
   transition: 0.3s;
   padding: 0.4rem 1.2rem;

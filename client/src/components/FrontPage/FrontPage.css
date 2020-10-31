@@ -3,6 +3,7 @@
 }
 .frontPage-div{
   padding-top: 1rem 1.2rem;
+  background-image: linear-gradient(#1fe5ff, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7);
 }
 .interest-div{
   margin: 2% 4%;

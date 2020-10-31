@@ -1,6 +1,6 @@
 .log-in-btn{
     padding: 0;
-    margin: 3rem 30% 5rem;
+    margin: 3rem 30% 4rem;
 }
 .btn-space{
     text-align: center;
@@ -16,11 +16,16 @@
     text-align: center;
     outline: none;
     background-color: #505050;
+    color: white;
+    width: 100%;
     letter-spacing: 0.5px;
     color: white;
     width: 100%;
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> aafb6644591ed5b2485023ae010358fb81ec8e6b
 .google-button-a-tag:hover{
     transition: 0.4s;
     background-color: #101010;
