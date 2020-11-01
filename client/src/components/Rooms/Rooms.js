@@ -36,7 +36,7 @@ const Rooms = ({ location, user }) => {
       if(rooms.length > 0){
         const list = rooms.map((item) =>
           <div key={item._id} className='groups'>
-            <Link onClick={async (e) => {await entryValidation(e, item.members, item._id)}} to={`/chat?room=${item.title}&roomId=${item._id}`} className='linkR-div'>
+            <Link onClick={e => entryValidation(e, item.members, item._id)} to={`/chat?room=${item.title}&roomId=${item._id}`} className='linkR-div'>
               <div className='row row-one'>
                 <div className='col-lg-8 col-md-6 col-sm-6 room-name'><p>{item.title}</p></div>
                 <div className='col-lg-4 col-md-6 col-sm-6 language-name'><p>Language: {item.language}</p></div>
@@ -60,7 +60,7 @@ const Rooms = ({ location, user }) => {
     }
   }
 
-  const entryValidation = async (e, members, roomId) => {
+  const entryValidation = (e, members, roomId) => {
     if(!user.userName) {
       alert('Please First create user name in profile');
       e.preventDefault()
@@ -68,11 +68,14 @@ const Rooms = ({ location, user }) => {
       alert('Room Already full, pls try another room');
       e.preventDefault();
     } else {
-      var roomExistOrNot = await axios.get(`${process.env.REACT_APP_BACKEND_API}/room-with-id/${roomId}`);
-      if((roomExistOrNot.data).length === 0) {
-        alert("Room doesn't exist anymore, pls refrest the page for latest room");
-        //e.persist();
-      }
+      e.persist();
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/room-with-id/${roomId}`)
+      .then(res => {
+        if(res.data.length === 0) {
+          alert("Room doesn't exist anymore, pls refrest the page for latest room");
+          //e.persist();
+        }
+      })
     }
   }
 

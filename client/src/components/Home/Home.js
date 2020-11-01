@@ -34,21 +34,30 @@ const Home = ({ user }) => {
                  setShowSearchBar('visible')})
 
   }, [interests]);
-
-  const entryValidation = (e, members) => {
+  
+  const entryValidation = (e, members, roomId) => {
     if(!user.userName) {
       alert('Please First create user name in profile');
       e.preventDefault()
     } else if (members >= 2) {
       alert('Room Already full, pls try another room');
       e.preventDefault();
+    } else {
+      e.persist();
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/room-with-id/${roomId}`)
+      .then(res => {
+        if(res.data.length === 0) {
+          alert("Room doesn't exist anymore, pls refrest the page for latest room");
+          //e.persist();
+        }
+      })
     }
   }
 
   const roomsList = () => {
     const list = rooms.map((item) =>
       <div key={item._id} className='groups'>
-        <Link onClick={e => {entryValidation(e, item.members)}} to={`/chat?room=${item.title}&roomId=${item._id}`} className='linkR-div'>
+        <Link onClick={e => entryValidation(e, item.members, item._id)} to={`/chat?room=${item.title}&roomId=${item._id}`} className='linkR-div'>
           <div className='row row-one'>
             <div className='col-8 room-name'><p>{item.title}</p></div>
             <div className='col-4 language-name'><p><span className="lang-span">Language: </span>{item.language}</p></div>

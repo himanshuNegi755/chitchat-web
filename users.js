@@ -2,7 +2,6 @@ const users = [];
 
 const addUser = ({ id, userName, roomId, room }) => {
 
-  console.log('creating user');
   name = userName.trim().toLowerCase();
   roomId = roomId.trim();
   room = room.trim();
@@ -11,6 +10,7 @@ const addUser = ({ id, userName, roomId, room }) => {
 
   if(!name || !roomId) return { error: 'Username and roomId are required.' };
   if(existingUser) return { error: 'Username is taken.' };
+  if(getUsersInRoom(roomId).length >= 10) return { error: 'Room already full' };
 
   const user = { id, name, roomId, room };
 

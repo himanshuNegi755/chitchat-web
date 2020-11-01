@@ -37,6 +37,7 @@ const Chat = ({ location, user }) => {
 
       socket.emit('join', { userName, room, roomId }, (error) => {
         if(error) {
+          alert(error);
           setRedirectTo404(false)
           //alert(error);
         } else {
