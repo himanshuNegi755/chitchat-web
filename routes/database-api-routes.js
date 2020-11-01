@@ -73,7 +73,7 @@ router.post('/room/create', function(request, response, next) {
         } else {
   
           new Chat({roomId: room._id, roomName: room.title}).save().then((newChat) => {
-            console.log('chat created');
+            //console.log('chat created');
           })
           
           response.send(room);

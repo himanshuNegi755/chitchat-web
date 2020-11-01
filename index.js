@@ -37,7 +37,7 @@ const corsOptions = {
 const {ObjectId} = require('mongodb');
 var Room = mongoose.model('Room');
 var Chat = mongoose.model('Chat');
-var noOfUserOnline = 50;
+var noOfUserOnline = 0;
 var $ipsConnected = [];
 
 app.use(cors(corsOptions));
@@ -73,24 +73,28 @@ io.on('connect', (socket) => {
   
   socket.on('join',  async ({ userName, room, roomId }, callback) => {
     
-    //check the url for changes made by users
-    var errorOccured = new Promise((resolve, reject) => {
-      resolve(Room.find({_id: ObjectId(roomId)}, function(err, roomArr) {
-        if(err) {
-          console.log("Can't find the room");
-        }
-        return roomArr;
-      })
-      )
-    });
-    
-    var temp = await errorOccured;
-    if(temp.length > 0) {
-      if(temp[0].title !== room) return callback("room doesn't exist, pls check url.");
-    } else {
+    try {
+      //check the url for changes made by users
+      var errorOccured = new Promise((resolve, reject) => {
+        resolve(Room.find({_id: ObjectId(roomId)}, function(err, roomArr) {
+          if(err) {
+            console.log("Can't find the room");
+          }
+          return roomArr;
+          })
+        )
+      });
+
+      var temp = await errorOccured;
+      if(temp.length > 0) {
+        if(temp[0].title !== room) return callback("room doesn't exist, pls check url.");
+      } else {
+        return callback("room doesn't exist, pls check url.");
+      }
+      
+    } catch(e) {
       return callback("room doesn't exist, pls check url.");
-    }
-    
+    }   
     
     const { error, user } = addUser({ id: socket.id, userName, roomId, room });
     if(error) return callback(error);
@@ -102,7 +106,7 @@ io.on('connect', (socket) => {
       if (err) {
         console.log('some error occured while updating members');
       } else {
-        console.log('members updated');
+        //console.log('members updated');
       }
     });
     
@@ -124,7 +128,7 @@ io.on('connect', (socket) => {
         console.log('error occurred while sending msg');
       } else {
         //response.send(chat);
-        console.log('message sent');
+        //console.log('message sent');
       }
     });  
     
@@ -153,7 +157,7 @@ io.on('connect', (socket) => {
             }
           })
           
-          console.log('room deleted and chats too');
+          //console.log('room deleted and chats too');
         }
       })
     } else {
@@ -164,7 +168,7 @@ io.on('connect', (socket) => {
           console.log('some errore occured while updating members');
         } else {
           //response.send(status);
-          console.log('members updated');
+          //console.log('members updated');
         }
       })
     }
