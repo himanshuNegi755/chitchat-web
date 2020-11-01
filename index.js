@@ -106,7 +106,7 @@ io.on('connect', (socket) => {
       if (err) {
         console.log('some error occured while updating members');
       } else {
-        console.log('members updated');
+        //console.log('members updated');
       }
     });
     
@@ -128,7 +128,7 @@ io.on('connect', (socket) => {
         console.log('error occurred while sending msg');
       } else {
         //response.send(chat);
-        console.log('message sent');
+        //console.log('message sent');
       }
     });  
     
@@ -157,7 +157,7 @@ io.on('connect', (socket) => {
             }
           })
           
-          console.log('room deleted and chats too');
+          //console.log('room deleted and chats too');
         }
       })
     } else {
@@ -168,7 +168,7 @@ io.on('connect', (socket) => {
           console.log('some errore occured while updating members');
         } else {
           //response.send(status);
-          console.log('members updated');
+          //console.log('members updated');
         }
       })
     }

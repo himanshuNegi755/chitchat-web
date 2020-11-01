@@ -64,7 +64,7 @@ const Rooms = ({ location, user }) => {
     if(!user.userName) {
       alert('Please First create user name in profile');
       e.preventDefault()
-    } else if (members >= 2) {
+    } else if (members >= 10) {
       alert('Room Already full, pls try another room');
       e.preventDefault();
     } else {

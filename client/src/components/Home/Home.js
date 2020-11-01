@@ -39,7 +39,7 @@ const Home = ({ user }) => {
     if(!user.userName) {
       alert('Please First create user name in profile');
       e.preventDefault()
-    } else if (members >= 2) {
+    } else if (members >= 10) {
       alert('Room Already full, pls try another room');
       e.preventDefault();
     } else {
@@ -128,8 +128,8 @@ const Home = ({ user }) => {
 
   const showStatusInHome = () => {
     if(interests.length > 0 && user) {
-      if(rooms.length === 0) { return <div className="noRooms-msg"><span>No room found, feed is empty</span></div> }
-    } else { return <div className="noRooms-msg"><span>Please follow any topic to see chat room in home</span></div> }
+      if(rooms.length === 0) { return <div className="firstUser-msg"><span>No room found, feed is empty</span></div> }
+    } else { return <div className="firstUser-msg"><span>Please follow any topic to see chat room in home</span></div> }
   }
 
   if(!loggedIn) {

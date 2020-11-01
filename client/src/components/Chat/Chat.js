@@ -27,7 +27,7 @@ const Chat = ({ location, user }) => {
   useEffect(() => {
     const { room, roomId } = queryString.parse(location.search);
     
-    if(user) {      
+    if(user) { 
       socket = io(ENDPOINT);
 
       setRoom(room);
@@ -41,8 +41,8 @@ const Chat = ({ location, user }) => {
           setRedirectTo404(false)
           //alert(error);
         } else {
-          /*axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/${roomId}`)
-          .then(res => { setMessages(res.data) })*/
+          axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/${roomId}`)
+          .then(res => { setMessages(res.data) })
         }
       });
     } else if (user === false) {
@@ -68,7 +68,7 @@ const Chat = ({ location, user }) => {
       return () => socket.close();
     }
   },[user])
-
+  
   const sendMessage = (event) => {
     event.preventDefault();
 
