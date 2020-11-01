@@ -37,7 +37,7 @@ const corsOptions = {
 const {ObjectId} = require('mongodb');
 var Room = mongoose.model('Room');
 var Chat = mongoose.model('Chat');
-var noOfUserOnline = 50;
+var noOfUserOnline = 0;
 var $ipsConnected = [];
 
 app.use(cors(corsOptions));
