@@ -78,10 +78,10 @@ const Home = ({ user }) => {
   const onTextChanged = (e) => {
     document.addEventListener('mousedown', handleClickOutside);
     const value = e.target.value;
-    
+
     axios.get(`${process.env.REACT_APP_BACKEND_API}/all-rooms`)
     .then(res => { setAllRoomsList(res.data)})
-    
+
     let suggestions = [];
     if (value.length > 0) {
       suggestions = allRoomsList.filter(v => (v.title).toLowerCase().includes(value.toLowerCase()));
@@ -113,7 +113,7 @@ const Home = ({ user }) => {
 
     return (list);
   }
-  
+
   const handleClickOutside = (event) => {
     if (suggestionRef && !suggestionRef.current.contains(event.target)) {
       //setRoomTitle('');
@@ -125,10 +125,10 @@ const Home = ({ user }) => {
     setRoomTitle(value);
     setSuggestions([]);
   }*/
-  
+
   const showStatusInHome = () => {
     if(interests.length > 0 && user) {
-      if(rooms.length === 0) { return <div className="noRooms-msg"><span>No room found, feed is empty</span></div> }      
+      if(rooms.length === 0) { return <div className="noRooms-msg"><span>No room found, feed is empty</span></div> }
     } else { return <div className="noRooms-msg"><span>Please follow any topic to see chat room in home</span></div> }
   }
 

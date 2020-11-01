@@ -6,7 +6,7 @@
     background-image: linear-gradient(#1fe5ff, #9cf3ff, #f5f5f5);
     padding: 0.8rem 25% 2rem;
     width: inherit;
-    text-align: right;
+    text-align: left;
     margin: 0;
 }
 .searchBar .input-group .form-control{
@@ -14,12 +14,12 @@
 }
 .input-group-text{
     border-radius: 20px 0 0 20px;
+    border: 1px solid #1fe5ff;
     background-color: #101010;
     color: white;
     width: 4rem;
     padding-left: 1.5rem;
 }
-
 .suggestion {
     overflow: auto;
     background-color: #f0f0f0;
@@ -79,5 +79,8 @@
 @media (max-width: 686px){
   .lang-span{
     display: none;
+  }
+  .searchBar {
+      padding: 0.7rem 20% 1.8rem;
   }
 }

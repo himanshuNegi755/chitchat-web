@@ -1,10 +1,21 @@
+.interest-pg{
+  background-image: linear-gradient(#1fe5ff, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7, #f7f7f7);
+}
+.firstUser-msg{
+  margin: 2rem 5%;
+  text-align: center;
+  font-size: 1.4rem;
+  font-family: 'Titillium Web', sans-serif;
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 10px #fff;
+}
 .interest-col{
   transition: 0.1s;
   margin: 1.5rem 1.5% 0.5rem;
-  background-color: #fff;
+  background-image: linear-gradient(#d1f9ff, #fff, #fff, #fff, #fff,#fff, #fff, #fff, #fff, #fff, #fff, #fff, #fff, #fff, #d1f9ff);
   border: 1px solid #f0f0f0;
   border-radius: 5px;
-  width: 23rem;
+  width: 21rem;
   display: inline-block;
   padding: 0.15rem;
   text-align: left;
@@ -12,6 +23,7 @@
 .interest-col:hover{
   transition: 0.1s;
   box-shadow: 0 0 7px #85f1ff;
+  background-image: linear-gradient(#fff, #d1f9ff);
   border: 1px solid #bbeaf0;
 }
 .img-col{
@@ -20,7 +32,7 @@
 }
 .topic-image {
   width: 100%;
-  height: 11rem;
+  height: 10rem;
 }
 
 .interest-name{
@@ -62,6 +74,27 @@
   color: #1fe5ff;
   text-shadow: 0 0 1px #1fe5ff;
 }
+
+/* *************************Scroll Bar******************** */
+/* width */
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #202020;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 10px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1fe5ff;
+}
+
 @media (max-width: 1200px){
   .interest-name{
     font-size: 1.4rem;
