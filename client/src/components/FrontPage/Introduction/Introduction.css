@@ -26,12 +26,12 @@
 }
 
 @media (max-width: 1000px){
-  .before-logIn{
+  .body-div{
     padding: 3.5rem 10%;
   }
 }
 @media (max-width: 772px){
-  .before-logIn{
+  .body-div{
     padding: 3.5rem 8%;
   }
   .welcome-heading{
@@ -51,7 +51,7 @@
   }
 }
 @media (max-width: 550px){
-  .before-logIn{
+  .body-div{
     padding: 3rem 8%;
   }
   .welcome-heading{

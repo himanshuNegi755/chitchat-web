@@ -82,6 +82,11 @@
     width: 75%;
     padding-left: 3rem;
   }
+  .form-control-plaintext, .form-control{
+    font-size: 1rem;
+    padding: 0.25rem 1rem;
+    box-shadow: 0 0 5px #b3caff;
+  }
 }
 @media (max-width: 576px){
   .form-label{

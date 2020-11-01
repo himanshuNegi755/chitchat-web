@@ -88,11 +88,9 @@
     width: 50%
   }
   .language-name{
-    padding: 0.3rem 0 0;
     width: 50%;
   }
   .genre-status, .members-no, .time-div{
     font-size: 0.7rem;
-    padding-right: 0;
   }
 }

@@ -66,9 +66,9 @@ const Interests = ({ user }) => {
     return <Redirect to='/' />;
   } else {
     return (
-      <div className='main-div'>
+      <div className='main-div interest-pg'>
         <NavBar pageTitle='Interests'/>
-        { user ? (user.userIsNew ? <div className="noRooms-msg"><span>Please create userName is profile to join chat room and follow any topic you like</span></div> : null) : null}
+        { user ? (user.userIsNew ? <div className="firstUser-msg">Please create an unique UserName in profile section to join chat room and follow any topic you like. You will get the existing rooms</div> : null) : null}
         <div className="interest-div">{topicItemList()}</div>
       </div>
     );
