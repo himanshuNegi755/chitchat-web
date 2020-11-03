@@ -209,6 +209,23 @@ router.get('/user-name/get/:userEmail', function(request, response, next) {
   });  
 });
 
+//delete user/profile permanently
+router.put('/user/delete/:userEmail', function(request, response, next) {
+  User.deleteOne({userEmail: request.params.userEmail}, function(err, status) {
+    if (err) {
+      response.status(500).send({error: "Could not remove the user"});
+    } else {
+      UserInterests.deleteOne({userEmail: request.params.userEmail}, function(err, status) {
+        if (err) {
+          response.status(500).send({error: "Could not remove the interests for this user"});
+        } else {
+          response.send(status);
+        }
+      })
+    }
+  })
+});
+
 ////////////////////////////////////// chat /////////////////////////////////////////////////////////////
 
 //get all messages from chat collection for room

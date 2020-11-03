@@ -11,7 +11,6 @@ import Input from '../Input/Input';
 
 import './Chat.css';
 
-const ENDPOINT = 'http://localhost:8000/';
 let socket;
 
 const Chat = ({ location, user }) => {
@@ -28,7 +27,7 @@ const Chat = ({ location, user }) => {
     const { room, roomId } = queryString.parse(location.search);
     
     if(user) { 
-      socket = io(ENDPOINT);
+      socket = io(process.env.REACT_APP_SOCKET_ENDPOINT);
 
       setRoom(room);
       setName(user.userName);

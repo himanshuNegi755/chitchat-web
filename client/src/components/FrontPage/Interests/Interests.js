@@ -34,9 +34,11 @@ const Interests = ({ user }) => {
                 {followedTopics.includes(item.interests) ? <button onClick={ () => {unFollowInterests(item.interests) }}><i className="far fa-check-circle"></i></button> : <button onClick={ () => { followInterests((item.interests).toLowerCase()) }}>Follow</button>}
               </div>
           </div>
-          <div className='img-col'>
-            <img src={item.imageUrl} alt="topic" className='topic-image'/>
-          </div>
+          <Link to={`/rooms?interests=${item.interests}`} className='linkI-div'>
+            <div className='img-col'>
+              <img src={item.imageUrl} alt="topic" className='topic-image'/>
+            </div>
+          </Link>
         </div>
     );
 

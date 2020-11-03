@@ -110,8 +110,10 @@ io.on('connect', (socket) => {
       }
     });
     
-    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});    
-    socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+    setTimeout(function(){
+      socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});    
+      socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+    }, 500);
 
     //io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
     
@@ -142,7 +144,7 @@ io.on('connect', (socket) => {
 
     if(user) {
       if(getUsersInRoom(user.roomId).length <=0) {
-      //remove the room
+      //remove the room when room is empty
       Room.deleteOne({_id: ObjectId(user.roomId)}, function(err, status) {
         if (err) {
           //response.status(500).send({error: "Could not remove the room"});
