@@ -109,12 +109,23 @@ io.on('connect', (socket) => {
         //console.log('members updated');
       }
     });
+<<<<<<< HEAD
 
     socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
     socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
 
     //io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
 
+=======
+    
+    setTimeout(function(){
+      socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});    
+      socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+      io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId) });
+    }, 500);
+    
+    console.log(getUsersInRoom(user.roomId));
+>>>>>>> 191b26e2f1f2b206e32b96dbdc63fb2e014c04a8
     callback();
   });
 
@@ -142,7 +153,11 @@ io.on('connect', (socket) => {
 
     if(user) {
       /*if(getUsersInRoom(user.roomId).length <=0) {
+<<<<<<< HEAD
       //remove the room
+=======
+      //remove the room when room is empty
+>>>>>>> 191b26e2f1f2b206e32b96dbdc63fb2e014c04a8
       Room.deleteOne({_id: ObjectId(user.roomId)}, function(err, status) {
         if (err) {
           //response.status(500).send({error: "Could not remove the room"});
@@ -172,7 +187,11 @@ io.on('connect', (socket) => {
         }
       })
     }*/
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> 191b26e2f1f2b206e32b96dbdc63fb2e014c04a8
       io.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has left.` });
       io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId)});
     } else {

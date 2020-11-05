@@ -11,14 +11,13 @@ import Input from '../Input/Input';
 
 import './Chat.css';
 
-const ENDPOINT = 'http://localhost:8000/';
 let socket;
 
 const Chat = ({ location, user }) => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [roomId, setRoomId] = useState('');
-  //const [users, setUsers] = useState('');
+  const [users, setUsers] = useState([]);  //array of userName
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [loggedIn, setLoggedIn] = useState(true);
@@ -28,7 +27,7 @@ const Chat = ({ location, user }) => {
     const { room, roomId } = queryString.parse(location.search);
     
     if(user) { 
-      socket = io(ENDPOINT);
+      socket = io(process.env.REACT_APP_SOCKET_ENDPOINT);
 
       setRoom(room);
       setName(user.userName);
@@ -53,28 +52,24 @@ const Chat = ({ location, user }) => {
 
   useEffect(() => {
     if(user) {
-      socket.on('message', message => {
-        setMessages(messages => [ ...messages, message ]);
+      let finalArr = [];
+      socket.on('message', message => { setMessages(messages => [ ...messages, message ]); });
+      socket.on("roomData", ({ users }) => { 
+        //converting user Object array to userName array
+        finalArr = users.map( item => item.name);
+        setUsers(finalArr);
       });
     }
-    /*socket.on("roomData", ({ users }) => {
-      setUsers(users);
-    });*/
 }, [user]);
   
   //component unmount
   useEffect(() => {
-    if(user) {
-      return () => socket.close();
-    }
+    if(user) return () => socket.close();
   },[user])
   
   const sendMessage = (event) => {
     event.preventDefault();
-
-    if(message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
-    }
+    if(message) socket.emit('sendMessage', message, () => setMessage(''));
   }
 
   if(!loggedIn) {
@@ -85,9 +80,9 @@ const Chat = ({ location, user }) => {
     return (
       <div className="outerContainer">
         <div className="container">
-          <InfoBar room={room} />
+          <InfoBar room={room} noOfMemberInRoom={users.length}/>
           <Messages messages={messages} name={name} />
-          <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+          <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users}/>
         </div>
       </div>
     );

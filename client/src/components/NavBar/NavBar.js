@@ -7,7 +7,6 @@ import { Modal, Form } from 'react-bootstrap';
 
 import './NavBar.css';
 
-const ENDPOINT = 'http://localhost:8000/';
 let socket;
 
 const NavBar = ({ pageTitle, user }) => {
@@ -31,7 +30,7 @@ const NavBar = ({ pageTitle, user }) => {
   useEffect(() => {
 
     if(user) {
-      socket = io(ENDPOINT);
+      socket = io(process.env.REACT_APP_SOCKET_ENDPOINT);
 
       socket.on('onlineUser', user => {
         setOnlineUsers(user.onlineUser);
@@ -113,7 +112,7 @@ const NavBar = ({ pageTitle, user }) => {
                     setCategory(e.target.value)
                     setCategoryMsg('')
                   }}>
-                  <option value='' selected>category</option>
+                  <option value='' key='category'>category</option>
                   {optionsForCategory()}
                 </select>
                 <div>{categoryMsg}</div>

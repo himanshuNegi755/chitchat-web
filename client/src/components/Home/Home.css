@@ -47,6 +47,12 @@
     background-color: #101010;
     box-shadow: 0 0 4px #1fe5ff;
 }
+
+.lang-icon {
+  width: 23px;
+  height: 23px;
+}
+
 @media (max-width: 1360px){
   .suggestion {
       width: 140%;
