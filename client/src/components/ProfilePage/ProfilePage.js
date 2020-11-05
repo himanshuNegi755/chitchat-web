@@ -55,7 +55,10 @@ const ProfilePage = ({ user }) => {
   
   const deleteAccountFunction = () => {
     axios.put(`${process.env.REACT_APP_BACKEND_API}/user/delete/${user.userEmail}`)
-    .then(res => { setLoggedIn(false) })
+    .then(res => { 
+      setTimeout(function(){ setLoggedIn(false) }, 1000);
+      //console.log('account deleted');
+    })
   }
 
   if(!loggedIn) {

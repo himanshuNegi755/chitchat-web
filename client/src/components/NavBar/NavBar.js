@@ -112,7 +112,7 @@ const NavBar = ({ pageTitle, user }) => {
                     setCategory(e.target.value)
                     setCategoryMsg('')
                   }}>
-                  <option value='' selected>category</option>
+                  <option value='' key='category'>category</option>
                   {optionsForCategory()}
                 </select>
                 <div>{categoryMsg}</div>

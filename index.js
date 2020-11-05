@@ -113,10 +113,10 @@ io.on('connect', (socket) => {
     setTimeout(function(){
       socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});    
       socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+      io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId) });
     }, 500);
-
-    //io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
     
+    console.log(getUsersInRoom(user.roomId));
     callback();
   });
 
@@ -143,7 +143,7 @@ io.on('connect', (socket) => {
     const user = removeUser(socket.id);
 
     if(user) {
-      if(getUsersInRoom(user.roomId).length <=0) {
+      /*if(getUsersInRoom(user.roomId).length <=0) {
       //remove the room when room is empty
       Room.deleteOne({_id: ObjectId(user.roomId)}, function(err, status) {
         if (err) {
@@ -173,7 +173,7 @@ io.on('connect', (socket) => {
           //console.log('members updated');
         }
       })
-    }
+    }*/
       
       io.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has left.` });
       io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId)});
