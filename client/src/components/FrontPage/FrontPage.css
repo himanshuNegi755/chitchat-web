@@ -10,6 +10,22 @@
   text-align: center;
   min-width: 17.5rem;
 }
-/*
-@media (max-width: 1466px & min-width: )
-*/
+
+/* *************************Scroll Bar******************** */
+/* width */
+::-webkit-scrollbar {
+  width: 1rem;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 10px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1fe5ff;
+}
