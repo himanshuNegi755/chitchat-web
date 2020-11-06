@@ -62,17 +62,17 @@ app.get('/', (req, res) => res.redirect(process.env.CLIENT_URI || 'http://localh
 app.get('/interests', (req, res) => res.redirect(process.env.CLIENT_URI || 'http://localhost:3000/interests'));
 
 io.on('connect', (socket) => {
-  
+
   //user count on the basis of ip address of the user
   var $ipAddress = socket.handshake.address;
   if (!$ipsConnected.hasOwnProperty($ipAddress)) {
   	$ipsConnected[$ipAddress] = 1;
   	noOfUserOnline++;
     socket.emit('onlineUser', { onlineUser: noOfUserOnline});
-  }   
-  
+  }
+
   socket.on('join',  async ({ userName, room, roomId }, callback) => {
-    
+
     try {
       //check the url for changes made by users
       var errorOccured = new Promise((resolve, reject) => {
@@ -91,11 +91,11 @@ io.on('connect', (socket) => {
       } else {
         return callback("room doesn't exist, pls check url.");
       }
-      
+
     } catch(e) {
       return callback("room doesn't exist, pls check url.");
-    }   
-    
+    }
+
     const { error, user } = addUser({ id: socket.id, userName, roomId, room });
     if(error) return callback(error);
 
@@ -109,19 +109,19 @@ io.on('connect', (socket) => {
         //console.log('members updated');
       }
     });
-    
+
     setTimeout(function(){
-      socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});    
+      socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
       socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
       io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId) });
     }, 500);
-    
+
     callback();
   });
 
   socket.on('sendMessage', (message, callback) => {
     const user = getUser(socket.id);
-    
+
     //add messages in chat collection to the particular room
     Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: user.name, text: message}}}, function(err, chat) {
       if (err) {
@@ -131,8 +131,8 @@ io.on('connect', (socket) => {
         //response.send(chat);
         //console.log('message sent');
       }
-    });  
-    
+    });
+
     io.to(user.roomId).emit('message', { user: user.name, text: message });
 
     callback();
@@ -157,7 +157,7 @@ io.on('connect', (socket) => {
               //response.send(status);
             }
           })
-          
+
           //console.log('room deleted and chats too');
         }
       })
@@ -173,7 +173,7 @@ io.on('connect', (socket) => {
         }
       })
     }*/
-      
+
       io.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has left.` });
       io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId)});
     } else {
