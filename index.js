@@ -116,7 +116,6 @@ io.on('connect', (socket) => {
       io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId) });
     }, 500);
     
-    console.log(getUsersInRoom(user.roomId));
     callback();
   });
 

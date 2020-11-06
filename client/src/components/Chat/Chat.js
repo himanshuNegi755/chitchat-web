@@ -14,12 +14,19 @@ import './Chat.css';
 let socket;
 
 const Chat = ({ location, user }) => {
+  //room parameters
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [roomId, setRoomId] = useState('');
   const [users, setUsers] = useState([]);  //array of userName
+  
+  //chat messages
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const [messageReply, setMessageReply] = useState({'_id': '', user: '', text: ''});  //selective msg obj for reply
+  //const [senderName, setSenderName] = useState('');  //sender name for msg reply
+  
+  //to check if url is wrong or user is logged in or not
   const [loggedIn, setLoggedIn] = useState(true);
   const [redirectTo404, setRedirectTo404] = useState(true);
 
@@ -71,6 +78,8 @@ const Chat = ({ location, user }) => {
     event.preventDefault();
     if(message) socket.emit('sendMessage', message, () => setMessage(''));
   }
+  
+  const sendReply = (msg) => setMessageReply(msg);
 
   if(!loggedIn) {
     return <Redirect to='/' />;
@@ -81,8 +90,8 @@ const Chat = ({ location, user }) => {
       <div className="outerContainer">
         <div className="container">
           <InfoBar room={room} noOfMemberInRoom={users.length}/>
-          <Messages messages={messages} name={name} />
-          <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users}/>
+          <Messages messages={messages} name={name} replyFun={sendReply}/>
+          <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users} msgReply={messageReply}/>
         </div>
       </div>
     );

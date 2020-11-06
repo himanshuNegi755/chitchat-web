@@ -1,14 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import './Input.css';
 
-const Input = ({ setMessage, sendMessage, message, userInRoom }) => {
+const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply }) => {
   const inputRef = useRef(null);
+  
+  useEffect(() => {
+    showReply();
+  });
   
   const handleInputChange = (e) => {
     let value = e.target.value;
     let tempArr = value.split(" ");
-    var popup = document.getElementById("popupMsg");
+    var popup = document.getElementById("popupMsg1");
     if(tempArr[tempArr.length -1] === '@') {
       popup.style.display = 'inline-block';
     } else {
@@ -20,7 +24,7 @@ const Input = ({ setMessage, sendMessage, message, userInRoom }) => {
   }
   
   const getUserInRoom = () => {
-    var popup = document.getElementById("popupMsg");
+    var popup = document.getElementById("popupMsg1");
     const list = userInRoom.map((item) => <div key={item} className='groups' onClick={() => {
                                     let temp = message.concat(item);
                                     temp = temp.concat(" ");
@@ -31,10 +35,20 @@ const Input = ({ setMessage, sendMessage, message, userInRoom }) => {
     return (list);
   }
   
+  const showReply = () => {
+    var popup = document.getElementById("popupMsg2");
+    if(msgReply.user === '' && msgReply.text === '') popup.style.display = 'none';
+    else {popup.style.display = 'inline-block';}
+  }
+  
   return (
     <div>
-      <div className="popup-div" id='popupMsg' style={{display:"none"}}>
+      <div className="popup-div" id='popupMsg1' style={{display:"none"}}>
         {getUserInRoom()}
+      </div>
+      <div className="popup-div" id='popupMsg2' style={{display:"none"}}>
+        <div>{msgReply.user === '' ? null : msgReply.user}</div>
+        <div>{msgReply.text === '' ? null : msgReply.text}</div>
       </div>
       <form className="form">
         <input

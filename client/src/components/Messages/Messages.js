@@ -6,9 +6,9 @@ import Message from './Message/Message';
 
 import './Messages.css';
 
-const Messages = ({ messages, name }) => (
+const Messages = ({ messages, name, replyFun }) => (
   <ScrollToBottom className="messages" followButtonClassName="button-class">
-    {messages.map((message, i) => <div key={i}><Message message={message} name={name}/></div>)}
+    {messages.map((message, i) => <div key={i} onClick={ () => replyFun(message)}><Message message={message} name={name}/></div>)}
   </ScrollToBottom>
 );
 
