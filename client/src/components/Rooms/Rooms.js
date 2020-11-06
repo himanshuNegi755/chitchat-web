@@ -7,6 +7,7 @@ import moment from 'moment';
 
 import './Rooms.css';
 import NavBar from '../NavBar/NavBar';
+import langIcon from '../../icons/langIcon.svg';
 
 const Rooms = ({ location, user }) => {
   const [rooms, setRooms] = useState([]);
@@ -39,11 +40,11 @@ const Rooms = ({ location, user }) => {
             <Link onClick={e => entryValidation(e, item.members, item._id)} to={`/chat?room=${item.title}&roomId=${item._id}`} className='linkR-div'>
               <div className='row row-one'>
                 <div className='col-lg-8 col-md-6 col-sm-6 room-name'><p>{item.title}</p></div>
-                <div className='col-lg-4 col-md-6 col-sm-6 language-name'><p>Language: {item.language}</p></div>
+                <div className='col-lg-4 col-md-6 col-sm-6 language-name'><p><span className="lang-span"><img src={langIcon} className="lang-icon" alt="language icon" /> </span>{item.language}</p></div>
               </div>
               <div className='row row-two'>
                 <div className='col-lg-4 col-md-3 col-sm-3 genre-status'><p>{item.category}</p></div>
-                <div className='col-lg-4 col-md-4 col-sm-4 members-no'><p>Members: {item.members}/10</p></div>
+                <div className='col-lg-4 col-md-4 col-sm-4 members-no'><p><i className="fas fa-users"></i> {item.members}/10</p></div>
                 <div className='col-lg-4 col-md-5 col-sm-5 time-div'><p>{moment(item.created).fromNow()}</p></div>
               </div>
             </Link>
