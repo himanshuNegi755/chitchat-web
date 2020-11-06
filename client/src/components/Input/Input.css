@@ -19,7 +19,7 @@ input:focus, textarea:focus, select:focus{
   color: #fff;
   text-transform: uppercase;
   text-decoration: none;
-  background: #2979FF;
+  background: #7003ff;
   padding: 20px;
   display: inline-block;
   border: none;
@@ -30,7 +30,27 @@ input:focus, textarea:focus, select:focus{
   transition: 0.5s;
   transform: rotate(360deg);
 }
-
+.popup-name{
+  display: block;
+  width: 50%;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 3px #a969ff;
+  margin-left: 0.5rem;
+  border-radius: 5px;
+  bottom: 6rem;
+  width: auto;
+}
+.popup-name .groups{
+  margin: 0.3rem;
+  padding: 0.5rem 2rem;
+  background: #fff;
+}
+.popup-name .groups:hover{
+  transition: 0.1s;
+  box-shadow: 0 0 3px #777;
+  background: #fff;
+}
 @media (max-width: 676px){
   .sendButton span{
     display: none;

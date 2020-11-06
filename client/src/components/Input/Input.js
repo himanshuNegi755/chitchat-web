@@ -4,7 +4,7 @@ import './Input.css';
 
 const Input = ({ setMessage, sendMessage, message, userInRoom }) => {
   const inputRef = useRef(null);
-  
+
   const handleInputChange = (e) => {
     let value = e.target.value;
     let tempArr = value.split(" ");
@@ -14,11 +14,11 @@ const Input = ({ setMessage, sendMessage, message, userInRoom }) => {
     } else {
       popup.style.display = 'none';
     }
-    
+
     setMessage(value);
-    
+
   }
-  
+
   const getUserInRoom = () => {
     var popup = document.getElementById("popupMsg");
     const list = userInRoom.map((item) => <div key={item} className='groups' onClick={() => {
@@ -30,10 +30,10 @@ const Input = ({ setMessage, sendMessage, message, userInRoom }) => {
                                   }}> {item} </div> );
     return (list);
   }
-  
+
   return (
     <div>
-      <div className="popup-div" id='popupMsg' style={{display:"none"}}>
+      <div className="popup-name" id='popupMsg' style={{display:"none"}}>
         {getUserInRoom()}
       </div>
       <form className="form">

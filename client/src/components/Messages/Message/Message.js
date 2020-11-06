@@ -26,7 +26,7 @@ const Message = ({ message: { text, user }, name }) => {
         : ( user === 'admin'
            ? (
               <div className="messageContainer justifyCenter">
-                <div className="messageBox backgroundLight">
+                <div className="bot-text">
                   <p className="messageText colorDark">{text}</p>
                 </div>
               </div>
@@ -39,7 +39,7 @@ const Message = ({ message: { text, user }, name }) => {
                 <p className="sentText pl-10 ">{user}</p>
               </div>
             )
-           
+
         )
   );
 }

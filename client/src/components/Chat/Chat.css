@@ -3,7 +3,9 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #1A1A1D;
+  background-image: url('https://images.pexels.com/photos/633409/pexels-photo-633409.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  background-size: cover;
+  background-position: center;
 }
 
 .container {
@@ -12,6 +14,7 @@
   justify-content: space-between;
   background: #FFFFFF;
   border-radius: 8px;
+  box-shadow: 5px 5px 10px #000, -5px -5px 10px #000, 0 0 20px #7003ff;
   height: 90vh;
   width: 60vw;
   padding: 0;
@@ -22,9 +25,6 @@
   }
 }
 @media (max-width: 676px) {
-  .outerContainer {
-    height: 100%;
-  }
   .container {
     width: 85vw;
     height: 95vh;

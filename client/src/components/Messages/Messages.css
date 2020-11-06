@@ -1,13 +1,9 @@
 .messages {
-  padding: 1px 0 2.5rem;
+  padding: 1px 0;
   overflow: auto;
   flex: auto;
-<<<<<<< HEAD
-  background-image: url(https://images.pexels.com/photos/1568607/pexels-photo-1568607.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
-  background-size: cover;
-=======
-  background-image: url('https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
->>>>>>> 191b26e2f1f2b206e32b96dbdc63fb2e014c04a8
+  background-image: url('https://images.pexels.com/photos/242236/pexels-photo-242236.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  background-size: contain;
 }
 
 /*.button-class {

@@ -18,11 +18,11 @@
 }
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #fff;
+  background: rgba(0, 0, 0, 0.05);
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #ddd;
+  background: #fff;
   border-radius: 10px;
 }
 /* Handle on hover */
