@@ -6,6 +6,7 @@
   background-size: contain;
 }
 
-/*.button-class {
-  background-image: url('');
-}*/
+.button-class {
+  background-image: url('../../icons/scrollDown.png');
+  background-size: contain;
+}

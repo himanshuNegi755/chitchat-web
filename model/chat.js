@@ -5,7 +5,7 @@ var ObjectId = mongoose.Schema.ObjectId;
 var chat = new Schema({
   roomId: ObjectId,
   roomName: String,
-  chat: [{user: String, text: String}]
+  chat: [{user: String, text: String, replyUser: String, replyText: String, replyMsgId: String}]
 });
 
 mongoose.model('Chat', chat);

@@ -76,10 +76,16 @@ const Chat = ({ location, user }) => {
   
   const sendMessage = (event) => {
     event.preventDefault();
-    if(message) socket.emit('sendMessage', message, () => setMessage(''));
+    //console.log(messageReply);
+    if(message) {
+     socket.emit('sendMessage', {message, messageReply}, () => setMessage('')); 
+    }
+    resetMsg();
   }
   
-  const sendReply = (msg) => setMessageReply(msg);
+  const sendReply = (msg) => msg.user === 'admin' ? null : setMessageReply(msg);
+  
+  const resetMsg = () => setMessageReply({'_id': '', user: '', text: ''});
 
   if(!loggedIn) {
     return <Redirect to='/' />;
@@ -91,7 +97,7 @@ const Chat = ({ location, user }) => {
         <div className="container">
           <InfoBar room={room} noOfMemberInRoom={users.length}/>
           <Messages messages={messages} name={name} replyFun={sendReply}/>
-          <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users} msgReply={messageReply}/>
+          <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users} msgReply={messageReply} resetMsg={resetMsg}/>
         </div>
       </div>
     );

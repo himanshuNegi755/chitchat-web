@@ -119,11 +119,11 @@ io.on('connect', (socket) => {
     callback();
   });
 
-  socket.on('sendMessage', (message, callback) => {
+  socket.on('sendMessage', ({message, messageReply}, callback) => {
     const user = getUser(socket.id);
 
     //add messages in chat collection to the particular room
-    Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: user.name, text: message}}}, function(err, chat) {
+    Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: user.name, text: message, replyUser: messageReply.user, replyText: messageReply.text, replyMsgId: messageReply._id}}}, function(err, chat) {
       if (err) {
         //response.status(500).send({error: "Could not update the menu"});
         console.log('error occurred while sending msg');
@@ -133,7 +133,7 @@ io.on('connect', (socket) => {
       }
     });
 
-    io.to(user.roomId).emit('message', { user: user.name, text: message });
+    io.to(user.roomId).emit('message', { user: user.name, text: message , replyUser: messageReply.user, replyText: messageReply.text, replyMsgId: messageReply._id});
 
     callback();
   });

@@ -1,12 +1,16 @@
 import React, { useEffect, useRef } from 'react';
+import ReactEmoji from 'react-emoji';
 
 import './Input.css';
 
-const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply }) => {
+const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply, resetMsg }) => {
   const inputRef = useRef(null);
+  
   useEffect(() => {
     showReply();
+    inputRef.current.focus();
   });
+  
   const handleInputChange = (e) => {
     let value = e.target.value;
     let tempArr = value.split(" ");
@@ -38,6 +42,12 @@ const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply }) => {
     if(msgReply.user === '' && msgReply.text === '') popup.style.display = 'none';
     else {popup.style.display = 'inline-block';}
   }
+  
+  const closeReply = () => {
+    var popup = document.getElementById("popupMsg2");
+    popup.style.display = 'none';
+    resetMsg();
+  }
 
   return (
     <div>
@@ -45,8 +55,9 @@ const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply }) => {
         {getUserInRoom()}
       </div>
       <div className="popup-msg" id='popupMsg2' style={{display:"none"}}>
+        <div onClick={closeReply}>X</div>
         <div>{msgReply.user === '' ? null : msgReply.user}</div>
-        <div>{msgReply.text === '' ? null : msgReply.text}</div>
+        <div>{msgReply.text === '' ? null : ReactEmoji.emojify(msgReply.text)}</div>
       </div>
       <form className="form">
         <input
