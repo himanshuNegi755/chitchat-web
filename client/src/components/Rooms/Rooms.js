@@ -73,7 +73,7 @@ const Rooms = ({ location, user }) => {
       axios.get(`${process.env.REACT_APP_BACKEND_API}/room-with-id/${roomId}`)
       .then(res => {
         if(res.data.length === 0) {
-          alert("Room doesn't exist anymore, pls refrest the page for latest room");
+          alert("Room doesn't exist anymore, pls refresh the page for latest room");
           //e.persist();
         }
       })

@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import io from "socket.io-client";
 import axios from 'axios';
+import { Modal } from 'react-bootstrap';
 
 import Messages from '../Messages/Messages';
 import InfoBar from '../InfoBar/InfoBar';
@@ -14,6 +15,8 @@ import './Chat.css';
 let socket;
 
 const Chat = ({ location, user }) => {
+  const [showModal, setShowModal] = useState(false);
+  
   //room parameters
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
@@ -86,6 +89,19 @@ const Chat = ({ location, user }) => {
   const sendReply = (msg) => msg.user === 'admin' ? null : setMessageReply(msg);
   
   const resetMsg = () => setMessageReply({'_id': '', user: '', text: ''});
+  
+  const showMembersModal = () => setShowModal(true);
+  
+  const membersList = () => {
+    const list = users.map((item) =>
+      <div key={item} className='groups row'>
+       <div className='col-6'>{item}</div>
+       <div className='col-6'>XX<i className="fas fa-volume"></i></div>
+      </div>
+    );
+
+    return (list);
+  }
 
   if(!loggedIn) {
     return <Redirect to='/' />;
@@ -95,9 +111,27 @@ const Chat = ({ location, user }) => {
     return (
       <div className="outerContainer">
         <div className="container">
-          <InfoBar room={room} noOfMemberInRoom={users.length}/>
+          <InfoBar room={room} noOfMemberInRoom={users.length} showMemebers={showMembersModal}/>
           <Messages messages={messages} name={name} replyFun={sendReply}/>
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users} msgReply={messageReply} resetMsg={resetMsg}/>
+        </div>
+        <div>
+          <Modal
+            size="md"
+            aria-labelledby="new-room-modal"
+            centered
+            show={showModal}
+            onHide={() => { setShowModal(!showModal) }}
+            >
+            <Modal.Header closeButton>
+              <div className="Form-title">
+                ROOM MEMBERS
+              </div>
+            </Modal.Header>
+            <Modal.Body>
+              {membersList()}
+            </Modal.Body>
+          </Modal>
         </div>
       </div>
     );

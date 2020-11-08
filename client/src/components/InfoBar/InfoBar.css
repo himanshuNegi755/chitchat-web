@@ -22,6 +22,7 @@
 }
 .chat-memNo{
   margin: auto 0.5rem 0.75rem 2.5rem;
+  cursor: pointer;
 }
 .rightInnerContainer {
   display: flex;

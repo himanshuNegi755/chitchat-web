@@ -37,21 +37,23 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
                 </div>
               </div>
               )
-           : (
-              <div>
-                <div className="messageContainer justifyStart">
-                  <div>{replyUser === '' ? null : replyUser}</div>
-                  <div>{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
-                </div>
-                <div className="messageContainer justifyStart">
-                  <div className="messageBox backgroundLight">
-                    <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
+           : ( user === '' //blocked user
+              ? (null)
+              : (
+                <div>
+                  <div className="messageContainer justifyStart">
+                    <div>{replyUser === '' ? null : replyUser}</div>
+                    <div>{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
                   </div>
-                  <p className="sentText pl-10 ">{user}</p>
+                  <div className="messageContainer justifyStart">
+                    <div className="messageBox backgroundLight">
+                      <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
+                    </div>
+                    <p className="sentText pl-10 ">{user}</p>
+                  </div>
                 </div>
-              </div>
+                )
             )
-
         )
   );
 }

@@ -35,7 +35,7 @@ const ProfilePage = ({ user }) => {
             .then(res => {setNewUserName(res.data)})
             
             setMessage('userName updated');
-            setTimeout(function(){ setLoggedIn(false) }, 1000);
+            //setTimeout(function(){ setLoggedIn(false) }, 1000);
           })
         } else {
           setMessage('userName already exist');

@@ -19,7 +19,7 @@ const Home = ({ user }) => {
   const [showSearchBar, setShowSearchBar] = useState('hidden'); //for searching titles
 
   const suggestionRef = useRef(null);
-
+  
   useEffect(() => {
     if(user) {
       axios.get(`${process.env.REACT_APP_BACKEND_API}/user-interests/${user.userEmail}`)
@@ -48,7 +48,7 @@ const Home = ({ user }) => {
       axios.get(`${process.env.REACT_APP_BACKEND_API}/room-with-id/${roomId}`)
       .then(res => {
         if(res.data.length === 0) {
-          alert("Room doesn't exist anymore, pls refrest the page for latest room");
+          alert("Room doesn't exist anymore, pls refresh the page for latest room");
           //e.persist();
         }
       })
@@ -139,7 +139,7 @@ const Home = ({ user }) => {
     return (
       <div className='main-div home-page'>
         <NavBar pageTitle='Home'/>
-
+        
         <div className="searchBar" style={{visibility: showSearchBar}}>
           <InputGroup>
               <InputGroup.Prepend>
