@@ -17,9 +17,11 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
     isSentByCurrentUser
       ? (
         <div>
-          <div className="messageContainer">
-            <div>{replyUser === '' ? null : replyUser}</div>
-            <div>{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
+          <div className="messageContainer justifyEnd">
+            <div className="replied-to">
+              <div className="to-user">{replyUser === '' ? null : replyUser}</div>
+              <div className="to-msg">{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
+            </div>
           </div>
           <div className="messageContainer justifyEnd">
             <p className="sentText pr-10">{trimmedName}</p>
@@ -40,8 +42,10 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
            : (
               <div>
                 <div className="messageContainer justifyStart">
-                  <div>{replyUser === '' ? null : replyUser}</div>
-                  <div>{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
+                  <div className="reply-from">
+                    <div className="to-user">{replyUser === '' ? null : replyUser}</div>
+                    <div className="to-msg">{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
+                  </div>
                 </div>
                 <div className="messageContainer justifyStart">
                   <div className="messageBox backgroundLight">
