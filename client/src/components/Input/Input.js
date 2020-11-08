@@ -5,12 +5,12 @@ import './Input.css';
 
 const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply, resetMsg }) => {
   const inputRef = useRef(null);
-  
+
   useEffect(() => {
     showReply();
     inputRef.current.focus();
   });
-  
+
   const handleInputChange = (e) => {
     let value = e.target.value;
     let tempArr = value.split(" ");
@@ -42,7 +42,7 @@ const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply, resetMs
     if(msgReply.user === '' && msgReply.text === '') popup.style.display = 'none';
     else {popup.style.display = 'inline-block';}
   }
-  
+
   const closeReply = () => {
     var popup = document.getElementById("popupMsg2");
     popup.style.display = 'none';
@@ -55,9 +55,11 @@ const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply, resetMs
         {getUserInRoom()}
       </div>
       <div className="popup-msg" id='popupMsg2' style={{display:"none"}}>
-        <div onClick={closeReply}>X</div>
-        <div>{msgReply.user === '' ? null : msgReply.user}</div>
-        <div>{msgReply.text === '' ? null : ReactEmoji.emojify(msgReply.text)}</div>
+        <div className="row nameIndc">
+          <div className="col-11">{msgReply.user === '' ? null : msgReply.user}</div>
+          <div className="col-1 cross-icon"><i className="fas fa-times" onClick={closeReply}></i></div>
+        </div>
+        <div className="msgTo-reply">{msgReply.text === '' ? null : ReactEmoji.emojify(msgReply.text)}</div>
       </div>
       <form className="form">
         <input

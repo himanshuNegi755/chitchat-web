@@ -4,7 +4,7 @@ import './Message.css';
 
 import ReactEmoji from 'react-emoji';
 
-const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name }) => {
+const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name, mutedUsersList }) => {
   let isSentByCurrentUser = false;
 
   const trimmedName = name.trim().toLowerCase();
@@ -17,9 +17,11 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
     isSentByCurrentUser
       ? (
         <div>
-          <div className="messageContainer">
-            <div>{replyUser === '' ? null : replyUser}</div>
-            <div>{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
+          <div className="messageContainer justifyEnd">
+            <div className={replyUser === '' ? null : 'replied-to'}>
+              <div className="to-user">{replyUser === '' ? null : replyUser}</div>
+              <div className="to-msg">{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
+            </div>
           </div>
           <div className="messageContainer justifyEnd">
             <p className="sentText pr-10">{trimmedName}</p>
@@ -37,21 +39,23 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
                 </div>
               </div>
               )
-           : ( user === '' //blocked user
+           : ( mutedUsersList.includes(user) //blocked user
               ? (null)
-              : (
-                <div>
-                  <div className="messageContainer justifyStart">
-                    <div>{replyUser === '' ? null : replyUser}</div>
-                    <div>{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
-                  </div>
-                  <div className="messageContainer justifyStart">
-                    <div className="messageBox backgroundLight">
-                      <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
-                    </div>
-                    <p className="sentText pl-10 ">{user}</p>
+              :
+             (
+              <div>
+                <div className="messageContainer justifyStart">
+                  <div className={replyUser === '' ? null : "reply-from"}>
+                    <div className="to-user">{replyUser === '' ? null : replyUser}</div>
+                    <div className="to-msg">{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
                   </div>
                 </div>
+                <div className="messageContainer justifyStart">
+                  <div className="messageBox backgroundLight">
+                    <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
+                  </div>
+                </div>
+              </div>
                 )
             )
         )

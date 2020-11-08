@@ -33,7 +33,7 @@ const ProfilePage = ({ user }) => {
             //show userName update msg here
             axios.get(`${process.env.REACT_APP_BACKEND_API}/user-name/get/${user.userEmail}`)
             .then(res => {setNewUserName(res.data)})
-            
+
             setMessage('userName updated');
             //setTimeout(function(){ setLoggedIn(false) }, 1000);
           })
@@ -52,10 +52,10 @@ const ProfilePage = ({ user }) => {
     popup.style.display = 'inline-block';
     setTimeout(function(){ popup.style.display = 'none' }, 1000);
   }
-  
+
   const deleteAccountFunction = () => {
     axios.put(`${process.env.REACT_APP_BACKEND_API}/user/delete/${user.userEmail}`)
-    .then(res => { 
+    .then(res => {
       setTimeout(function(){ setLoggedIn(false) }, 1000);
       //console.log('account deleted');
     })
@@ -102,12 +102,12 @@ const ProfilePage = ({ user }) => {
 
             </Form>
           <div className="profile-submit"><button className="submitBtn" onClick={ () => {changeUserName()
-                                                                                        showPopup()}}> Submit </button></div>
+                                                                                        showPopup()}}> Submit </button>
+                                                                                        <a href={`${process.env.REACT_APP_BACKEND_API}/auth/logout`}>
+                                                                                          <button className="deleteBtn" onClick={deleteAccountFunction}>Delete Account</button>
+                                                                                        </a>
+          </div>
         </div>
-
-        <a href={`${process.env.REACT_APP_BACKEND_API}/auth/logout`}>
-          <button className="submitBtn" onClick={deleteAccountFunction}>Delete Account</button>
-        </a>
       </div>
     );
   }

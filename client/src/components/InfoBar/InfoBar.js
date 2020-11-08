@@ -1,7 +1,5 @@
 import React from 'react';
 
-import closeIcon from '../../icons/closeIcon.png';
-
 import './InfoBar.css';
 
 const InfoBar = ({ room, noOfMemberInRoom, showMemebers }) => (
@@ -12,7 +10,7 @@ const InfoBar = ({ room, noOfMemberInRoom, showMemebers }) => (
       <i className="fas fa-users chat-memNo" onClick={showMemebers}></i> <p>{noOfMemberInRoom}</p>
     </div>
     <div className="rightInnerContainer">
-      <a href="/"><img src={closeIcon} alt="close icon" /></a>
+      <a href="/"><i class="fas fa-times"></i></a>
     </div>
   </div>
 );

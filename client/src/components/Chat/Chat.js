@@ -22,6 +22,7 @@ const Chat = ({ location, user }) => {
   const [room, setRoom] = useState('');
   const [roomId, setRoomId] = useState('');
   const [users, setUsers] = useState([]);  //array of userName
+  const [mutedUsers, setMutedUsers] = useState([]);  //array of muted userName
   
   //chat messages
   const [message, setMessage] = useState('');
@@ -92,11 +93,22 @@ const Chat = ({ location, user }) => {
   
   const showMembersModal = () => setShowModal(true);
   
+  const muteUserFun = (item) => {
+    let tempArr = [...mutedUsers];
+    tempArr.push(item)
+    setMutedUsers(tempArr); 
+  }
+  
+  const unMuteUserFun = (item) => {
+    let tempArr = mutedUsers.filter(userName => userName !== item);
+    setMutedUsers(tempArr);
+  }
+  
   const membersList = () => {
     const list = users.map((item) =>
       <div key={item} className='groups row'>
        <div className='col-6'>{item}</div>
-       <div className='col-6'>XX<i className="fas fa-volume"></i></div>
+       <div className='col-6'>{mutedUsers.includes(item) ? <i class="fas fa-comment-slash" onClick={() => {unMuteUserFun(item)}}></i> : <i class="fas fa-comment" onClick={() => {muteUserFun(item)}}></i>}</div>
       </div>
     );
 
@@ -112,7 +124,7 @@ const Chat = ({ location, user }) => {
       <div className="outerContainer">
         <div className="container">
           <InfoBar room={room} noOfMemberInRoom={users.length} showMemebers={showMembersModal}/>
-          <Messages messages={messages} name={name} replyFun={sendReply}/>
+          <Messages messages={messages} name={name} replyFun={sendReply} mutedUsers={mutedUsers}/>
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users} msgReply={messageReply} resetMsg={resetMsg}/>
         </div>
         <div>

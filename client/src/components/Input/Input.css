@@ -51,6 +51,34 @@ input:focus, textarea:focus, select:focus{
   box-shadow: 0 0 3px #777;
   background: #fff;
 }
+.popup-msg{
+  position: absolute;
+  width: 47.5vw;
+  max-width: 47.5vw;
+  max-height: 6rem;
+  margin: 0 0.5vw;
+  border-radius: 4px;
+  bottom: 6.5rem;
+  padding: 0.1rem 0.3rem 0.5rem;
+  background-color: #a969ff;
+}
+.nameIndc{
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  font-family: 'Exo', sans-serif;
+  margin: 0;
+}
+.cross-icon{
+  text-align: right;
+  padding: 0;
+  cursor: pointer;
+}
+.msgTo-reply{
+  border-radius: 3px;
+  background-color: #f0f0f0;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+}
 @media (max-width: 676px){
   .sendButton span{
     display: none;

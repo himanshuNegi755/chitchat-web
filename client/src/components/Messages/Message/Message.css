@@ -20,7 +20,6 @@
 }
 .messageContainer {
   display: flex;
-  justify-content: flex-end;
   padding: 0 3%;
 }
 .sentText {
@@ -69,7 +68,36 @@
   max-width: 80%;
   font-family: 'Exo', sans-serif;
 }
-
+.replied-to, .reply-from{
+  background-color: #707070;
+  position: relative;
+  top: 7px;
+  padding: 0 0.3rem 0.2rem;
+  border-radius: 8px;
+  box-shadow: 2px -2px 4px #606060;
+}
+.reply-from{
+  text-align: left;
+  box-shadow: -2px -2px 4px #606060;
+}
+.replied-to{
+  text-align: right;
+  box-shadow: 2px -2px 4px #606060;
+}
+.to-user{
+  font-size: 0.6rem;
+  margin: 0.2rem 0.2rem;
+  border-radius: 0.5rem;
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 6px #a0a0ff;
+  color: #e0e0e0;
+}
+.to-msg{
+  background-color: #e0e0e0;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.7rem;
+  border-radius: 5px;
+}
 @media (max-width: 676px){
   .messageText {
     font-size: 0.8rem;

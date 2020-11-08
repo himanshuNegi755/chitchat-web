@@ -40,7 +40,7 @@
   text-align: center;
   margin-top: 1rem;
 }
-.submitBtn{
+.submitBtn, .deleteBtn{
   transition: 0.2s;
   border: 0;
   border-radius: 20px;
@@ -50,12 +50,20 @@
   font-size: 1.2rem;
   letter-spacing: 1px;
   padding: 0.4rem 2rem;
+  margin: auto 2rem;
   box-shadow: 0 0 10px #a0a0a0;
 }
 .submitBtn:hover{
   transition: 0.2s;
   background-color: #101010;
+  color: #1fe5ff;
   box-shadow: 0 0 15px #7aa2ff;
+}
+.deleteBtn:hover{
+  transition: 0.2s;
+  background-color: #101010;
+  color: #d60909;
+  box-shadow: 0 0 15px #d60909;
 }
 .popup-div{
   text-align: center;
