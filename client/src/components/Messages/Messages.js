@@ -13,7 +13,7 @@ const Messages = ({ messages, name, replyFun, mutedUsers, roomName }) => {
       console.log(id);
       var elmnt = document.getElementById(id);
       console.log(elmnt);
-      elmnt.scrollIntoView();
+      elmnt.scrollIntoView({behavior: "smooth"});
       elmnt.style.backgroundColor = 'blue';
       setTimeout(function(){ elmnt.style.backgroundColor = '#D0D0D0' }, 1000);
     }
