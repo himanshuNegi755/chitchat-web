@@ -9,4 +9,11 @@
 .button-class {
   background-image: url('../../icons/scrollDown.png');
   background-size: contain;
+  width: 1.7rem !important;
+  height: 1.7rem !important;
+  right: 2.5rem !important;
+  bottom: 1rem !important;
+  box-shadow: 0 0 1rem white !important;
+  border: 1px solid #202020 !important;
+  border-radius: 15px !important;
 }

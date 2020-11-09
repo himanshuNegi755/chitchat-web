@@ -69,20 +69,20 @@
   font-family: 'Exo', sans-serif;
 }
 .replied-to, .reply-from{
-  background-color: #707070;
+  background-color: #766d87;
   position: relative;
-  top: 7px;
+  top: 8px;
   padding: 0 0.3rem 0.2rem;
-  border-radius: 8px;
-  box-shadow: 2px -2px 4px #606060;
 }
 .reply-from{
   text-align: left;
   box-shadow: -2px -2px 4px #606060;
+  border-radius: 8px 8px 8px 0;
 }
 .replied-to{
   text-align: right;
-  box-shadow: 2px -2px 4px #606060;
+  box-shadow: 2px -2px 4px #8d70ff;
+  border-radius: 8px 8px 0 8px;
 }
 .to-user{
   font-size: 0.6rem;
