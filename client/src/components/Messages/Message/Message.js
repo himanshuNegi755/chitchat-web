@@ -4,18 +4,20 @@ import './Message.css';
 
 import ReactEmoji from 'react-emoji';
 
-const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name, mutedUsersList, sendReply, id }) => {
+const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name, mutedUsersList, sendReply, id, room }) => {
   let isSentByCurrentUser = false;
-  //onClick={ () => replyFun(message)}
-  const trimmedName = name.trim().toLowerCase();
+  
+  const trimmedName = name.trim();
 
   if(user === trimmedName) {
     isSentByCurrentUser = true;
   }
-
-  return (
-    isSentByCurrentUser
-      ? (
+  //`${user.name}, welcome to room ${user.room}.`
+  //`${user.name} has joined!`
+  
+  const conditonalMessages = () => {
+    if(isSentByCurrentUser) {
+      return (
         <div>
           <div className="messageContainer justifyEnd">
             <div className={replyUser === '' ? null : 'replied-to'}>
@@ -24,45 +26,63 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
             </div>
           </div>
           <div className="messageContainer justifyEnd">
-            <i className="fas fa-share share" onClick={ () => sendReply({ text, user, id })}></i>
+            <i className="fas fa-share share pr-10" onClick={ () => sendReply({ text, user, id })}></i>
             <p className="sentText pr-10">{trimmedName}</p>
             <div className="messageBox backgroundBlue">
               <p className="messageText colorWhite">{ReactEmoji.emojify(text)}</p>
             </div>
           </div>
         </div>
-        )
-        : ( user === 'admin'
-           ? (
+      )
+    } else {
+      if( user === 'admin') {
+        if(text === `${trimmedName}, welcome to room ${room}.`) {
+          return (
+            <div className="messageContainer justifyCenter">
+              <div className="bot-text">
+                <p className="messageText colorDark">{text}</p>
+              </div>
+            </div>
+          )
+        } else if (text !== `${trimmedName} has joined!`) {
+          if(text.includes('welcome')) {return(null)}
+          else{
+            return (
               <div className="messageContainer justifyCenter">
                 <div className="bot-text">
                   <p className="messageText colorDark">{text}</p>
                 </div>
               </div>
-              )
-           : ( mutedUsersList.includes(user) //blocked user
-              ? (null)
-              :
-             (
-              <div>
-                <div className="messageContainer justifyStart">
-                  <div className={replyUser === '' ? null : "reply-from"}>
-                    <div className="to-user">{replyUser === '' ? null : replyUser}</div>
-                    <div className="to-msg">{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
-                  </div>
-                </div>
-                <div className="messageContainer justifyStart">
-                  <div className="messageBox backgroundLight">
-                    <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
-                  </div>
-                  <p className="sentText pl-10 ">{user}</p>
-                  <i className="fas fa-share share" onClick={ () => sendReply({ text, user, id })}></i>
+            )
+          } 
+        } else {return(null)}
+      } else {
+        if(mutedUsersList.includes(user)) {return(null)}
+        else {
+          return(
+            <div>
+              <div className="messageContainer justifyStart">
+                <div className={replyUser === '' ? null : "reply-from"}>
+                  <div className="to-user">{replyUser === '' ? null : replyUser}</div>
+                  <div className={replyUser === '' ? null : 'to-msg'}>{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
                 </div>
               </div>
-                )
-            )
-        )
-  );
+              <div className="messageContainer justifyStart">
+                <div className="messageBox backgroundLight">
+                  <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
+                </div>
+                <p className="sentText pl-10 ">{user}</p>
+                <i className="fas fa-share share" onClick={ () => sendReply({ text, user, id })}></i>
+              </div>
+            </div>
+          )
+        }
+      } 
+    }
+    
+  }
+  
+  return ( conditonalMessages() );
 }
 
 export default Message;

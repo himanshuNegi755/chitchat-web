@@ -110,11 +110,28 @@ io.on('connect', (socket) => {
       }
     });
 
-    setTimeout(function(){
+    //add messages in chat collection to the particular room
+    Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name}, welcome to room ${user.room}.`, replyUser: '', replyText: '', replyMsgId: ''}}}, function(err, chat) {
+      if (err) {
+        //response.status(500).send({error: "Could not update the menu"});
+        console.log('error occurred while sending msg');
+      }
+    });
+    
+    Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name} has joined!`, replyUser: '', replyText: '', replyMsgId: ''}}}, function(err, chat) {
+      if (err) {
+        console.log('error occurred while sending msg');
+      }
+    });
+    
+    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
+    socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+    io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId) });
+    /*setTimeout(function(){
       socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
       socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
       io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId) });
-    }, 500);
+    }, 500);*/
 
     callback();
   });
@@ -174,6 +191,14 @@ io.on('connect', (socket) => {
       })
     }*/
 
+      //add messages in chat collection to the particular room
+      Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name} has left.`, replyUser: '', replyText: '', replyMsgId: ''}}}, function(err, chat) {
+        if (err) {
+          //response.status(500).send({error: "Could not update the menu"});
+          console.log('error occurred while sending msg');
+        }
+      });
+      
       io.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has left.` });
       io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId)});
     } else {

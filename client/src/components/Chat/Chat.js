@@ -108,7 +108,7 @@ const Chat = ({ location, user }) => {
     const list = users.map((item) =>
       <div key={item} className='member-box row'>
        <div className='col-10'>{item}</div>
-       <div className='col-2 mute-opt'>{mutedUsers.includes(item) ? <i class="fas fa-comment-slash" onClick={() => {unMuteUserFun(item)}}></i> : <i class="fas fa-comment" onClick={() => {muteUserFun(item)}}></i>}</div>
+       <div className='col-2 mute-opt'>{mutedUsers.includes(item) ? <i className="fas fa-comment-slash" onClick={() => {unMuteUserFun(item)}}></i> : <i className="fas fa-comment" onClick={() => {muteUserFun(item)}}></i>}</div>
       </div>
     );
 
@@ -124,7 +124,7 @@ const Chat = ({ location, user }) => {
       <div className="outerContainer">
         <div className="container">
           <InfoBar room={room} noOfMemberInRoom={users.length} showMemebers={showMembersModal}/>
-          <Messages messages={messages} name={name} replyFun={sendReply} mutedUsers={mutedUsers}/>
+          <Messages messages={messages} name={name} replyFun={sendReply} mutedUsers={mutedUsers} roomName={room}/>
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users} msgReply={messageReply} resetMsg={resetMsg}/>
         </div>
         <div>
