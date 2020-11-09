@@ -20,7 +20,7 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
           <div className="messageContainer justifyEnd">
             <div className={replyUser === '' ? null : 'replied-to'}>
               <div className="to-user">{replyUser === '' ? null : replyUser}</div>
-              <div className="to-msg">{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
+              <div className={replyUser === '' ? null : 'to-msg'}>{replyText === '' ? null : ReactEmoji.emojify(replyText)}</div>
             </div>
           </div>
           <div className="messageContainer justifyEnd">

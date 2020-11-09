@@ -54,11 +54,10 @@ input:focus, textarea:focus, select:focus{
 .popup-msg{
   position: absolute;
   width: 47.5vw;
-  max-width: 47.5vw;
   max-height: 6rem;
   margin: 0 0.5vw;
   border-radius: 4px;
-  bottom: 6.5rem;
+  bottom: 6.4rem;
   padding: 0.1rem 0.3rem 0.5rem;
   background-color: #a969ff;
 }
@@ -79,7 +78,17 @@ input:focus, textarea:focus, select:focus{
   padding: 0.2rem 0.5rem;
   font-size: 0.8rem;
 }
+@media (max-width: 1000px){
+  .popup-msg{
+    width: 55.5vw;
+    bottom: 6.2rem;
+  }
+}
 @media (max-width: 676px){
+  .popup-msg{
+    width: 66vw;
+    bottom: 4.7rem;
+  }
   .sendButton span{
     display: none;
   }
