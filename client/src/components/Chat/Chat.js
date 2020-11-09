@@ -27,7 +27,7 @@ const Chat = ({ location, user }) => {
   //chat messages
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const [messageReply, setMessageReply] = useState({'_id': '', user: '', text: ''});  //selective msg obj for reply
+  const [messageReply, setMessageReply] = useState({'id': -1, user: '', text: ''});  //selective msg obj for reply, and id is index of msg
   //const [senderName, setSenderName] = useState('');  //sender name for msg reply
   
   //to check if url is wrong or user is logged in or not
@@ -89,7 +89,7 @@ const Chat = ({ location, user }) => {
   
   const sendReply = (msg) => msg.user === 'admin' ? null : setMessageReply(msg);
   
-  const resetMsg = () => setMessageReply({'_id': '', user: '', text: ''});
+  const resetMsg = () => setMessageReply({'id': -1, user: '', text: ''});
   
   const showMembersModal = () => setShowModal(true);
   

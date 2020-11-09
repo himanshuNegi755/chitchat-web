@@ -10,7 +10,7 @@ const InfoBar = ({ room, noOfMemberInRoom, showMemebers }) => (
       <i className="fas fa-users chat-memNo" onClick={showMemebers}></i> <p>{noOfMemberInRoom}</p>
     </div>
     <div className="rightInnerContainer">
-      <a href="/"><i class="fas fa-times"></i></a>
+      <a href="/"><i className="fas fa-times"></i></a>
     </div>
   </div>
 );

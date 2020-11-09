@@ -98,6 +98,9 @@
   font-size: 0.7rem;
   border-radius: 5px;
 }
+.share {
+  cursor: pointer;
+}
 @media (max-width: 676px){
   .messageText {
     font-size: 0.8rem;

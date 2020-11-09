@@ -4,9 +4,9 @@ import './Message.css';
 
 import ReactEmoji from 'react-emoji';
 
-const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name, mutedUsersList }) => {
+const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name, mutedUsersList, sendReply, id }) => {
   let isSentByCurrentUser = false;
-
+  //onClick={ () => replyFun(message)}
   const trimmedName = name.trim().toLowerCase();
 
   if(user === trimmedName) {
@@ -24,6 +24,7 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
             </div>
           </div>
           <div className="messageContainer justifyEnd">
+            <i className="fas fa-share share" onClick={ () => sendReply({ text, user, id })}></i>
             <p className="sentText pr-10">{trimmedName}</p>
             <div className="messageBox backgroundBlue">
               <p className="messageText colorWhite">{ReactEmoji.emojify(text)}</p>
@@ -54,6 +55,8 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
                   <div className="messageBox backgroundLight">
                     <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
                   </div>
+                  <p className="sentText pl-10 ">{user}</p>
+                  <i className="fas fa-share share" onClick={ () => sendReply({ text, user, id })}></i>
                 </div>
               </div>
                 )
