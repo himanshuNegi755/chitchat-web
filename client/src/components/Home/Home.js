@@ -116,10 +116,12 @@ const Home = ({ user }) => {
   }
 
   const handleClickOutside = (event) => {
-    if (suggestionRef && !suggestionRef.current.contains(event.target)) {
-      //setRoomTitle('');
-      setSuggestions([]);
-    }
+    try{
+      if (suggestionRef && !suggestionRef.current.contains(event.target)) {
+        //setRoomTitle('');
+        setSuggestions([]);
+      }
+    } catch(e) {}
   }
 
   /*const suggestionSelected = (value) => {
