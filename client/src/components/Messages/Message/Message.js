@@ -6,7 +6,7 @@ import ReactEmoji from 'react-emoji';
 
 const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name, mutedUsersList, sendReply, id, room }) => {
   let isSentByCurrentUser = false;
-  
+
   const trimmedName = name.trim();
 
   if(user === trimmedName) {
@@ -14,7 +14,7 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
   }
   //`${user.name}, welcome to room ${user.room}.`
   //`${user.name} has joined!`
-  
+
   const conditonalMessages = () => {
     if(isSentByCurrentUser) {
       return (
@@ -40,7 +40,7 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
           return (
             <div className="messageContainer justifyCenter">
               <div className="bot-text">
-                <p className="messageText colorDark">{text}</p>
+                <p>{text}</p>
               </div>
             </div>
           )
@@ -50,11 +50,11 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
             return (
               <div className="messageContainer justifyCenter">
                 <div className="bot-text">
-                  <p className="messageText colorDark">{text}</p>
+                  <p>{text}</p>
                 </div>
               </div>
             )
-          } 
+          }
         } else {return(null)}
       } else {
         if(mutedUsersList.includes(user)) {return(null)}
@@ -72,16 +72,16 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
                   <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
                 </div>
                 <p className="sentText pl-10 ">{user}</p>
-                <i className="fas fa-share share" onClick={ () => sendReply({ text, user, id })}></i>
+                <i className="fas fa-reply share" onClick={ () => sendReply({ text, user, id })}></i>
               </div>
             </div>
           )
         }
-      } 
+      }
     }
-    
+
   }
-  
+
   return ( conditonalMessages() );
 }
 

@@ -56,17 +56,22 @@
 .backgroundBlue {
   background: #7003ff;
 }
-.backgroundLight, .bot-text {
+.backgroundLight{
   background: #F3F3F3;
 }
 .bot-text{
   border-radius: 1rem;
-  padding: 0.3rem 1rem;
-  margin: 0.6rem auto 0.3rem;
+  padding: 0.2rem 0.8rem;
+  margin: 0.3rem auto;
   display: inline-block;
-  box-shadow: 0 0 5px #505050;
+  font-size: 0.7rem;
+  color: #606060;
+  box-shadow: 0 0 3px #b0b0b0;
   max-width: 80%;
   font-family: 'Exo', sans-serif;
+}
+.bot-text p{
+  margin: 0;
 }
 .replied-to, .reply-from{
   background-color: #766d87;
@@ -99,6 +104,11 @@
   border-radius: 5px;
 }
 .share {
+  margin: 0.6rem;
+  padding: 0.25rem 0.3rem;
+  border-radius: 1rem;
+  background-color: #766d87;
+  color: white;
   cursor: pointer;
 }
 @media (max-width: 676px){
