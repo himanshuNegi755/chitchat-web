@@ -57,3 +57,10 @@
     height: 95vh;
   }
 }
+
+@media (max-width: 450px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+  }
+}

@@ -78,6 +78,7 @@
   position: relative;
   top: 8px;
   padding: 0 0.3rem 0.2rem;
+  max-width: 80%;
 }
 .reply-from{
   text-align: left;
@@ -102,6 +103,10 @@
   padding: 0.1rem 0.5rem;
   font-size: 0.7rem;
   border-radius: 5px;
+  
+  white-space: nowrap;  
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .share {
   margin: 0.6rem;
@@ -110,6 +115,8 @@
   background-color: #766d87;
   color: white;
   cursor: pointer;
+  height: 1.6rem;
+  width: 1.6rem;
 }
 @media (max-width: 676px){
   .messageText {

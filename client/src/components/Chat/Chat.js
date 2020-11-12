@@ -110,7 +110,7 @@ const Chat = ({ location, user }) => {
       message: msg
     })
     .then(res => {
-      console.log(reported);
+      console.log('reported');
     })
   }*/
     

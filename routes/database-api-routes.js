@@ -245,13 +245,22 @@ router.get('/chat/:roomId', function(request, response, next) {
 //report any user message
 router.post('/report-user', function(request, response, next) {
   var tempReport = new Report();
-    tempReport.reportingUser = request.body.reportingUser;
-    tempReport.reportedUser = request.body.reportedUser;
-    tempReport.message = request.body.message;
-  
-    tempReport.save(function(err, report) {
-      if (err) { response.status(500).send({error:"Could not report the user"}); } else { response.send(report); }
-    });
+  User.find({userName: request.body.reportedUser}, function(err, user) {
+    if(err) {
+      response.status(500).send({error: "Could not get the userName"});
+    } else { 
+      if(user.length > 0) {
+        tempReport.reportingUser = request.body.reportingUser;
+        tempReport.reportedUser = user[0].userEmail;
+        tempReport.message = request.body.message;
+
+        tempReport.save(function(err, report) {
+          if (err) { response.status(500).send({error:"Could not report the user"}); } else { response.send(report); }
+        });
+      } else {response.send({error: "Could not get the userName"})}
+    }
+    
+  });
 });
 
 module.exports = router;
