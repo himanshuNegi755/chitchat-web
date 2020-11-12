@@ -104,6 +104,8 @@
   border-radius: 5px;
 }
 .share {
+  height: 1.6rem;
+  width: 1.6rem;
   margin: 0.6rem;
   padding: 0.25rem 0.3rem;
   border-radius: 1rem;
