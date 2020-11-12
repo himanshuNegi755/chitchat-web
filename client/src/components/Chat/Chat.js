@@ -103,6 +103,17 @@ const Chat = ({ location, user }) => {
     setMutedUsers(tempArr);
   }
 
+  /*const reportUserMsg = (userName, msg) => {
+    axios.post(`${process.env.REACT_APP_BACKEND_API}/report-user`, {
+      reportingUser: user.userEmail,
+      reportedUser: userName,
+      message: msg
+    })
+    .then(res => {
+      console.log(reported);
+    })
+  }*/
+    
   const membersList = () => {
     const list = users.map((item) =>
       <div key={item} className='member-box row'>

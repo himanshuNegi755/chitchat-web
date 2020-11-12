@@ -8,6 +8,7 @@ var Interests = mongoose.model('Interests');
 var Room = mongoose.model('Room');
 var User = mongoose.model('User');
 var Chat = mongoose.model('Chat');
+var Report = mongoose.model('Report');
 
 ///////////////////////////////////////// interests ///////////////////////////////////////////////////////
 //post/add new interests
@@ -239,6 +240,18 @@ router.get('/chat/:roomId', function(request, response, next) {
       response.send(chat[0].chat);
     }
   });
+});
+
+//report any user message
+router.post('/report-user', function(request, response, next) {
+  var tempReport = new Report();
+    tempReport.reportingUser = request.body.reportingUser;
+    tempReport.reportedUser = request.body.reportedUser;
+    tempReport.message = request.body.message;
+  
+    tempReport.save(function(err, report) {
+      if (err) { response.status(500).send({error:"Could not report the user"}); } else { response.send(report); }
+    });
 });
 
 module.exports = router;
