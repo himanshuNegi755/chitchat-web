@@ -80,7 +80,6 @@ const Chat = ({ location, user }) => {
 
   const sendMessage = (event) => {
     event.preventDefault();
-    //console.log(messageReply);
     if(message) {
      socket.emit('sendMessage', {message, messageReply}, () => setMessage(''));
     }

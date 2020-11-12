@@ -167,7 +167,7 @@ router.get('/user-interests/:userEmail', function(request, response, next) {
     if(err) {
       response.status(500).send({error: "Could not get the interests"});
     } else {
-      response.send(interestsList[0].interests);
+      response.send(interestsList.length > 0 ? interestsList[0].interests : {error: "user doesn't exist"});
     }
   });
 });

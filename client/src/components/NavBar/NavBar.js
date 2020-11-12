@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import io from "socket.io-client";
@@ -20,7 +20,7 @@ const NavBar = ({ pageTitle, user }) => {
   const [categoryList, setCategoryList] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [roomId, setRoomId] = useState('');
-  const [onlineUsers, setOnlineUsers] = useState(0);
+  const [onlineUsers, setOnlineUsers] = useState(1);
 
   //status message for create room modal
   const [titleMsg, setTitleMsg] = useState('');
@@ -28,17 +28,18 @@ const NavBar = ({ pageTitle, user }) => {
   const [categoryMsg, setCategoryMsg] = useState('');
 
   useEffect(() => {
-
+    let isMounted = true; //to avoid memory leak problem on unmounting component, cleaning the function
+    
     if(user) {
       socket = io(process.env.REACT_APP_SOCKET_ENDPOINT);
-
-      socket.on('onlineUser', user => {
-        setOnlineUsers(user.onlineUser);
-      });
+      socket.on('onlineUser', user => { /*console.log(user.onlineUser)*/setOnlineUsers(user.onlineUser) });
 
       axios.get(`${process.env.REACT_APP_BACKEND_API}/interests`)
-      .then(res => { setCategoryList(res.data) })
-
+      .then(res => { if(isMounted) setCategoryList(res.data) })
+      
+      return () => { 
+        socket.close();
+        isMounted = false; };
     }
   }, [user]);
 
@@ -150,13 +151,13 @@ const NavBar = ({ pageTitle, user }) => {
                 <span className="nav-link">{onlineUsers} Users Online</span>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">Home</a>
+                <Link className="nav-link" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/interests">Interest</a>
+                <Link className="nav-link" to="/interests">Interest</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/profile">Profile</a>
+                <Link className="nav-link" to="/profile">Profile</Link>
               </li>
               <li className="nav-item">
                 <button className="create-room" onClick={showRoomCreateModalOrNot}>CREATE ROOM</button>

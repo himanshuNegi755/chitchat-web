@@ -4,14 +4,17 @@ import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import { InputGroup, FormControl } from 'react-bootstrap';
+import { fetchUser } from '../../store/actions/authActions';
 
 import './Home.css';
 import NavBar from '../NavBar/NavBar';
 import langIcon from '../../icons/langIcon.svg';
 
-const Home = ({ user }) => {
+const Home = ({ user, fetch_user }) => {
+  
+  useEffect(() => { fetch_user() }, [fetch_user])
+  
   const [rooms, setRooms] = useState([]); //rooms as per user follow interests
-  const [interests, setInterests] = useState([]);
   const [loggedIn, setLoggedIn] = useState(true);
   const [allRoomsList, setAllRoomsList] = useState([]); //all rooms
   const [suggestions, setSuggestions] = useState([]);
@@ -21,20 +24,23 @@ const Home = ({ user }) => {
   const suggestionRef = useRef(null);
   
   useEffect(() => {
+    let isMounted = true; //to avoid memory leak problem on unmounting component
     if(user) {
       axios.get(`${process.env.REACT_APP_BACKEND_API}/user-interests/${user.userEmail}`)
-      .then(res => { setInterests(res.data) })
+      .then(res => { if(isMounted) {
+        
+        axios.get(`${process.env.REACT_APP_BACKEND_API}/room`, {
+          params: { interests: res.data }
+        })
+        .then(res => { setRooms(res.data)
+                   setShowSearchBar('visible')})
+        }
+      })
+      
     } else if(user === false) {setLoggedIn(false)}
+    
+    return () => { isMounted = false };
   }, [user]);
-
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_API}/room`, {
-      params: { interests: interests }
-    })
-    .then(res => { setRooms(res.data)
-                 setShowSearchBar('visible')})
-
-  }, [interests]);
   
   const entryValidation = (e, members, roomId) => {
     if(!user.userName) {
@@ -105,7 +111,7 @@ const Home = ({ user }) => {
           </div>
           <div className='row row-two'>
             <div className='col-lg-4 col-md-3 genre-status'><p>{item.category}</p></div>
-            <div className='col-lg-4 col-md-4 members-no'><p><i class="fas fa-users"></i> {item.members}/10</p></div>
+            <div className='col-lg-4 col-md-4 members-no'><p><i className="fas fa-users"></i> {item.members}/10</p></div>
             <div className='col-lg-4 col-md-5 time-div'><p>{moment(item.created).fromNow()}</p></div>
           </div>
         </Link>
@@ -116,24 +122,8 @@ const Home = ({ user }) => {
   }
 
   const handleClickOutside = (event) => {
-    try{
-      if (suggestionRef && !suggestionRef.current.contains(event.target)) {
-        //setRoomTitle('');
-        setSuggestions([]);
-      }
-    } catch(e) {}
-  }
-
-  /*const suggestionSelected = (value) => {
-    setRoomTitle(value);
-    setSuggestions([]);
-  }*/
-
-  const showStatusInHome = () => {
-    if(interests.length > 0 && user) {
-      if(rooms.length === 0) { return <div className="firstUser-msg"><span>No room found, feed is empty</span></div> }
-    } else { return <div className="firstUser-msg"><span>Please follow any topic to see chat room in home</span></div> }
-  }
+    if(suggestionRef.current) { if (suggestionRef && !suggestionRef.current.contains(event.target)) { setSuggestions([]) } }
+    }
 
   if(!loggedIn) {
     return <Redirect to='/' />;
@@ -159,7 +149,8 @@ const Home = ({ user }) => {
               </div>
           </InputGroup>
         </div>
-        {showStatusInHome()}
+        
+        {rooms.length === 0 ? <div className="firstUser-msg"><span>Feed is empty, create new room or Follow some interests</span></div> : null}
         {roomsList()}
       </div>
     );
@@ -167,9 +158,15 @@ const Home = ({ user }) => {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        user: state.auth
-    }
+  return {
+    user: state.auth
+  }
 }
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetch_user:() => {dispatch(fetchUser())}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
