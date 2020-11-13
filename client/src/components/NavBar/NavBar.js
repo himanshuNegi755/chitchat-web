@@ -32,7 +32,7 @@ const NavBar = ({ pageTitle, user }) => {
     
     if(user) {
       socket = io(process.env.REACT_APP_SOCKET_ENDPOINT);
-      socket.on('onlineUser', user => { /*console.log(user.onlineUser)*/setOnlineUsers(user.onlineUser) });
+      socket.on('onlineUser', user => { setOnlineUsers(user.onlineUser) });
 
       axios.get(`${process.env.REACT_APP_BACKEND_API}/interests`)
       .then(res => { if(isMounted) setCategoryList(res.data) })
@@ -151,7 +151,7 @@ const NavBar = ({ pageTitle, user }) => {
                 <span className="nav-link">{onlineUsers} Users Online</span>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/">Home</Link>
+                <a className="nav-link" href='/'>Home</a>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/interests">Interest</Link>

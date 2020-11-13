@@ -63,7 +63,6 @@ app.get('/', (req, res) => res.redirect(process.env.CLIENT_URI || 'http://localh
 app.get('/interests', (req, res) => res.redirect(process.env.CLIENT_URI || 'http://localhost:3000/interests'));
 
 io.on('connect', (socket) => {
-  
   //user count on the basis of ip address of the user
   var $ipAddress = socket.handshake.address;
   if (!$ipsConnected.hasOwnProperty($ipAddress)) {
