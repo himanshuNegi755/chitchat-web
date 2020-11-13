@@ -38,7 +38,7 @@ const Chat = ({ location, user }) => {
     const { room, roomId } = queryString.parse(location.search);
 
     if(user) {
-      socket = io(process.env.REACT_APP_SOCKET_ENDPOINT);
+      socket = io(process.env.REACT_APP_SOCKET_ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
 
       setRoom(room);
       setName(user.userName);
