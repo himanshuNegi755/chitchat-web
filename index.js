@@ -155,7 +155,7 @@ io.on('connect', (socket) => {
     const user = removeUser(socket.id);
 
     if(user) {
-      /*if(getUsersInRoom(user.roomId).length <=0) {
+      if(getUsersInRoom(user.roomId).length <=0) {
       //remove the room when room is empty
       Room.deleteOne({_id: ObjectId(user.roomId)}, function(err, status) {
         if (err) {
@@ -170,8 +170,6 @@ io.on('connect', (socket) => {
               //response.send(status);
             }
           })
-
-          //console.log('room deleted and chats too');
         }
       })
     } else {
@@ -185,8 +183,7 @@ io.on('connect', (socket) => {
           //console.log('members updated');
         }
       })
-    }*/
-
+    }
       //add messages in chat collection to the particular room
       Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name} has left.`, replyUser: '', replyText: '', replyMsgId: -1}}}, function(err, chat) {
         if (err) {
