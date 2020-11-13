@@ -10,6 +10,7 @@ require('./model/interests');
 require('./model/userInterests');
 require('./model/room');
 require('./model/chat');
+require('./model/report');
 
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
@@ -62,7 +63,7 @@ app.get('/', (req, res) => res.redirect(process.env.CLIENT_URI || 'http://localh
 app.get('/interests', (req, res) => res.redirect(process.env.CLIENT_URI || 'http://localhost:3000/interests'));
 
 io.on('connect', (socket) => {
-
+  
   //user count on the basis of ip address of the user
   var $ipAddress = socket.handshake.address;
   if (!$ipsConnected.hasOwnProperty($ipAddress)) {
@@ -111,14 +112,14 @@ io.on('connect', (socket) => {
     });
 
     //add messages in chat collection to the particular room
-    Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name}, welcome to room ${user.room}.`, replyUser: '', replyText: '', replyMsgId: ''}}}, function(err, chat) {
+    Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name}, welcome to room ${user.room}.`, replyUser: '', replyText: '', replyMsgId: -1}}}, function(err, chat) {
       if (err) {
         //response.status(500).send({error: "Could not update the menu"});
         console.log('error occurred while sending msg');
       }
     });
     
-    Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name} has joined!`, replyUser: '', replyText: '', replyMsgId: ''}}}, function(err, chat) {
+    Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name} has joined!`, replyUser: '', replyText: '', replyMsgId: -1}}}, function(err, chat) {
       if (err) {
         console.log('error occurred while sending msg');
       }
@@ -127,11 +128,6 @@ io.on('connect', (socket) => {
     socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
     socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
     io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId) });
-    /*setTimeout(function(){
-      socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
-      socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
-      io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId) });
-    }, 500);*/
 
     callback();
   });
@@ -192,7 +188,7 @@ io.on('connect', (socket) => {
     }*/
 
       //add messages in chat collection to the particular room
-      Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name} has left.`, replyUser: '', replyText: '', replyMsgId: ''}}}, function(err, chat) {
+      Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name} has left.`, replyUser: '', replyText: '', replyMsgId: -1}}}, function(err, chat) {
         if (err) {
           //response.status(500).send({error: "Could not update the menu"});
           console.log('error occurred while sending msg');

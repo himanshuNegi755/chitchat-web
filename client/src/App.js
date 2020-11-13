@@ -12,7 +12,6 @@ import My404Component from './components/My404Component/My404Component.js';
 
 const App = (props) => {
   useEffect(() => {
-    console.log('its running');
     props.fetch_user();
   }, [props])
   

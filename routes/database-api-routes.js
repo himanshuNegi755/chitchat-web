@@ -8,6 +8,7 @@ var Interests = mongoose.model('Interests');
 var Room = mongoose.model('Room');
 var User = mongoose.model('User');
 var Chat = mongoose.model('Chat');
+var Report = mongoose.model('Report');
 
 ///////////////////////////////////////// interests ///////////////////////////////////////////////////////
 //post/add new interests
@@ -167,7 +168,7 @@ router.get('/user-interests/:userEmail', function(request, response, next) {
     if(err) {
       response.status(500).send({error: "Could not get the interests"});
     } else {
-      response.send(interestsList[0].interests);
+      response.send(interestsList.length > 0 ? interestsList[0].interests : {error: "user doesn't exist"});
     }
   });
 });
@@ -238,6 +239,27 @@ router.get('/chat/:roomId', function(request, response, next) {
     } else {
       response.send(chat[0].chat);
     }
+  });
+});
+
+//report any user message
+router.post('/report-user', function(request, response, next) {
+  var tempReport = new Report();
+  User.find({userName: request.body.reportedUser}, function(err, user) {
+    if(err) {
+      response.status(500).send({error: "Could not get the userName"});
+    } else { 
+      if(user.length > 0) {
+        tempReport.reportingUser = request.body.reportingUser;
+        tempReport.reportedUser = user[0].userEmail;
+        tempReport.message = request.body.message;
+
+        tempReport.save(function(err, report) {
+          if (err) { response.status(500).send({error:"Could not report the user"}); } else { response.send(report); }
+        });
+      } else {response.send({error: "Could not get the userName"})}
+    }
+    
   });
 });
 

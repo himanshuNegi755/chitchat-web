@@ -12,8 +12,6 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
   if(user === trimmedName) {
     isSentByCurrentUser = true;
   }
-  //`${user.name}, welcome to room ${user.room}.`
-  //`${user.name} has joined!`
 
   const conditonalMessages = () => {
     if(isSentByCurrentUser) {

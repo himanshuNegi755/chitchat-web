@@ -64,7 +64,7 @@
   padding: 0.2rem 0.8rem;
   margin: 0.3rem auto;
   display: inline-block;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: #606060;
   box-shadow: 0 0 3px #b0b0b0;
   max-width: 80%;
@@ -78,6 +78,7 @@
   position: relative;
   top: 8px;
   padding: 0 0.3rem 0.2rem;
+  max-width: 80%;
 }
 .reply-from{
   text-align: left;
@@ -102,6 +103,9 @@
   padding: 0.1rem 0.5rem;
   font-size: 0.7rem;
   border-radius: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .share {
   height: 1.6rem;
@@ -112,9 +116,41 @@
   background-color: #766d87;
   color: white;
   cursor: pointer;
+  height: 1.6rem;
+  width: 1.6rem;
 }
 @media (max-width: 676px){
   .messageText {
     font-size: 0.8rem;
+  }
+  .sentText {
+    font-size: 0.6rem;
+    letter-spacing: 0.2px;
+    padding: 12px 0.2rem 0;
+  }
+  .share {
+    margin: 0.8rem 0.3rem 0.3rem;
+  }
+  .bot-text{
+    padding: 0.15rem 0.6rem;
+    margin: 0.2rem auto;
+    font-size: 0.55rem;
+    max-width: 75%;
+  }
+}
+@media (max-width: 450px){
+  .messageBox {
+    border-radius: 8px;
+    padding: 0.3rem 10px;
+    margin-top: 0.5rem;
+    max-width: 75%;
+  }
+  .messageText {
+    font-size: 0.7rem;
+  }
+  .sentText {
+    font-size: 0.5rem;
+    letter-spacing: 0;
+    padding: 12px 0.15rem 0;
   }
 }

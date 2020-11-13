@@ -35,7 +35,7 @@ const ProfilePage = ({ user }) => {
             .then(res => {setNewUserName(res.data)})
 
             setMessage('userName updated');
-            //setTimeout(function(){ setLoggedIn(false) }, 1000);
+            setTimeout(function(){ setLoggedIn(false) }, 200);
           })
         } else {
           setMessage('userName already exist');
@@ -56,8 +56,7 @@ const ProfilePage = ({ user }) => {
   const deleteAccountFunction = () => {
     axios.put(`${process.env.REACT_APP_BACKEND_API}/user/delete/${user.userEmail}`)
     .then(res => {
-      setTimeout(function(){ setLoggedIn(false) }, 1000);
-      //console.log('account deleted');
+      setLoggedIn(false);
     })
   }
 
@@ -94,18 +93,17 @@ const ProfilePage = ({ user }) => {
                   User Name
                 </Form.Label>
                 <Col md="9" sm="8">
-                  <Form.Control className="profile-form-control" type="text" placeholder="userName" name='userName' value={userName} onChange={e => setUserName(e.target.value)} />
+                  <Form.Control className="profile-form-control" type="text" placeholder="userName" name='userName' value={userName || ''} onChange={e => setUserName(e.target.value)} />
                 </Col>
               </Form.Group>
 
               <div className="popup-div"><span id='popupMsg'> {message} </span></div>
 
             </Form>
-          <div className="profile-submit"><button className="submitBtn" onClick={ () => {changeUserName()
-                                                                                        showPopup()}}> Submit </button>
-                                                                                        <a href={`${process.env.REACT_APP_BACKEND_API}/auth/logout`}>
-                                                                                          <button className="deleteBtn" onClick={deleteAccountFunction}>Delete Account</button>
-                                                                                        </a>
+          <div className="profile-submit">
+            <button className="submitBtn" onClick={ () => {changeUserName()
+                                                           showPopup()}}> Submit </button>
+            <button className="deleteBtn" onClick={deleteAccountFunction}>Delete Account</button>
           </div>
         </div>
       </div>

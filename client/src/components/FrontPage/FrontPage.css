@@ -29,3 +29,11 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #1fe5ff;
 }
+@media (max-width: 676px){
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+  }
+}
