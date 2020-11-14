@@ -151,7 +151,7 @@ const NavBar = ({ pageTitle, user }) => {
                 <span className="nav-link">{onlineUsers} Users Online</span>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href='/'>Home</a>
+                <Link className="nav-link" to="/">Home</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/interests">Interest</Link>

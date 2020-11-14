@@ -4,15 +4,15 @@ import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import { InputGroup, FormControl } from 'react-bootstrap';
-//import { fetchUser } from '../../store/actions/authActions';
+import { fetchUser } from '../../store/actions/authActions';
 
 import './Home.css';
 import NavBar from '../NavBar/NavBar';
 import langIcon from '../../icons/langIcon.svg';
 
-const Home = ({ user }) => {
+const Home = ({ user, fetch_user }) => {
   
-  /*useEffect(() => { fetch_user() }, [fetch_user])*/
+  useEffect(() => { fetch_user() }, [fetch_user])
   
   const [rooms, setRooms] = useState([]); //rooms as per user follow interests
   const [loggedIn, setLoggedIn] = useState(true);
@@ -163,10 +163,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-/*const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetch_user:() => {dispatch(fetchUser())}
   }
-}*/
+}
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

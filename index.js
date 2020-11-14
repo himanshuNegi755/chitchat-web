@@ -125,7 +125,11 @@ io.on('connect', (socket) => {
     });
     
     socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
+    socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.` });
+    
     socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+    socket.emit('message', { user: 'admin', text: `${user.name} has joined!`});
+    
     io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId) });
 
     callback();

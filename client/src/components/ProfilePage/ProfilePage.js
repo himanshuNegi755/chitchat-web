@@ -35,7 +35,7 @@ const ProfilePage = ({ user }) => {
             .then(res => {setNewUserName(res.data)})
 
             setMessage('userName updated');
-            //setTimeout(function(){ setLoggedIn(false) }, 200);
+            setTimeout(function(){ setLoggedIn(false) }, 200);
           })
         } else {
           setMessage('userName already exist');
@@ -53,12 +53,12 @@ const ProfilePage = ({ user }) => {
     setTimeout(function(){ popup.style.display = 'none' }, 1000);
   }
 
-  /*const deleteAccountFunction = () => {
+  const deleteAccountFunction = () => {
     axios.put(`${process.env.REACT_APP_BACKEND_API}/user/delete/${user.userEmail}`)
     .then(res => {
       setLoggedIn(false);
     })
-  }*/
+  }
 
   if(!loggedIn) {
     return <Redirect to='/' />;
@@ -103,7 +103,7 @@ const ProfilePage = ({ user }) => {
           <div className="profile-submit">
             <button className="submitBtn" onClick={ () => {changeUserName()
                                                            showPopup()}}> Submit </button>
-            {/*<button className="deleteBtn" onClick={deleteAccountFunction}>Delete Account</button>*/}
+            {<button className="deleteBtn" onClick={deleteAccountFunction}>Delete Account</button>}
           </div>
         </div>
       </div>

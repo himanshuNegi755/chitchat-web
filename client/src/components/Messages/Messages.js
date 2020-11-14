@@ -10,6 +10,7 @@ const Messages = ({ messages, name, replyFun, mutedUsers, roomName }) => {
 
   const scrollToFun = (id) => {
     if (id && id !== -1) {
+      console.log(id);
       var elmnt = document.getElementById(id);
       elmnt.scrollIntoView({behavior: "smooth"});
       elmnt.style.backgroundColor = '#808080';
