@@ -1,6 +1,6 @@
 .messageBox {
   border-radius: 10px;
-  padding: 0.4rem 15px;
+  padding: 0.3rem 0.5rem 0.4rem;
   margin-top: 0.6rem;
   color: white;
   box-shadow: 0 0 5px #c0c0c0;
@@ -22,15 +22,20 @@
   display: flex;
   padding: 0 3%;
 }
-.sentText {
-  display: flex;
-  align-items: center;
+.yourName, .theirName {
   font-family: Helvetica;
-  font-size: 0.7rem;
-  color: #828282;
+  font-size: 0.6rem;
   letter-spacing: 0.5px;
-  padding: 11px 0;
+  padding: 0;
   margin: 0;
+}
+.yourName{
+  color: pink;
+  text-shadow: 0 0 4px #000;
+}
+.theirName{
+  color: violet;
+  text-shadow: 0 0 4px #1fe5ff;
 }
 .pl-10 {
   padding-left: 10px;
@@ -55,6 +60,7 @@
 }
 .backgroundBlue {
   background: #7003ff;
+  text-align: right;
 }
 .backgroundLight{
   background: #F3F3F3;
@@ -75,25 +81,20 @@
 }
 .replied-to, .reply-from{
   background-color: #766d87;
-  position: relative;
-  top: 8px;
-  padding: 0 0.3rem 0.2rem;
-  max-width: 80%;
+  padding: 0;
 }
 .reply-from{
   text-align: left;
-  box-shadow: -2px -2px 4px #606060;
-  border-radius: 8px 8px 8px 0;
+  border-radius: 3px;
 }
 .replied-to{
   text-align: right;
-  box-shadow: 2px -2px 4px #8d70ff;
-  border-radius: 8px 8px 0 8px;
+  border-radius: 3px;
 }
 .to-user{
   font-size: 0.6rem;
-  margin: 0.2rem 0.2rem;
-  border-radius: 0.5rem;
+  margin: 0.2rem 0.4rem;
+  border-radius: 3px 3px 0 0;
   letter-spacing: 0.3px;
   text-shadow: 0 0 6px #a0a0ff;
   color: #e0e0e0;
@@ -101,8 +102,9 @@
 .to-msg{
   background-color: #e0e0e0;
   padding: 0.1rem 0.5rem;
+  color: black;
   font-size: 0.7rem;
-  border-radius: 5px;
+  border-radius: 0 0 3px 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -123,10 +125,9 @@
   .messageText {
     font-size: 0.8rem;
   }
-  .sentText {
-    font-size: 0.6rem;
+  .yourName, .theirName {
+    font-size: 0.45rem;
     letter-spacing: 0.2px;
-    padding: 12px 0.2rem 0;
   }
   .share {
     margin: 0.8rem 0.3rem 0.3rem;
@@ -148,9 +149,8 @@
   .messageText {
     font-size: 0.7rem;
   }
-  .sentText {
-    font-size: 0.5rem;
+  .yourName, .theirName {
+    font-size: 0.35rem;
     letter-spacing: 0;
-    padding: 12px 0.15rem 0;
   }
 }
