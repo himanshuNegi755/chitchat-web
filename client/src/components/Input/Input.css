@@ -77,7 +77,7 @@ input:focus, textarea:focus, select:focus{
   background-color: #f0f0f0;
   padding: 0.2rem 0.5rem;
   font-size: 0.8rem;
-  
+
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -102,5 +102,27 @@ input:focus, textarea:focus, select:focus{
   }
   .sendButton {
     padding: 1rem;
+  }
+  .popup-name{
+    margin-left: 0.5rem;
+    border-radius: 5px;
+    bottom: 4.5rem;
+    font-size: 0.8rem;
+  }
+  .popup-name .groups{
+    margin: 0.3rem;
+    padding: 0.4rem 1.7rem;
+  }
+}
+@media (max-width: 449px){
+
+  .popup-name{
+    margin-left: 0.5rem;
+    border-radius: 5px;
+    bottom: 3.5rem;
+  }
+  .popup-name .groups{
+    margin: 0.2rem;
+    padding: 0.3rem 1rem;
   }
 }
