@@ -36,7 +36,6 @@
 .theirName{
   color: violet;
   text-shadow: 0 0 4px #1fe5ff;
-  display: inline-block;
 }
 .justifyStart {
   justify-content: flex-start;
@@ -106,30 +105,33 @@
   text-overflow: ellipsis;
 }
 .share {
-  font-size: 0.8rem;
-  margin: 0.6rem;
+  font-size: 0.7rem;
+  margin: 1rem 0.5rem;
   padding: 0.25rem 0.3rem;
   border-radius: 1rem;
   background-color: #766d87;
   color: white;
   cursor: pointer;
-  height: 1.6rem;
-  width: 1.6rem;
+  height: 1.4rem;
+  width: 1.4rem;
 }
-
 .options {
   cursor: pointer;
   float: right;
+  margin-left: 2rem;
 }
-
-.drop-down-options ul {
-  list-style: none;
-  z-index: 1;
-}
-
-.drop-down-options ul li{
+.drop-down-options{
+  z-index: 2;
   cursor: pointer;
+  font-size: 0.45rem;
   color: black;
+  background-color: #1fe5ff;
+  padding: 1px 3px;
+  margin: 0 0 0 1rem;
+  border-radius: 4px;
+  text-align: right;
+  position: absolute;
+  bottom: auto;
 }
 
 @media (max-width: 676px){

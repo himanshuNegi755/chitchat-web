@@ -18,10 +18,8 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
   const showOptionsFun = () => {
     if(showOptions) {
       return (
-        <div className="drop-down-options">
-          <ul>
-            <li onClick={() => {reportUserMsg(user, text)}}><b>Report</b></li>
-          </ul>
+        <div className="drop-down-options" onClick={() => {reportUserMsg(user, text)}}>
+          <b>Report</b>
         </div>
       )
     } else {return (null)}
@@ -72,7 +70,7 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
           return(
               <div className="messageContainer justifyStart">
                 <div className="messageBox backgroundLight">
-                  <p className="theirName">{user}</p><i className="fas fa-chevron-down options" onClick={() => setShowOptions(!showOptions)}></i>
+                  <p className="theirName">{user} <i className="fas fa-chevron-down options" onClick={() => setShowOptions(!showOptions)}></i>{showOptionsFun()}</p>
                   <div className={replyUser === '' ? null : "justifyStart"} onClick={() => {scrollToMsg(replyMsgId)}}>
                     <div className="reply-from">
                       <div className="to-user">{replyUser === '' ? null : replyUser}</div>
