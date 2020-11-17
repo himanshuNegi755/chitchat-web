@@ -36,12 +36,7 @@
 .theirName{
   color: violet;
   text-shadow: 0 0 4px #1fe5ff;
-}
-.pl-10 {
-  padding-left: 10px;
-}
-.pr-10 {
-  padding-right: 10px;
+  display: inline-block;
 }
 .justifyStart {
   justify-content: flex-start;
@@ -111,8 +106,7 @@
   text-overflow: ellipsis;
 }
 .share {
-  height: 1.6rem;
-  width: 1.6rem;
+  font-size: 0.8rem;
   margin: 0.6rem;
   padding: 0.25rem 0.3rem;
   border-radius: 1rem;
@@ -125,6 +119,7 @@
 
 .options {
   cursor: pointer;
+  float: right;
 }
 
 .drop-down-options ul {

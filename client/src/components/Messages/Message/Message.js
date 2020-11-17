@@ -6,7 +6,7 @@ import ReactEmoji from 'react-emoji';
 
 const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name, mutedUsersList, sendReply, id, room, reportUserMsg, scrollToMsg }) => {
   const [showOptions, setShowOptions] = useState(false);
-  
+
   let isSentByCurrentUser = false;
 
   const trimmedName = name.trim();
@@ -14,7 +14,7 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
   if(user === trimmedName) {
     isSentByCurrentUser = true;
   }
-  
+
   const showOptionsFun = () => {
     if(showOptions) {
       return (
@@ -30,12 +30,9 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
   const conditonalMessages = () => {
     if(isSentByCurrentUser) {
       return (
-        <div>
           <div className="messageContainer justifyEnd">
             <i className="fas fa-share share pr-10" onClick={ () => sendReply({ text, user, id })}></i>
             <div className="messageBox backgroundBlue">
-              <i className="fas fa-chevron-down options" onClick={() => setShowOptions(!showOptions)}></i>
-              {showOptionsFun()}
               <p className="yourName">{trimmedName}</p>
               <div className={replyUser === '' ? null : 'justifyEnd'} onClick={() => {scrollToMsg(replyMsgId)}}>
                 <div className="replied-to">
@@ -46,7 +43,6 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
               <p className="messageText colorWhite">{ReactEmoji.emojify(text)}</p>
             </div>
           </div>
-        </div>
       )
     } else {
       if( user === 'admin') {
@@ -74,12 +70,9 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
         if(mutedUsersList.includes(user)) {return(null)}
         else {
           return(
-            <div>
               <div className="messageContainer justifyStart">
                 <div className="messageBox backgroundLight">
-                  <i className="fas fa-chevron-down options" onClick={() => setShowOptions(!showOptions)}></i>
-                  {showOptionsFun()}
-                  <p className="theirName">{user}</p>
+                  <p className="theirName">{user}</p><i className="fas fa-chevron-down options" onClick={() => setShowOptions(!showOptions)}></i>
                   <div className={replyUser === '' ? null : "justifyStart"} onClick={() => {scrollToMsg(replyMsgId)}}>
                     <div className="reply-from">
                       <div className="to-user">{replyUser === '' ? null : replyUser}</div>
@@ -90,7 +83,6 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
                 </div>
                 <i className="fas fa-reply share" onClick={ () => sendReply({ text, user, id })}></i>
               </div>
-            </div>
           )
         }
       }
