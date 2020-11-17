@@ -120,12 +120,16 @@
   float: right;
   margin-left: 2rem;
 }
-.drop-down-options{
-  z-index: 2;
+.drop-down-options ul {
+  list-style: none;
+  z-index: 1;
+  position: absolute;
+}
+.drop-down-options ul li{
   cursor: pointer;
-  font-size: 0.45rem;
-  color: black;
-  background-color: #1fe5ff;
+  font-size: 0.6rem;
+  color: #fff;
+  background-color: #7003ff;
   padding: 1px 3px;
   margin: 0 0 0 1rem;
   border-radius: 4px;
