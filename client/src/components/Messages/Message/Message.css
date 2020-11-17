@@ -82,6 +82,7 @@
 .replied-to, .reply-from{
   background-color: #766d87;
   padding: 0;
+  cursor: pointer;
 }
 .reply-from{
   text-align: left;
@@ -121,6 +122,21 @@
   height: 1.6rem;
   width: 1.6rem;
 }
+
+.options {
+  cursor: pointer;
+}
+
+.drop-down-options ul {
+  list-style: none;
+  z-index: 1;
+}
+
+.drop-down-options ul li{
+  cursor: pointer;
+  color: black;
+}
+
 @media (max-width: 676px){
   .messageText {
     font-size: 0.8rem;

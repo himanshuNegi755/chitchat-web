@@ -103,7 +103,7 @@ const Chat = ({ location, user }) => {
     setMutedUsers(tempArr);
   }
 
-  /*const reportUserMsg = (userName, msg) => {
+  const reportUserMsg = (userName, msg) => {
     axios.post(`${process.env.REACT_APP_BACKEND_API}/report-user`, {
       reportingUser: user.userEmail,
       reportedUser: userName,
@@ -112,7 +112,7 @@ const Chat = ({ location, user }) => {
     .then(res => {
       console.log('reported');
     })
-  }*/
+  }
     
   const membersList = () => {
     const list = users.map((item) =>
@@ -136,7 +136,7 @@ const Chat = ({ location, user }) => {
       <div className="outerContainer">
         <div className="container">
           <InfoBar room={room} noOfMemberInRoom={users.length} showMemebers={showMembersModal}/>
-          <Messages messages={messages} name={name} replyFun={sendReply} mutedUsers={mutedUsers} roomName={room}/>
+          <Messages messages={messages} name={name} replyFun={sendReply} mutedUsers={mutedUsers} roomName={room} report={reportUserMsg}/>
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users} msgReply={messageReply} resetMsg={resetMsg}/>
         </div>
         <div>
