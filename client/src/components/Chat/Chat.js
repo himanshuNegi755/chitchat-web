@@ -118,7 +118,9 @@ const Chat = ({ location, user }) => {
     const list = users.map((item) =>
       <div key={item} className='member-box row'>
        <div className='col-10'>{item}</div>
-       <div className='col-2 mute-opt'>{mutedUsers.includes(item) ? <i className="fas fa-comment-slash" onClick={() => {unMuteUserFun(item)}}></i> : <i className="fas fa-comment" onClick={() => {muteUserFun(item)}}></i>}</div>
+        <div className='col-2 mute-opt'>
+          {item !== name ?  (mutedUsers.includes(item) ? <i className="fas fa-comment-slash" onClick={() => {unMuteUserFun(item)}}></i> : <i className="fas fa-comment" onClick={() => {muteUserFun(item)}}></i>) : null}
+        </div>
       </div>
     );
 

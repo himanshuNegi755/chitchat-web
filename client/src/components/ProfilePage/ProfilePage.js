@@ -20,7 +20,9 @@ const ProfilePage = ({ user }) => {
   }, [user]);
 
   const changeUserName = () => {
-    if(userName.match("^[A-Za-z0-9]+$")) {
+    
+    if(userName.length > 10) {setMessage('userName should be less than 10 character')}
+    else if(userName.match("^[A-Za-z0-9]+$")) {
 
       axios.get(`${process.env.REACT_APP_BACKEND_API}/user-name/find/${userName}`)
       .then(res => {
