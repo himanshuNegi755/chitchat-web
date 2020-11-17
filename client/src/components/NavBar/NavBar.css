@@ -72,6 +72,26 @@
   padding: 0.3rem 1.3rem;
   box-shadow: 0 0 5px #808080;
 }
+.create-room-modal .modal-content{
+  border-radius: 0.8rem;
+  box-shadow: 0 0 0.5rem #202020;
+  border: 0;
+}
+.create-room-modal .modal-header{
+  background-image: linear-gradient(#1fe5ff, #f0f0f0);
+  border-radius: 0.8rem 0.8rem 0 0;
+  letter-spacing: 2px;
+  font-family: 'Titillium Web', sans-serif;
+  border: 0;
+}
+.create-room-modal .modal-body{
+  background-color: rgba(30, 30, 30, 0.3);
+  border-radius: 0 0 0.8rem 0.8rem;
+  border: 0;
+}
+.create-room-modal .submit-btn{
+  box-shadow: 0 0 1rem #1fe5ff;
+}
 /*############### Mobile ################*/
 @media screen and (max-width: 991px) {
   .topbar{

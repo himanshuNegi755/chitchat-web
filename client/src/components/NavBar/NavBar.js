@@ -29,15 +29,15 @@ const NavBar = ({ pageTitle, user }) => {
 
   useEffect(() => {
     let isMounted = true; //to avoid memory leak problem on unmounting component, cleaning the function
-    
+
     if(user) {
       socket = io(process.env.REACT_APP_SOCKET_ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
       socket.on('onlineUser', user => { setOnlineUsers(user.onlineUser) });
 
       axios.get(`${process.env.REACT_APP_BACKEND_API}/interests`)
       .then(res => { if(isMounted) setCategoryList(res.data) })
-      
-      return () => { 
+
+      return () => {
         socket.close();
         isMounted = false; };
     }
@@ -83,6 +83,7 @@ const NavBar = ({ pageTitle, user }) => {
     return(
       <div>
         <Modal
+            className="create-room-modal"
             size="md"
             aria-labelledby="new-room-modal"
             centered
