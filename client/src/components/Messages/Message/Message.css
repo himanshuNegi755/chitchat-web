@@ -36,7 +36,6 @@
 .theirName{
   color: violet;
   text-shadow: 0 0 4px #1fe5ff;
-  display: inline-block;
 }
 .justifyStart {
   justify-content: flex-start;
@@ -120,11 +119,13 @@
 .options {
   cursor: pointer;
   float: right;
+  margin-left: 2rem;
 }
 
 .drop-down-options ul {
   list-style: none;
   z-index: 1;
+  position: absolute;
 }
 
 .drop-down-options ul li{

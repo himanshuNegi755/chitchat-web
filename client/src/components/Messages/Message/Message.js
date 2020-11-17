@@ -72,7 +72,8 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
           return(
               <div className="messageContainer justifyStart">
                 <div className="messageBox backgroundLight">
-                  <p className="theirName">{user}</p><i className="fas fa-chevron-down options" onClick={() => setShowOptions(!showOptions)}></i>
+                  <p className="theirName">{user} <i className="fas fa-chevron-down options" onClick={() => setShowOptions(!showOptions)}></i></p>
+                  {showOptionsFun()}
                   <div className={replyUser === '' ? null : "justifyStart"} onClick={() => {scrollToMsg(replyMsgId)}}>
                     <div className="reply-from">
                       <div className="to-user">{replyUser === '' ? null : replyUser}</div>
