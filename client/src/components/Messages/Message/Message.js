@@ -7,9 +7,7 @@ import ReactEmoji from 'react-emoji';
 const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name, mutedUsersList, sendReply, id, room, scrollToMsg, report }) => {
   
   var myTimeout;
-  const start = () => {
-    myTimeout = setTimeout(function() { report(user, text); }, 2000);
-  }
+  const start = () => myTimeout = setTimeout(function() { report(user, text); }, 1000);
   const end = () => clearTimeout(myTimeout);
   
   let isSentByCurrentUser = false;

@@ -13,6 +13,7 @@ import Input from '../Input/Input';
 import './Chat.css';
 
 let socket;
+var typingTimeout;  //var for typing timeout
 
 const Chat = ({ location, user }) => {
   const [showModal, setShowModal] = useState(false);
@@ -157,16 +158,13 @@ const Chat = ({ location, user }) => {
   }
   
   //typing staus functions
-  var typingTimeout;
-  const typingStopFun = () => {
-    socket.emit('typing', '');
-  }
+  //const typingStopFun = () => socket.emit('typing', '');
   
   const typingFun = () => {
     socket.emit('typing', 'typing...');
     //console.log(typingTimeout);
-    if(typingTimeout) clearTimeout(typingTimeout);
-    typingTimeout = setTimeout(typingStopFun, 2000);
+    clearTimeout(typingTimeout);
+    typingTimeout = setTimeout(function() { socket.emit('typing', ''); }, 2000);
   }
 
   if(!loggedIn) {

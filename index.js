@@ -157,9 +157,8 @@ io.on('connect', (socket) => {
   //typing event for, typing status
   socket.on('typing', (data, callback) => {
     const user = getUser(socket.id);
-    
-    io.to(user.roomId).emit('typingStatus', data);
-
+    socket.broadcast.to(user.roomId).emit('typingStatus', data);
+    //io.to(user.roomId).emit('typingStatus', data);
     //callback();
   });
   
