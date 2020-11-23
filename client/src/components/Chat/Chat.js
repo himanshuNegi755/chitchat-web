@@ -16,6 +16,7 @@ let socket;
 
 const Chat = ({ location, user }) => {
   const [showModal, setShowModal] = useState(false);
+  const [reportModal, setReportModal] = useState(false);
 
   //room parameters
   const [name, setName] = useState('');
@@ -28,11 +29,18 @@ const Chat = ({ location, user }) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [messageReply, setMessageReply] = useState({'id': -1, user: '', text: ''});  //selective msg obj for reply, and id is index of msg
-  //const [senderName, setSenderName] = useState('');  //sender name for msg reply
 
   //to check if url is wrong or user is logged in or not
   const [loggedIn, setLoggedIn] = useState(true);
   const [redirectTo404, setRedirectTo404] = useState(true);
+  
+  //user and msg for reporting
+  const [reportedUserName, setReportedUserName] = useState('');
+  const [reportedMsg, setReportedMsg ] = useState('');
+  const [reportStatus, setReportStatus] = useState(''); //status after reporting
+  
+  //typing status usestate
+  const [typing, setTyping] = useState('');
 
   useEffect(() => {
     const { room, roomId } = queryString.parse(location.search);
@@ -70,6 +78,7 @@ const Chat = ({ location, user }) => {
         finalArr = users.map( item => item.name);
         setUsers(finalArr);
       });
+      socket.on('typingStatus', data => { setTyping(data); });
     }
 }, [user]);
 
@@ -90,7 +99,13 @@ const Chat = ({ location, user }) => {
   
   const resetMsg = () => setMessageReply({'id': -1, user: '', text: ''});
   
+  //modal functions
   const showMembersModal = () => setShowModal(true);
+  const showReportModal = (user, msg) => {
+    setReportedUserName(user);
+    setReportedMsg(msg);
+    setReportModal(true); 
+  }
 
   const muteUserFun = (item) => {
     let tempArr = [...mutedUsers];
@@ -103,17 +118,31 @@ const Chat = ({ location, user }) => {
     setMutedUsers(tempArr);
   }
 
-  const reportUserMsg = (userName, msg) => {
-    axios.post(`${process.env.REACT_APP_BACKEND_API}/report-user`, {
-      reportingUser: user.userEmail,
-      reportedUser: userName,
-      message: msg
-    })
-    .then(res => {
-      console.log('reported');
-    })
+  //reporting user and his/her msg
+  const reportUserMsg = () => {
+    if(reportedUserName === '' && reportedMsg === '') {
+      setReportStatus('Nothing to report');
+    } else {
+      axios.post(`${process.env.REACT_APP_BACKEND_API}/report-user`, {
+        reportingUser: user.userEmail,
+        reportedUser: reportedUserName,
+        message: reportedMsg
+      })
+      .then(res => {
+        setReportStatus('Reported Successfully');
+      })
+    }
+    showPopupStatus();
+  }
+  
+  //show report status popup
+  const showPopupStatus = () => {
+    var popup = document.getElementById("popupStatus");
+    popup.style.display = 'inline-block';
+    setTimeout(function(){ popup.style.display = 'none' }, 1000);
   }
     
+  //memberlist for muting and unmuting
   const membersList = () => {
     const list = users.map((item) =>
       <div key={item} className='member-box row'>
@@ -126,6 +155,19 @@ const Chat = ({ location, user }) => {
 
     return (list);
   }
+  
+  //typing staus functions
+  var typingTimeout;
+  const typingStopFun = () => {
+    socket.emit('typing', '');
+  }
+  
+  const typingFun = () => {
+    socket.emit('typing', 'typing...');
+    //console.log(typingTimeout);
+    if(typingTimeout) clearTimeout(typingTimeout);
+    typingTimeout = setTimeout(typingStopFun, 2000);
+  }
 
   if(!loggedIn) {
     return <Redirect to='/' />;
@@ -135,9 +177,10 @@ const Chat = ({ location, user }) => {
     return (
       <div className="outerContainer">
         <div className="container">
-          <InfoBar room={room} noOfMemberInRoom={users.length} showMemebers={showMembersModal}/>
-          <Messages messages={messages} name={name} replyFun={sendReply} mutedUsers={mutedUsers} roomName={room} report={reportUserMsg}/>
-          <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users} msgReply={messageReply} resetMsg={resetMsg}/>
+          <InfoBar room={room} noOfMemberInRoom={users.length} showMemebers={showMembersModal} typingData={typing}/>
+          <div className="popup-div"><span id='popupStatus'> {reportStatus} </span></div>
+          <Messages messages={messages} name={name} replyFun={sendReply} mutedUsers={mutedUsers} roomName={room} reportModal={showReportModal}/>
+          <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users} msgReply={messageReply} resetMsg={resetMsg} typing={typingFun}/>
         </div>
         <div>
           <Modal
@@ -155,6 +198,27 @@ const Chat = ({ location, user }) => {
             </Modal.Header>
             <Modal.Body className="list-box-body">
               {membersList()}
+            </Modal.Body>
+          </Modal>
+        </div>
+        <div>
+          <Modal
+            size="md"
+            className="list-box"
+            aria-labelledby="new-room-modal"
+            centered
+            show={reportModal}
+            onHide={() => { 
+              setReportedUserName('');
+              setReportedMsg('');
+              setReportModal(!reportModal);
+            }}
+            >
+            <Modal.Body className="list-box-body" onClick={() => {
+                reportUserMsg();
+                setReportModal(!reportModal);
+              }}>
+              Report
             </Modal.Body>
           </Modal>
         </div>

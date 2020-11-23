@@ -39,7 +39,7 @@ const NavBar = ({ pageTitle, user }) => {
 
       return () => {
         socket.close();
-        isMounted = false; };
+        isMounted = false; }
     }
   }, [user]);
 
