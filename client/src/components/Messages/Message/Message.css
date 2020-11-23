@@ -123,7 +123,7 @@
 .drop-down-options ul {
   list-style: none;
   z-index: 1;
-  position: absolute;
+  margin-bottom: 0;
 }
 .drop-down-options ul li{
   cursor: pointer;
@@ -133,9 +133,6 @@
   padding: 1px 3px;
   margin: 0 0 0 1rem;
   border-radius: 4px;
-  text-align: right;
-  position: absolute;
-  bottom: auto;
 }
 
 @media (max-width: 676px){
