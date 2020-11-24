@@ -34,12 +34,12 @@ const Chat = ({ location, user }) => {
   //to check if url is wrong or user is logged in or not
   const [loggedIn, setLoggedIn] = useState(true);
   const [redirectTo404, setRedirectTo404] = useState(true);
-  
+
   //user and msg for reporting
   const [reportedUserName, setReportedUserName] = useState('');
   const [reportedMsg, setReportedMsg ] = useState('');
   const [reportStatus, setReportStatus] = useState(''); //status after reporting
-  
+
   //typing status usestate
   const [typing, setTyping] = useState('');
 
@@ -97,15 +97,15 @@ const Chat = ({ location, user }) => {
   }
 
   const sendReply = (msg) => msg.user === 'admin' ? null : setMessageReply(msg);
-  
+
   const resetMsg = () => setMessageReply({'id': -1, user: '', text: ''});
-  
+
   //modal functions
   const showMembersModal = () => setShowModal(true);
   const showReportModal = (user, msg) => {
     setReportedUserName(user);
     setReportedMsg(msg);
-    setReportModal(true); 
+    setReportModal(true);
   }
 
   const muteUserFun = (item) => {
@@ -135,14 +135,14 @@ const Chat = ({ location, user }) => {
     }
     showPopupStatus();
   }
-  
+
   //show report status popup
   const showPopupStatus = () => {
-    var popup = document.getElementById("popupStatus");
+    var popup = document.getElementById("reportStatus");
     popup.style.display = 'inline-block';
-    setTimeout(function(){ popup.style.display = 'none' }, 1000);
+    setTimeout(function(){ popup.style.display = 'none' }, 2000);
   }
-    
+
   //memberlist for muting and unmuting
   const membersList = () => {
     const list = users.map((item) =>
@@ -157,6 +157,7 @@ const Chat = ({ location, user }) => {
     return (list);
   }
   
+  //typing staus functions
   const typingFun = () => {
     socket.emit('typing', 'typing...');
     clearTimeout(typingTimeout);
@@ -172,7 +173,7 @@ const Chat = ({ location, user }) => {
       <div className="outerContainer">
         <div className="container">
           <InfoBar room={room} noOfMemberInRoom={users.length} showMemebers={showMembersModal} typingData={typing}/>
-          <div className="popup-div"><span id='popupStatus'> {reportStatus} </span></div>
+          <div className="pop-div"><span id='reportStatus'> {reportStatus} </span></div>
           <Messages messages={messages} name={name} replyFun={sendReply} mutedUsers={mutedUsers} roomName={room} reportModal={showReportModal}/>
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users} msgReply={messageReply} resetMsg={resetMsg} typing={typingFun}/>
         </div>
@@ -198,21 +199,21 @@ const Chat = ({ location, user }) => {
         <div>
           <Modal
             size="md"
-            className="list-box"
+            className="report-box"
             aria-labelledby="new-room-modal"
             centered
             show={reportModal}
-            onHide={() => { 
+            onHide={() => {
               setReportedUserName('');
               setReportedMsg('');
               setReportModal(!reportModal);
             }}
             >
-            <Modal.Body className="list-box-body" onClick={() => {
+            <Modal.Body className="report-box-body" onClick={() => {
                 reportUserMsg();
                 setReportModal(!reportModal);
               }}>
-              Report
+              !! Report this message !!
             </Modal.Body>
           </Modal>
         </div>
