@@ -157,12 +157,8 @@ const Chat = ({ location, user }) => {
     return (list);
   }
   
-  //typing staus functions
-  //const typingStopFun = () => socket.emit('typing', '');
-  
   const typingFun = () => {
     socket.emit('typing', 'typing...');
-    //console.log(typingTimeout);
     clearTimeout(typingTimeout);
     typingTimeout = setTimeout(function() { socket.emit('typing', ''); }, 2000);
   }
