@@ -154,6 +154,15 @@ io.on('connect', (socket) => {
     callback();
   });
 
+  //typing event for, typing status
+  socket.on('typing', (data, callback) => {
+    const user = getUser(socket.id);
+    
+    io.to(user.roomId).emit('typingStatus', data);
+
+    //callback();
+  });
+  
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
 

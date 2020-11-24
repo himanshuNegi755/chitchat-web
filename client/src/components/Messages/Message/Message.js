@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './Message.css';
 
 import ReactEmoji from 'react-emoji';
 
-const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name, mutedUsersList, sendReply, id, room, reportUserMsg, scrollToMsg }) => {
-  const [showOptions, setShowOptions] = useState(false);
+const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name, mutedUsersList, sendReply, id, room, scrollToMsg, report }) => {
+
+  var myTimeout;
+  const start = () => {
+    myTimeout = setTimeout(function() { report(user, text); }, 1000);
+  }
+  const end = () => clearTimeout(myTimeout);
 
   let isSentByCurrentUser = false;
 
@@ -13,20 +18,6 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
 
   if(user === trimmedName) {
     isSentByCurrentUser = true;
-  }
-
-  const showOptionsFun = () => {
-    if(showOptions) {
-      return (
-        <div className="drop-down-options">
-        <ul>
-        <li onClick={() => {reportUserMsg(user, text)}}>
-          <b>Report</b>
-          </li>
-        </ul>
-        </div>
-      )
-    } else {return (null)}
   }
 
   const conditonalMessages = () => {
@@ -73,9 +64,8 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
         else {
           return(
               <div className="messageContainer justifyStart">
-                <div className="messageBox backgroundLight">
-                  <p className="theirName">{user} <i className="fas fa-chevron-down options" onClick={() => setShowOptions(!showOptions)}></i></p>
-                  {showOptionsFun()}
+                <div className="messageBox backgroundLight" onMouseDown={start} onMouseUp={end}>
+                  <p className="theirName">{user}</p>
                   <div className={replyUser === '' ? null : "justifyStart"} onClick={() => {scrollToMsg(replyMsgId)}}>
                     <div className="reply-from">
                       <div className="to-user">{replyUser === '' ? null : replyUser}</div>

@@ -6,8 +6,8 @@ import Message from './Message/Message';
 
 import './Messages.css';
 
-const Messages = ({ messages, name, replyFun, mutedUsers, roomName, report }) => {
-
+const Messages = ({ messages, name, replyFun, mutedUsers, roomName, reportModal }) => {
+  
   const scrollToFun = (id) => {
     if (id && id !== -1) {
       var elmnt = document.getElementById(id);
@@ -17,10 +17,10 @@ const Messages = ({ messages, name, replyFun, mutedUsers, roomName, report }) =>
                               elmnt.style.transition = '0.5s';}, 1000);
     }
   }
-//onClick={() => {scrollToFun(message.replyMsgId)}}
+
   return (
     <ScrollToBottom className="messages" followButtonClassName="button-class">
-      {messages.map((message, i) => <div key={i} id={i}><Message message={message} name={name} mutedUsersList={mutedUsers} sendReply={replyFun} id={i} room={roomName} reportUserMsg={report} scrollToMsg={scrollToFun}/></div>)}
+      {messages.map((message, i) => <div key={i} id={i}><Message message={message} name={name} mutedUsersList={mutedUsers} sendReply={replyFun} id={i} room={roomName} scrollToMsg={scrollToFun} report={reportModal}/></div>)}
     </ScrollToBottom>
   );
 }

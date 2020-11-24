@@ -38,9 +38,24 @@
   box-shadow: 0 0 10px #00ff00;
   background-color: #00ff00;
 }
+.typing-status {
+  margin: auto 0.5rem 0.75rem 2.5rem;
+  font-size: 1.2rem;
+  font-family: 'Exo', sans-serif;
+}
 
 @media (max-width: 676px){
   .leftInnerContainer {
     font-size: 1.2rem;
+  }
+  .typing-status {
+    margin: auto 0.5rem 0.6rem 2rem;
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 450px){
+  .typing-status {
+    margin: auto 0.3rem 0.3rem 1.2rem;
+    font-size: 0.7rem;
   }
 }

@@ -33,9 +33,39 @@
   color: white;
 }
 .list-box-body{
-  padding: 0.3rem 0;
   background-color: #9578cf;
+  padding: 0.3rem 0;
   border: 1px solid #9578cf;
+}
+.report-box .modal-content{
+  border: 0;
+  margin: 0 5rem;
+}
+.report-box-body{
+  transition: 0.1s;
+  background-color: #cc3030;
+  padding: 0.2rem 1rem;
+  border-radius: 1.2rem;
+  font-family: 'Nunito', sans-serif;
+  letter-spacing: 1.5px;
+  font-size: 1.2rem;
+  box-shadow: 0 0 2px #303030;
+  color: white;
+  text-align: center;
+}
+.report-box-body:hover{
+  transition: 0.3s;
+  cursor: pointer;
+  background-color: #ee3030;
+  letter-spacing: 1.8px;
+  box-shadow: 0 0 5px #aa0000;
+}
+.pop-div{
+  text-align: center;
+  background-image: linear-gradient(to right, #7003ff, #ee6060, #ff4040, #ee6060,#7003ff);
+  font-family: 'Nunito', sans-serif;
+  letter-spacing: 1px;
+  color: white;
 }
 .mute-opt{
   text-align: right;

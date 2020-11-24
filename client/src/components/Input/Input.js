@@ -3,7 +3,7 @@ import ReactEmoji from 'react-emoji';
 
 import './Input.css';
 
-const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply, resetMsg }) => {
+const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply, resetMsg, typing }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -20,9 +20,7 @@ const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply, resetMs
     } else {
       popup.style.display = 'none';
     }
-
     setMessage(value);
-
   }
 
   const getUserInRoom = () => {
@@ -48,6 +46,13 @@ const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply, resetMs
     popup.style.display = 'none';
     resetMsg();
   }
+  
+  //clear all @userName when message is sent
+  const clearTagOnSending = (event) => {
+    sendMessage(event)
+    var popup = document.getElementById("popupMsg1");
+    popup.style.display = 'none';
+  }
 
   return (
     <div>
@@ -68,8 +73,9 @@ const Input = ({ setMessage, sendMessage, message, userInRoom, msgReply, resetMs
           placeholder="Type a message..."
           value={message}
           onChange={(e) => handleInputChange(e)}
-          onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
+          onKeyPress={event => event.key === 'Enter' ? clearTagOnSending(event) : null}
           ref={inputRef}
+          onKeyUp={typing}
         />
         <button className="sendButton" onClick={e => sendMessage(e)}><span>Send</span> <i className="fas fa-chevron-right"></i></button>
       </form>
