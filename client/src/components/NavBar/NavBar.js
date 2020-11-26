@@ -26,6 +26,9 @@ const NavBar = ({ pageTitle, user }) => {
   const [titleMsg, setTitleMsg] = useState('');
   const [languageMsg, setLanguageMsg] = useState('');
   const [categoryMsg, setCategoryMsg] = useState('');
+  
+  //language array for selection
+  const [languageList] = useState(['English', 'Mandarin', 'Hindi', 'Spanish', 'French', 'Arabic', 'Bengali', 'Russian' ,'Portuguese', 'Indonesian', 'Urdu', 'German', 'Japanese', 'Swahili', 'Marathi', 'Telugu', 'Punjabi', 'Tamil', 'Turkish']);
 
   useEffect(() => {
     let isMounted = true; //to avoid memory leak problem on unmounting component, cleaning the function
@@ -47,7 +50,7 @@ const NavBar = ({ pageTitle, user }) => {
     if(title === '') {
       setTitleMsg('Please enter Title');
     } else if (language === '') {
-      setLanguageMsg('Please enter Language');
+      setLanguageMsg('Please select Language');
     } else if (category === '') {
       setCategoryMsg('Please select Category');
     } else {
@@ -78,6 +81,13 @@ const NavBar = ({ pageTitle, user }) => {
     );
     return (list);
   }
+  
+  const optionsForLanguage = () => {
+    const list = languageList.map((item) =>
+      <option value={item} key={item}>{item}</option>
+    );
+    return (list);
+  }
 
   const showCreateRoomModal = (showModal) => {
     return(
@@ -103,9 +113,14 @@ const NavBar = ({ pageTitle, user }) => {
                 <div>{titleMsg}</div>
               </Form.Group>
 
-              <Form.Group>
-                <Form.Control type="text" placeholder="Language" name='language' value={language} onChange={e => {setLanguage(e.target.value)
-                setLanguageMsg('')}}/>
+              <Form.Group>                
+                <select className="custom-select" type="text" placeholder="Language" name='language' value={language} onChange={e => {
+                    setLanguage(e.target.value)
+                    setLanguageMsg('')
+                  }}>
+                  <option value='' key='language'>language</option>
+                  {optionsForLanguage()}
+                </select>
                 <div>{languageMsg}</div>
               </Form.Group>
 

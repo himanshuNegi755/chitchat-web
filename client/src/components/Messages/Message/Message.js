@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './Message.css';
 
@@ -6,6 +6,9 @@ import ReactEmoji from 'react-emoji';
 
 const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name, mutedUsersList, sendReply, id, room, scrollToMsg, report }) => {
 
+  //state array for storing joined msg in different language for chat ui
+  const [joinedInDiffLang] = useState(['joined' /*english*/, 'आला' /*marathi*/, 'சேர்ந்துகொண்டார்'/*tamil*/, 'ਸ਼ਾਮਲ ਹੋ ਗਿਆ ਹੈ' /*punjabi*/]);
+  
   var myTimeout;
   const start = () => myTimeout = setTimeout(function() { report(user, text); }, 1000);
   
@@ -15,8 +18,13 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
 
   const trimmedName = name.trim();
 
-  if(user === trimmedName) {
-    isSentByCurrentUser = true;
+  if(user === trimmedName) isSentByCurrentUser = true;
+  
+  const containsMsg = (target) => {
+    for(var i=0; i< joinedInDiffLang.length; i++) {
+      if(target.includes(joinedInDiffLang[i])) return (true);
+    }
+    return (false);
   }
 
   const conditonalMessages = () => {
@@ -38,7 +46,7 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
       )
     } else {
       if( user === 'admin') {
-        if(text === `${trimmedName}, welcome to room ${room}.`) {
+        if(text.includes(trimmedName) && text.includes(room)) {
           return (
             <div className="messageContainer justifyCenter">
               <div className="bot-text">
@@ -46,18 +54,17 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
               </div>
             </div>
           )
-        } else if (text !== `${trimmedName} has joined!`) {
-          if(text.includes('welcome')) {return(null)}
-          else{
-            return (
-              <div className="messageContainer justifyCenter">
-                <div className="bot-text">
-                  <p>{text}</p>
-                </div>
+        } else if (text.includes(room)) {return(null)}
+        else if (text.includes(trimmedName) && containsMsg(text)) {return(null)}
+        else{
+          return (
+            <div className="messageContainer justifyCenter">
+              <div className="bot-text">
+                <p>{text}</p>
               </div>
-            )
-          }
-        } else {return(null)}
+            </div>
+          )
+        }
       } else {
         if(mutedUsersList.includes(user)) {return(null)}
         else {

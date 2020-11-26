@@ -22,6 +22,7 @@ const Chat = ({ location, user }) => {
   //room parameters
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
+  // eslint-disable-next-line
   const [roomId, setRoomId] = useState('');
   const [users, setUsers] = useState([]);  //array of userName
   const [mutedUsers, setMutedUsers] = useState([]);  //array of muted userName
@@ -90,9 +91,7 @@ const Chat = ({ location, user }) => {
 
   const sendMessage = (event) => {
     event.preventDefault();
-    if(message) {
-     socket.emit('sendMessage', {message, messageReply}, () => setMessage(''));
-    }
+    if(message) socket.emit('sendMessage', {message, messageReply}, () => setMessage(''));
     resetMsg();
   }
 

@@ -40,6 +40,7 @@ var Room = mongoose.model('Room');
 var Chat = mongoose.model('Chat');
 var noOfUserOnline = 0;
 var $ipsConnected = [];
+var deleteRoomTimeout = []; //array for room delete timeout var
 
 app.use(cors(corsOptions));
 
@@ -70,6 +71,45 @@ io.on('connect', (socket) => {
   	noOfUserOnline++;
     socket.emit('onlineUser', { onlineUser: noOfUserOnline});
   }
+  var roomLanguage; //var for room language
+  
+  //socket connect/join function
+  function socketJoinFun(roomId, msgWelcome, msgJoined) {
+    //add messages in chat collection to the particular room
+    Chat.updateOne({roomId: ObjectId(roomId)}, {$push: {chat: {user: 'admin', text: msgWelcome, replyUser: '', replyText: '', replyMsgId: -1}}}, function(err, chat) {
+      if (err) {
+        //response.status(500).send({error: "Could not update the menu"});
+        console.log('error occurred while sending msg');
+      }
+    });
+
+    Chat.updateOne({roomId: ObjectId(roomId)}, {$push: {chat: {user: 'admin', text: msgJoined, replyUser: '', replyText: '', replyMsgId: -1}}}, function(err, chat) {
+      if (err) {
+        console.log('error occurred while sending msg');
+      }
+    });
+
+    socket.emit('message', { user: 'admin', text: msgWelcome});
+    socket.broadcast.to(roomId).emit('message', { user: 'admin', text: msgWelcome});
+
+    socket.broadcast.to(roomId).emit('message', { user: 'admin', text: msgJoined });
+    socket.emit('message', { user: 'admin', text: msgJoined});
+
+  }
+
+  //socket disconnect function
+  function socketDisconnectFun(roomId, msgLeft) {
+    //add messages in chat collection to the particular room
+    Chat.updateOne({roomId: ObjectId(roomId)}, {$push: {chat: {user: 'admin', text: msgLeft, replyUser: '', replyText: '', replyMsgId: -1}}}, function(err, chat) {
+      if (err) {
+        //response.status(500).send({error: "Could not update the menu"});
+        console.log('error occurred while sending msg');
+      }
+    });
+
+    io.to(roomId).emit('message', { user: 'admin', text: msgLeft });
+
+  }
 
   socket.on('join',  async ({ userName, room, roomId }, callback) => {
 
@@ -88,6 +128,7 @@ io.on('connect', (socket) => {
       var temp = await errorOccured;
       if(temp.length > 0) {
         if(temp[0].title !== room) return callback("room doesn't exist, pls check url.");
+        else{roomLanguage = (temp[0].language).trim().toLowerCase();}
       } else {
         return callback("room doesn't exist, pls check url.");
       }
@@ -101,6 +142,9 @@ io.on('connect', (socket) => {
 
     socket.join(user.roomId);
 
+    //clear the timeout for delete setTimeOut for a particular room
+    clearTimeout(deleteRoomTimeout[user.roomId]);
+    
     //update members in room when somebody joins the room
     Room.updateOne({_id: ObjectId(user.roomId)}, {$set: {"members": getUsersInRoom(user.roomId).length}}, function(err, status) {
       if (err) {
@@ -109,26 +153,69 @@ io.on('connect', (socket) => {
         //console.log('members updated');
       }
     });
-
-    //add messages in chat collection to the particular room
-    Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name}, welcome to room ${user.room}.`, replyUser: '', replyText: '', replyMsgId: -1}}}, function(err, chat) {
-      if (err) {
-        //response.status(500).send({error: "Could not update the menu"});
-        console.log('error occurred while sending msg');
-      }
-    });
     
-    Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name} has joined!`, replyUser: '', replyText: '', replyMsgId: -1}}}, function(err, chat) {
-      if (err) {
-        console.log('error occurred while sending msg');
-      }
-    });
-    
-    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
-    socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.` });
-    
-    socket.broadcast.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has joined!` });
-    socket.emit('message', { user: 'admin', text: `${user.name} has joined!`});
+    //switch cases for different languages while joining
+    switch(roomLanguage) {
+      case 'english':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'mandarin':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'hindi':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'spanish':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'french':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'arabic':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'bengali':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'russian':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'portuguese':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'indonesian':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'urdu':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'german':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'japanese':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'swahili':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'marathi':
+        socketJoinFun(user.roomId, `${user.name}, स्वागत आहे रूम ${user.room} मधे`, `${user.name} आला`);
+        break;
+      case 'telugu':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'punjabi':
+        socketJoinFun(user.roomId, `${user.name}, ਕਮਰੇ ${user.room} ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ`, `${user.name} ਸ਼ਾਮਲ ਹੋ ਗਿਆ ਹੈ`);
+        break;
+      case 'tamil':
+        socketJoinFun(user.roomId, `${user.name}, ${user.room} அறைக்குள் வருக`, `${user.name} சேர்ந்துகொண்டார்!`);
+        break;
+      case 'turkish':
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      default:
+        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+    }    
     
     io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId) });
 
@@ -167,22 +254,35 @@ io.on('connect', (socket) => {
 
     if(user) {
       if(getUsersInRoom(user.roomId).length <=0) {
-      //remove the room when room is empty
-      Room.deleteOne({_id: ObjectId(user.roomId)}, function(err, status) {
-        if (err) {
-          //response.status(500).send({error: "Could not remove the room"});
-          console.log('some errore occured');
-        } else {
-          //remove chat
-          Chat.deleteOne({roomId: ObjectId(user.roomId)}, function(err, status) {
+        //update members in room when somebody leaves the room and if it is not the last person
+        Room.updateOne({_id: ObjectId(user.roomId)}, {$set: {"members": getUsersInRoom(user.roomId).length}}, function(err, status) {
+          if (err) {
+            //response.status(500).send({error: "Could not update room members"});
+            console.log('some errore occured while updating members');
+          } else {
+            //console.log('members updated');
+          }
+        })
+        //set 30 sec timeout for deleting room
+        deleteRoomTimeout[user.roomId] = setTimeout(function() { 
+          //remove the room when room is empty
+          Room.deleteOne({_id: ObjectId(user.roomId)}, function(err, status) {
             if (err) {
-              //response.status(500).send({error: "Could not remove the chat for this room"});
+              //response.status(500).send({error: "Could not remove the room"});
+              console.log('some errore occured');
             } else {
-              //response.send(status);
+              //remove chat
+              Chat.deleteOne({roomId: ObjectId(user.roomId)}, function(err, status) {
+                if (err) {
+                  //response.status(500).send({error: "Could not remove the chat for this room"});
+                } else {
+                  //response.send(status);
+                }
+              })
             }
           })
-        }
-      })
+        }, 30000);
+      
     } else {
       //update members in room when somebody leaves the room and if it is not the last person
       Room.updateOne({_id: ObjectId(user.roomId)}, {$set: {"members": getUsersInRoom(user.roomId).length}}, function(err, status) {
@@ -190,20 +290,73 @@ io.on('connect', (socket) => {
           //response.status(500).send({error: "Could not update room members"});
           console.log('some errore occured while updating members');
         } else {
-          //response.send(status);
           //console.log('members updated');
         }
       })
     }
-      //add messages in chat collection to the particular room
-      Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: 'admin', text: `${user.name} has left.`, replyUser: '', replyText: '', replyMsgId: -1}}}, function(err, chat) {
-        if (err) {
-          //response.status(500).send({error: "Could not update the menu"});
-          console.log('error occurred while sending msg');
-        }
-      });
+      //switch cases for different languages while socket disconnect
+      switch(roomLanguage) {
+        case 'english':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'mandarin':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'hindi':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'spanish':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'french':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'arabic':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'bengali':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'russian':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'portuguese':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'indonesian':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'urdu':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'german':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'japanese':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'swahili':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'marathi':
+          socketDisconnectFun(user.roomId, `${user.name} सोडुन गेला`);
+          break;
+        case 'telugu':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'punjabi':
+          socketDisconnectFun(user.roomId, `${user.name} ਛੱਡ ਗਿਆ ਹੈ`);
+          break;
+        case 'tamil':
+          socketDisconnectFun(user.roomId, `${user.name} விட்டுவிட்டார்`);
+          break;
+        case 'turkish':
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        default:
+          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+      }
       
-      io.to(user.roomId).emit('message', { user: 'admin', text: `${user.name} has left.` });
       io.to(user.roomId).emit('roomData', { room: user.roomId, users: getUsersInRoom(user.roomId)});
     } else {
       if ($ipsConnected.hasOwnProperty($ipAddress)) {
