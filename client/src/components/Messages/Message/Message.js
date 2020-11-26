@@ -7,7 +7,7 @@ import ReactEmoji from 'react-emoji';
 const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, name, mutedUsersList, sendReply, id, room, scrollToMsg, report }) => {
 
   //state array for storing joined msg in different language for chat ui
-  const [joinedInDiffLang] = useState(['joined' /*english*/, 'आला' /*marathi*/, 'சேர்ந்துகொண்டார்'/*tamil*/, 'ਸ਼ਾਮਲ ਹੋ ਗਿਆ ਹੈ' /*punjabi*/]);
+  const [joinedInDiffLang] = useState(['joined' /*english*/, 'शामिल' /*hindi*/, 'आला' /*marathi*/, 'சேர்ந்துகொண்டார்'/*tamil*/, 'ਸ਼ਾਮਲ ਹੋ ਗਿਆ ਹੈ' /*punjabi*/]);
   
   var myTimeout;
   const start = () => myTimeout = setTimeout(function() { report(user, text); }, 1000);

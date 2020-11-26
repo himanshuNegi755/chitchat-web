@@ -160,7 +160,7 @@ const Chat = ({ location, user }) => {
   const typingFun = () => {
     socket.emit('typing', 'typing...');
     clearTimeout(typingTimeout);
-    typingTimeout = setTimeout(function() { socket.emit('typing', ''); }, 2000);
+    typingTimeout = setTimeout(function() { socket.emit('typing', ''); }, 1000);
   }
 
   if(!loggedIn) {

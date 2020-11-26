@@ -163,7 +163,7 @@ io.on('connect', (socket) => {
         socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
         break;
       case 'hindi':
-        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        socketJoinFun(user.roomId, `${user.name}, आपका रूम ${user.room} मे स्वागत है`, `${user.name} रूम मे शामिल हो गए है`);
         break;
       case 'spanish':
         socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
@@ -303,7 +303,7 @@ io.on('connect', (socket) => {
           socketDisconnectFun(user.roomId, `${user.name} has left.`);
           break;
         case 'hindi':
-          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          socketDisconnectFun(user.roomId, `${user.name} ने रूम छोड़ दिया है`);
           break;
         case 'spanish':
           socketDisconnectFun(user.roomId, `${user.name} has left.`);
