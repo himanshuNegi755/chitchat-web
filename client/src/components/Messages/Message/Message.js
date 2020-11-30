@@ -70,7 +70,7 @@ const Message = ({ message: { text, user, replyUser, replyText, replyMsgId }, na
         else {
           return(
               <div className="messageContainer justifyStart">
-                <div className="messageBox backgroundLight" onMouseDown={start} onMouseUp={end}>
+                <div className="messageBox backgroundLight" onPointerDown={start} onPointerUp={end}>
                   <p className="theirName">{user}</p>
                   <div className={replyUser === '' ? null : "justifyStart"} onClick={() => {scrollToMsg(replyMsgId)}}>
                     <div className="reply-from">

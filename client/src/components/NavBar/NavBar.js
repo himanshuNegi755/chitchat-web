@@ -176,6 +176,9 @@ const NavBar = ({ pageTitle, user }) => {
                 <Link className="nav-link" to="/profile">Profile</Link>
               </li>
               <li className="nav-item">
+                <Link className="nav-link" to="/about-us">About Us</Link>
+              </li>
+              <li className="nav-item">
                 <button className="create-room" onClick={showRoomCreateModalOrNot}>CREATE ROOM</button>
               </li>
               <li className="nav-item">
