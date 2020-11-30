@@ -175,7 +175,7 @@ io.on('connect', (socket) => {
         socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
         break;
       case 'bengali':
-        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        socketJoinFun(user.roomId, `${user.name}, আপনাক ${user.room} রুম মে স্বাগত জানাই ।`, `${user.name} রুমে যুক্ত হযে গেছেন ।`);
         break;
       case 'russian':
         socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
@@ -212,6 +212,9 @@ io.on('connect', (socket) => {
         break;
       case 'turkish':
         socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        break;
+      case 'odia':
+        socketJoinFun(user.roomId, `${user.name}, ଆପଣଙ୍କ ${user.room} ନାମକ ରୁମ୍ ରେ ସ୍ବାଗତ ।`, `${user.name} ରୁମ୍ ରେ ସାମିଲ୍ ହେଲେ ।`);
         break;
       default:
         socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
@@ -317,7 +320,7 @@ io.on('connect', (socket) => {
           socketDisconnectFun(user.roomId, `${user.name} has left.`);
           break;
         case 'bengali':
-          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          socketDisconnectFun(user.roomId, `${user.name} রুম ছেড়ে দিয়েছেন ।`);
           break;
         case 'russian':
           socketDisconnectFun(user.roomId, `${user.name} has left.`);
@@ -354,6 +357,9 @@ io.on('connect', (socket) => {
           break;
         case 'turkish':
           socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'odia':
+          socketDisconnectFun(user.roomId, `${user.name} ରୁମ୍ ଛାଡ଼ି ଦେଲେ।`);
           break;
         default:
           socketDisconnectFun(user.roomId, `${user.name} has left.`);

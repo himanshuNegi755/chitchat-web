@@ -28,7 +28,7 @@ const NavBar = ({ pageTitle, user }) => {
   const [categoryMsg, setCategoryMsg] = useState('');
   
   //language array for selection
-  const [languageList] = useState(['English', 'Mandarin', 'Hindi', 'Spanish', 'French', 'Arabic', 'Bengali', 'Russian' ,'Portuguese', 'Indonesian', 'Urdu', 'German', 'Japanese', 'Swahili', 'Marathi', 'Telugu', 'Punjabi', 'Tamil', 'Turkish']);
+  const [languageList] = useState(['English', 'Mandarin', 'Hindi', 'Spanish', 'French', 'Arabic', 'Bengali', 'Russian' ,'Portuguese', 'Indonesian', 'Urdu', 'German', 'Japanese', 'Swahili', 'Marathi', 'Telugu', 'Punjabi', 'Tamil', 'Turkish', 'Odia']);
 
   useEffect(() => {
     let isMounted = true; //to avoid memory leak problem on unmounting component, cleaning the function
