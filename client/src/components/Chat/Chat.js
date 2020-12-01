@@ -48,6 +48,12 @@ const Chat = ({ location, user }) => {
     const { room, roomId } = queryString.parse(location.search);
 
     if(user) {
+      console.log('useEffect');
+      window.addEventListener('load', () => {
+        console.log('inside');
+        /*window.addEventListener('online',  function(){console.log('online')});
+        window.addEventListener('offline', function(){console.log('offline')});*/
+      });
       socket = io(process.env.REACT_APP_SOCKET_ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
 
       setRoom(room);
@@ -87,7 +93,7 @@ const Chat = ({ location, user }) => {
   //component unmount
   useEffect(() => {
     if(user) return () => socket.close();
-  },[user])
+  },[user]);
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -162,6 +168,15 @@ const Chat = ({ location, user }) => {
     clearTimeout(typingTimeout);
     typingTimeout = setTimeout(function() { socket.emit('typing', ''); }, 1000);
   }
+  
+  //online user or not
+  const updateOnlineStatus = () => {
+    if(navigator.onLine) {
+      return(<div>online</div>)
+    } else {
+      return(<div>online</div>)
+    }
+  }
 
   if(!loggedIn) {
     return <Redirect to='/' />;
@@ -171,6 +186,7 @@ const Chat = ({ location, user }) => {
     return (
       <div className="outerContainer">
         <div className="container">
+          {updateOnlineStatus()}
           <InfoBar room={room} noOfMemberInRoom={users.length} showMemebers={showMembersModal} typingData={typing}/>
           <div className="pop-div"><span id='reportStatus'> {reportStatus} </span></div>
           <Messages messages={messages} name={name} replyFun={sendReply} mutedUsers={mutedUsers} roomName={room} reportModal={showReportModal}/>
