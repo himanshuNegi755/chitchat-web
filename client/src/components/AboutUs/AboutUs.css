@@ -1,0 +1,42 @@
+.about-section{
+  padding: 3.5rem 15% 2rem;
+  background-image: linear-gradient(#1fe5ff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff, #adffff);
+  min-height: 70vh;
+  width: 100%;
+}
+.about-logo{
+  width: 8rem;
+  height: 8rem;
+}
+.FAQ-section{
+  padding: 3.5rem 8%;
+  background-image: linear-gradient(#adffff, #2bf4ff, #2bf4ff, #2bf4ff, #2bf4ff, #2bf4ff, #2bf4ff, #1fe5ff);
+}
+.faq-heading{
+  font-family: 'Play', sans-serif;
+  text-align: center;
+  padding: 1rem 0 0;
+}
+.faq-heading h1{
+  font-size: 4rem;
+}
+.faq-list{
+  padding: 2rem 3rem 6rem;
+}
+.faq-list-item {
+    line-height: 2.5;
+    text-align: left;
+    font-size: 1.2rem;
+}
+.faq-list-item em{
+    cursor: pointer;
+}
+.ans {
+    margin-left: 40px;
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+.a-tag-in-faq-list {
+    color: black;
+}

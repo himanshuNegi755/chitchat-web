@@ -26,7 +26,7 @@ const NavBar = ({ pageTitle, user }) => {
   const [titleMsg, setTitleMsg] = useState('');
   const [languageMsg, setLanguageMsg] = useState('');
   const [categoryMsg, setCategoryMsg] = useState('');
-  
+
   //language array for selection
   const [languageList] = useState(['English', 'Mandarin', 'Hindi', 'Spanish', 'French', 'Arabic', 'Bengali', 'Russian' ,'Portuguese', 'Indonesian', 'Urdu', 'German', 'Japanese', 'Swahili', 'Marathi', 'Telugu', 'Punjabi', 'Tamil', 'Turkish', 'Odia']);
 
@@ -81,7 +81,7 @@ const NavBar = ({ pageTitle, user }) => {
     );
     return (list);
   }
-  
+
   const optionsForLanguage = () => {
     const list = languageList.map((item) =>
       <option value={item} key={item}>{item}</option>
@@ -110,10 +110,10 @@ const NavBar = ({ pageTitle, user }) => {
               <Form.Group>
                 <Form.Control type="text" placeholder="Room Title" name='title' value={title} onChange={e => {setTitle(e.target.value)
                                                                                                              setTitleMsg('')}}/>
-                <div>{titleMsg}</div>
+                <div className="noInput-msg">{titleMsg}</div>
               </Form.Group>
 
-              <Form.Group>                
+              <Form.Group>
                 <select className="custom-select" type="text" placeholder="Language" name='language' value={language} onChange={e => {
                     setLanguage(e.target.value)
                     setLanguageMsg('')
@@ -121,7 +121,7 @@ const NavBar = ({ pageTitle, user }) => {
                   <option value='' key='language'>language</option>
                   {optionsForLanguage()}
                 </select>
-                <div>{languageMsg}</div>
+                <div className="noInput-msg">{languageMsg}</div>
               </Form.Group>
 
               <Form.Group>
@@ -132,7 +132,7 @@ const NavBar = ({ pageTitle, user }) => {
                   <option value='' key='category'>category</option>
                   {optionsForCategory()}
                 </select>
-                <div>{categoryMsg}</div>
+                <div className="noInput-msg">{categoryMsg}</div>
               </Form.Group>
 
               <div className="btn-div">
