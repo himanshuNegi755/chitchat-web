@@ -6,6 +6,7 @@ import { Form, Row, Col } from 'react-bootstrap';
 
 import './ProfilePage.css';
 import NavBar from '../NavBar/NavBar';
+import Footer from '../Footer/Footer';
 
 const ProfilePage = ({ user }) => {
   const [userName, setUserName] = useState('');
@@ -108,6 +109,7 @@ const ProfilePage = ({ user }) => {
             {<button className="deleteBtn" onClick={deleteAccountFunction}>Delete Account</button>}
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

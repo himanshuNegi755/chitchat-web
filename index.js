@@ -175,7 +175,7 @@ io.on('connect', (socket) => {
         socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
         break;
       case 'bengali':
-        socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
+        socketJoinFun(user.roomId, `${user.name}, আপনাক ${user.room} রুম মে স্বাগত জানাই ।`, `${user.name} রুমে যুক্ত হযে গেছেন ।`);
         break;
       case 'russian':
         socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
@@ -213,6 +213,9 @@ io.on('connect', (socket) => {
       case 'turkish':
         socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
         break;
+      case 'odia':
+        socketJoinFun(user.roomId, `${user.name}, ଆପଣଙ୍କ ${user.room} ନାମକ ରୁମ୍ ରେ ସ୍ବାଗତ ।`, `${user.name} ରୁମ୍ ରେ ସାମିଲ୍ ହେଲେ ।`);
+        break;
       default:
         socketJoinFun(user.roomId, `${user.name}, welcome to room ${user.room}.`, `${user.name} has joined!`);
     }    
@@ -225,26 +228,28 @@ io.on('connect', (socket) => {
   socket.on('sendMessage', ({message, messageReply}, callback) => {
     const user = getUser(socket.id);
 
-    //add messages in chat collection to the particular room
-    Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: user.name, text: message, replyUser: messageReply.user, replyText: messageReply.text, replyMsgId: messageReply.id}}}, function(err, chat) {
-      if (err) {
-        //response.status(500).send({error: "Could not update the menu"});
-        console.log('error occurred while sending msg');
-      } else {
-        //response.send(chat);
-        //console.log('message sent');
-      }
-    });
+    if(user) {
+      //add messages in chat collection to the particular room
+      Chat.updateOne({roomId: ObjectId(user.roomId)}, {$push: {chat: {user: user.name, text: message, replyUser: messageReply.user, replyText: messageReply.text, replyMsgId: messageReply.id}}}, function(err, chat) {
+        if (err) {
+          //response.status(500).send({error: "Could not update the menu"});
+          console.log('error occurred while sending msg');
+        } else {
+          //response.send(chat);
+          //console.log('message sent');
+        }
+      });
 
-    io.to(user.roomId).emit('message', { user: user.name, text: message , replyUser: messageReply.user, replyText: messageReply.text, replyMsgId: messageReply.id});
-
+      io.to(user.roomId).emit('message', { user: user.name, text: message , replyUser: messageReply.user, replyText: messageReply.text, replyMsgId: messageReply.id});
+      
+    }
     callback();
   });
 
   //typing event for, typing status
   socket.on('typing', (data, callback) => {
     const user = getUser(socket.id);
-    socket.broadcast.to(user.roomId).emit('typingStatus', data);
+    if(user) {socket.broadcast.to(user.roomId).emit('typingStatus', data);}
     //io.to(user.roomId).emit('typingStatus', data);
     //callback();
   });
@@ -315,7 +320,7 @@ io.on('connect', (socket) => {
           socketDisconnectFun(user.roomId, `${user.name} has left.`);
           break;
         case 'bengali':
-          socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          socketDisconnectFun(user.roomId, `${user.name} রুম ছেড়ে দিয়েছেন ।`);
           break;
         case 'russian':
           socketDisconnectFun(user.roomId, `${user.name} has left.`);
@@ -352,6 +357,9 @@ io.on('connect', (socket) => {
           break;
         case 'turkish':
           socketDisconnectFun(user.roomId, `${user.name} has left.`);
+          break;
+        case 'odia':
+          socketDisconnectFun(user.roomId, `${user.name} ରୁମ୍ ଛାଡ଼ି ଦେଲେ।`);
           break;
         default:
           socketDisconnectFun(user.roomId, `${user.name} has left.`);

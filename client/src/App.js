@@ -9,6 +9,7 @@ import Rooms from './components/Rooms/Rooms.js';
 import Interests from './components/FrontPage/Interests/Interests';
 import ProfilePage from './components/ProfilePage/ProfilePage.js';
 import My404Component from './components/My404Component/My404Component.js';
+import AboutUs from './components/AboutUs/AboutUs.js';
 
 const App = (props) => {
   useEffect(() => {
@@ -22,6 +23,7 @@ const App = (props) => {
       <Route exact path="/chat" component={Chat} />
       <Route exact path="/interests" component={Interests} />
       <Route exact path="/profile" component={ProfilePage} />
+      <Route exact path="/about-us" component={AboutUs} />
       <Route component={My404Component} />
     </Switch>
   );

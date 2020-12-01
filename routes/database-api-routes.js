@@ -36,7 +36,6 @@ router.put('/interests/image', function(request, response, next) {
   });
 });
 
-
 //remove/delete interests from list
 router.put('/interests/delete', function(request, response, next) {
   Interests.remove({interests: request.body.interests}, function(err, interests) {

@@ -28,7 +28,7 @@ const NavBar = ({ pageTitle, user }) => {
   const [categoryMsg, setCategoryMsg] = useState('');
 
   //language array for selection
-  const [languageList] = useState(['English', 'Mandarin', 'Hindi', 'Spanish', 'French', 'Arabic', 'Bengali', 'Russian' ,'Portuguese', 'Indonesian', 'Urdu', 'German', 'Japanese', 'Swahili', 'Marathi', 'Telugu', 'Punjabi', 'Tamil', 'Turkish']);
+  const [languageList] = useState(['English', 'Mandarin', 'Hindi', 'Spanish', 'French', 'Arabic', 'Bengali', 'Russian' ,'Portuguese', 'Indonesian', 'Urdu', 'German', 'Japanese', 'Swahili', 'Marathi', 'Telugu', 'Punjabi', 'Tamil', 'Turkish', 'Odia']);
 
   useEffect(() => {
     let isMounted = true; //to avoid memory leak problem on unmounting component, cleaning the function
@@ -174,6 +174,9 @@ const NavBar = ({ pageTitle, user }) => {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/profile">Profile</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/about-us">About Us</Link>
               </li>
               <li className="nav-item">
                 <button className="create-room" onClick={showRoomCreateModalOrNot}>CREATE ROOM</button>
