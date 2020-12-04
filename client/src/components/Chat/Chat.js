@@ -172,24 +172,26 @@ const Chat = ({ location, user }) => {
     if(navigator.onLine) {
       setOnline(true);
       
-      const { room, roomId } = queryString.parse(location.search);
-      socket = io(process.env.REACT_APP_SOCKET_ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
+      if(!socket.connected) {
+        const { room, roomId } = queryString.parse(location.search);
+        socket = io(process.env.REACT_APP_SOCKET_ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
 
-      setRoom(room);
-      setName(user.userName);
-      setRoomId(roomId);
-      const userName = user.userName;
+        setRoom(room);
+        setName(user.userName);
+        setRoomId(roomId);
+        const userName = user.userName;
 
-      socket.emit('join', { userName, room, roomId }, (error) => {
-        if(error) {
-          alert(error);
-          setRedirectTo404(false)
-          //alert(error);
-        } else {
-          axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/${roomId}`)
-          .then(res => { setMessages(res.data) })
-        }
-      });
+        socket.emit('join', { userName, room, roomId }, (error) => {
+          if(error) {
+            alert(error);
+            setRedirectTo404(false)
+            //alert(error);
+          } else {
+            axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/${roomId}`)
+            .then(res => { setMessages(res.data) })
+          }
+        });
+      }
     } else { setOnline(false); }
   }
 
