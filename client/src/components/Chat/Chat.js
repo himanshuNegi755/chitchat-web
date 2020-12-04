@@ -172,7 +172,8 @@ const Chat = ({ location, user }) => {
     if(navigator.onLine) {
       setOnline(true);
       
-      if(!socket.connected) {
+      if(!alert('you got disconnected')){window.location.reload();}
+      /*if(!socket.connected) {
         const { room, roomId } = queryString.parse(location.search);
         socket = io(process.env.REACT_APP_SOCKET_ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
 
@@ -191,7 +192,7 @@ const Chat = ({ location, user }) => {
             .then(res => { setMessages(res.data) })
           }
         });
-      }
+      }*/
     } else { setOnline(false); }
   }
 
