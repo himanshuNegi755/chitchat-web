@@ -26,7 +26,7 @@ const AboutUs = () => {
     <div className="about-us">
       <NavBar pageTitle='About Us'/>
         <section className="about-section">
-          <p className="welcome-heading"><img className="about-logo" src={CcLogo}/></p>
+          <p className="welcome-heading"><img className="about-logo" src={CcLogo} alt="logo"/></p>
           <hr/>
             <p className="intro-text">An online realtime discussion platform.</p><br/>
             <p className="info-section">This is an online platform where you can create a room of any topic of your choice and can have dicussion with any person who's online.
@@ -75,7 +75,7 @@ const AboutUs = () => {
                 <div className="faq-list-item col-6">
                     <i className="fas fa-angle-down" style={{transform: 'rotate(0deg)'}} id="d10"></i><em onClick={() => {showFAQAns('10')}}> I still got some questions!</em>
                     <div className="ans" style={{display: 'none'}} id="10">
-                        You can contact us through mail.
+                      You can contact us through<a className="contact-icons" href="mailto:thekatohome@gmail.com">mail.</a>
                     </div>
                 </div>
         </div>

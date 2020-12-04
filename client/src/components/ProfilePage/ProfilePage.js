@@ -15,8 +15,7 @@ const ProfilePage = ({ user }) => {
   const [newUserName, setNewUserName] = useState(''); //get and store userName after updating
 
   useEffect(() => {
-    if(user) {
-      setUserName(user.userName)
+    if(user) { setUserName(user.userName)
     } else if(user === false) {setLoggedIn(false)}
   }, [user]);
 

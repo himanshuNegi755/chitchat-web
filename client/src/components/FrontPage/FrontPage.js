@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import './FrontPage.css';
 import Introduction from './Introduction/Introduction';
-import Home from '../Home/Home';
+import Home from './Home/Home';
 
 const FrontPage = ({ user }) => {
 
