@@ -193,7 +193,7 @@ const Chat = ({ location, user }) => {
           }
         });
       }*/
-    } else { setOnline(false); }
+    } else { setOnline(false); /*alert('you are offline');*/ }
   }
 
   if(!loggedIn) {
