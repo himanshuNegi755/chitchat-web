@@ -41,7 +41,7 @@ const AboutUs = () => {
             <p className="info-section">Similarly you can find any room you are interested to engage with simply by selecting your feild of interests.</p>
             <p className="info-section">The room you created will be destroyed within 30 seconds when the last person leaves the room. After the room is destroyed none of your chats are stored in any kind of server.</p>
             <p className="info-section">When you are logging in using Google account we only access your name, profile pic and email for a proper identity verification. No other data is used. We understand your privacy so no user can check your profile page. One can only see your updated unique user name.</p>
-            <p className="info-section">Be polite and respectful to everyone.</p>
+            <p className="info-section"><strong>Be polite and respectful to everyone.</strong></p>
         </section>
         <section className="FAQ-section">
         <div className="faq-heading">
