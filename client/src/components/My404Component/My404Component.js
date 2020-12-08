@@ -6,10 +6,13 @@ const My404Component = () => {
 
   return (
     <div className='pagebody'>
-      <a href='/'>
-        <span className="text-3d">404</span>
-      </a>
-      <span className="caption">Page Not Found, Click to Return Home</span>
+      <div className="not-found-box">
+        <div className="not-found">Page Not Found</div>
+        <p>Looks like the page doesn't exist.</p>
+        <div className="return-button">
+          <a href='/'><button>Return to Home</button></a>
+        </div>
+      </div>
     </div>
   );
 }

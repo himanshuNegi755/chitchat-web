@@ -7,7 +7,7 @@ import Message from './Message/Message';
 import './Messages.css';
 
 const Messages = ({ messages, name, replyFun, mutedUsers, roomName, reportModal }) => {
-  
+
   const scrollToFun = (id) => {
     if (id && id !== -1) {
       var elmnt = document.getElementById(id);

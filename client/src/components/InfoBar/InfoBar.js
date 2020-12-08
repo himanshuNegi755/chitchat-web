@@ -2,11 +2,11 @@ import React from 'react';
 
 import './InfoBar.css';
 
-const InfoBar = ({ room, noOfMemberInRoom, showMemebers, typingData }) => (
+const InfoBar = ({ room, noOfMemberInRoom, showMemebers, typingData, onlineStatus }) => (
   <div className="infoBar">
     <div className="leftInnerContainer">
       <p>{room}</p>
-      <div className="onlineIcon"></div>
+      <div className="onlineIcon" style={onlineStatus ? {backgroundColor: '#00ff00'} : {backgroundColor: '#ff0000'}}></div>
       <i className="fas fa-users chat-memNo" onClick={showMemebers}></i> <p>{noOfMemberInRoom}</p>
       <p className="typing-status">{typingData}</p>
     </div>

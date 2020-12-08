@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import queryString from 'query-string';
@@ -11,13 +11,11 @@ import langIcon from '../../icons/langIcon.svg';
 
 const Rooms = ({ location, user }) => {
   const [rooms, setRooms] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(true);
   const [interestExistOrNot, setInterestExistOrNot] = useState(false);  //var to check if interest exist or not
   const [interestStatus, setInterestStatus] = useState('');   //server response after finding interest doesn't exist
 
   useEffect(() => {
     const { interests } = queryString.parse(location.search);
-    if(user === false) {setLoggedIn(false)}
 
     axios.get(`${process.env.REACT_APP_BACKEND_API}/room/${interests}`)
     .then(res => {
@@ -80,16 +78,12 @@ const Rooms = ({ location, user }) => {
     }
   }
 
-  if(!loggedIn) {
-    return <Redirect to='/' />;
-  } else {
-    return (
-      <div className='main-div'>
-        <NavBar pageTitle='Rooms'/>
-        {roomsList()}
-      </div>
-    );
-  }
+  return (
+    <div className='main-div'>
+      <NavBar pageTitle='Rooms'/>
+      {roomsList()}
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {

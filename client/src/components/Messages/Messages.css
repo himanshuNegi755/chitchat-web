@@ -2,17 +2,10 @@
   padding: 1px 0;
   overflow: auto;
   flex: auto;
-  background-image: url('https://images.pexels.com/photos/242236/pexels-photo-242236.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
-  background-size: contain;
+  /*background-image: url('https://images.pexels.com/photos/242236/pexels-photo-242236.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  background-size: contain;*/
 }
-/*https://previews.123rf.com/images/faitotoro/faitotoro1707/faitotoro170700006/82184389-back-to-school-doodle-seamless-pattern-background.jpg*/ /*doodle image*/
-
 /*https://st3.depositphotos.com/2800301/34478/v/950/depositphotos_344789902-stock-illustration-movie-cinema-set-pattern-doodle.jpg*/ /*colorful doodle image*/
-
-/*https://thumbs.dreamstime.com/b/real-estate-concept-d-cartoon-doodles-background-design-hand-drawn-colorful-vector-illustration-real-estate-concept-d-99835632.jpg*/ /*colorful 3d doodle image*/
-
-/*https://i.pinimg.com/736x/34/9b/82/349b82d378019dae6befb4a1884957b3.jpg*/ /*whatsapp doodle image*/
-/*https://swall.teahub.io/photos/small/22-221235_vector-seamless-pattern-with-doodle-toys-kids-background.jpg*/ /*doodle image*/
 
 .button-class {
   background-image: url('../../icons/scrollDown.png');

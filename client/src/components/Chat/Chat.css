@@ -18,6 +18,14 @@
   width: 60vw;
   padding: 0;
 }
+.chatBox-img{
+  position: absolute;
+  width: 60vw;
+  top: 5vh;
+  height: 90vh;
+  border-radius: 5px;
+  opacity: 0.25;
+}
 .modal-content{
   background-color: rgba(0, 0, 0, 0);
 }
@@ -77,20 +85,26 @@
   color: white;
 }
 @media (max-width: 1000px){
-  .container {
+  .container, .chatBox-img{
     width: 70vw;
   }
 }
 @media (max-width: 676px) {
-  .container {
-    width: 85vw;
+  .container, .chatBox-img{
+    width: 80vw;
     height: 95vh;
+  }
+  .chatBox-img{
+    top: 2.5vh;
   }
 }
 
 @media (max-width: 450px) {
-  .container {
+  .container, .chatBox-img{
     width: 100vw;
     height: 100vh;
+  }
+  .chatBox-img{
+    top: 0;
   }
 }

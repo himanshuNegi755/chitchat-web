@@ -41,13 +41,16 @@ const Chat = ({ location, user }) => {
   const [reportedMsg, setReportedMsg ] = useState('');
   const [reportStatus, setReportStatus] = useState(''); //status after reporting
 
-  //typing status usestate
-  const [typing, setTyping] = useState('');
+  const [typing, setTyping] = useState(''); //typing status usestate
+  const [online, setOnline] = useState(true); //state to store online/offline status
 
   useEffect(() => {
-    const { room, roomId } = queryString.parse(location.search);
+    //online/offline event
+    window.addEventListener('online', connectionChangeFun);
+    window.addEventListener('offline', connectionChangeFun);
 
     if(user) {
+      const { room, roomId } = queryString.parse(location.search);
       socket = io(process.env.REACT_APP_SOCKET_ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
 
       setRoom(room);
@@ -68,7 +71,13 @@ const Chat = ({ location, user }) => {
     } else if (user === false) {
       setLoggedIn(false)
     }
-
+    //componentWillUnmount
+    return () => {
+      if(user) socket.close();
+      window.removeEventListener('online', connectionChangeFun);
+      window.removeEventListener('offline', connectionChangeFun);
+    }
+    // eslint-disable-next-line
   }, [location.search, user]);
 
   useEffect(() => {
@@ -83,11 +92,6 @@ const Chat = ({ location, user }) => {
       socket.on('typingStatus', data => { setTyping(data); });
     }
 }, [user]);
-
-  //component unmount
-  useEffect(() => {
-    if(user) return () => socket.close();
-  },[user])
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -155,12 +159,41 @@ const Chat = ({ location, user }) => {
 
     return (list);
   }
-  
+
   //typing staus functions
   const typingFun = () => {
     socket.emit('typing', 'typing...');
     clearTimeout(typingTimeout);
     typingTimeout = setTimeout(function() { socket.emit('typing', ''); }, 1000);
+  }
+
+  //online/offline status function along with socket reconnect
+  const connectionChangeFun = () => {
+    if(navigator.onLine) {
+      setOnline(true);
+
+      if(!alert('you got disconnected')){window.location.reload();}
+      /*if(!socket.connected) {
+        const { room, roomId } = queryString.parse(location.search);
+        socket = io(process.env.REACT_APP_SOCKET_ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
+
+        setRoom(room);
+        setName(user.userName);
+        setRoomId(roomId);
+        const userName = user.userName;
+
+        socket.emit('join', { userName, room, roomId }, (error) => {
+          if(error) {
+            alert(error);
+            setRedirectTo404(false)
+            //alert(error);
+          } else {
+            axios.get(`${process.env.REACT_APP_BACKEND_API}/chat/${roomId}`)
+            .then(res => { setMessages(res.data) })
+          }
+        });
+      }*/
+    } else { setOnline(false); }
   }
 
   if(!loggedIn) {
@@ -171,7 +204,8 @@ const Chat = ({ location, user }) => {
     return (
       <div className="outerContainer">
         <div className="container">
-          <InfoBar room={room} noOfMemberInRoom={users.length} showMemebers={showMembersModal} typingData={typing}/>
+          <img className="chatBox-img" src="https://st3.depositphotos.com/2800301/34478/v/950/depositphotos_344789902-stock-illustration-movie-cinema-set-pattern-doodle.jpg" />
+          <InfoBar room={room} noOfMemberInRoom={users.length} showMemebers={showMembersModal} typingData={typing} onlineStatus={online}/>
           <div className="pop-div"><span id='reportStatus'> {reportStatus} </span></div>
           <Messages messages={messages} name={name} replyFun={sendReply} mutedUsers={mutedUsers} roomName={room} reportModal={showReportModal}/>
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} userInRoom={users} msgReply={messageReply} resetMsg={resetMsg} typing={typingFun}/>

@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import './Interests.css';
-import NavBar from '../../NavBar/NavBar';
+import NavBar from '../NavBar/NavBar';
 
 const Interests = ({ user }) => {
   const [topics, setTopics] = useState([]);
   const [followedTopics, setFollowedTopics] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(true);
 
   useEffect(() => {
     if(user) {
@@ -18,7 +17,7 @@ const Interests = ({ user }) => {
 
       axios.get(`${process.env.REACT_APP_BACKEND_API}/interests`)
       .then(res => { setTopics(res.data) })
-    } else if(user === false) {setLoggedIn(false)}
+    }
   }, [user]);
 
   const topicItemList = () => {
@@ -64,17 +63,13 @@ const Interests = ({ user }) => {
     })
   }
 
-  if(!loggedIn) {
-    return <Redirect to='/' />;
-  } else {
-    return (
-      <div className='main-div interest-pg'>
-        <NavBar pageTitle='Interests'/>
-        { user ? (user.userIsNew ? <div className="firstUser-msg">Please create an unique UserName in profile section to join chat room and follow any topic you like. You will get the existing rooms</div> : null) : null}
-        <div className="interest-div">{topicItemList()}</div>
-      </div>
-    );
-  }
+  return (
+    <div className='main-div interest-pg'>
+      <NavBar pageTitle='Interests'/>
+      { user ? (user.userIsNew ? <div className="firstUser-msg">Please create an unique UserName in profile section to join chat room and follow any topic you like. You will get the existing rooms</div> : null) : null}
+      <div className="interest-div">{topicItemList()}</div>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {

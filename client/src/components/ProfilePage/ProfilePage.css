@@ -18,6 +18,12 @@
   display: inline-block;
   font-family: 'Caveat Brush', cursive;
 }
+.overlap-div{
+  min-height: 20vh;
+}
+.profileDetails{
+  min-height: 40vh;
+}
 .form-group{
   margin: 0 0 1rem;
 }
@@ -39,6 +45,7 @@
 .profile-submit{
   text-align: center;
   margin-top: 1rem;
+  margin-bottom: 6rem;
 }
 .submitBtn, .deleteBtn{
   transition: 0.2s;

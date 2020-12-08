@@ -1,21 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import { InputGroup, FormControl } from 'react-bootstrap';
-import { fetchUser } from '../../store/actions/authActions';
+import { fetchUser } from '../../../store/actions/authActions';
 
 import './Home.css';
-import NavBar from '../NavBar/NavBar';
-import langIcon from '../../icons/langIcon.svg';
+import NavBar from '../../NavBar/NavBar';
+import langIcon from '../../../icons/langIcon.svg';
 
 const Home = ({ user, fetch_user }) => {
   
   useEffect(() => { fetch_user() }, [fetch_user])
   
   const [rooms, setRooms] = useState([]); //rooms as per user follow interests
-  const [loggedIn, setLoggedIn] = useState(true);
   const [allRoomsList, setAllRoomsList] = useState([]); //all rooms
   const [suggestions, setSuggestions] = useState([]);
   const [roomTitle, setRoomTitle] = useState(''); //for searching titles
@@ -37,7 +36,7 @@ const Home = ({ user, fetch_user }) => {
         }
       })
       
-    } else if(user === false) {setLoggedIn(false)}
+    }
     
     return () => { isMounted = false };
   }, [user]);
@@ -125,36 +124,32 @@ const Home = ({ user, fetch_user }) => {
     if(suggestionRef.current) { if (suggestionRef && !suggestionRef.current.contains(event.target)) { setSuggestions([]) } }
     }
 
-  if(!loggedIn) {
-    return <Redirect to='/' />;
-  } else {
-    return (
-      <div className='main-div home-page'>
-        <NavBar pageTitle='Home'/>
-        
-        <div className="searchBar" style={{visibility: showSearchBar}}>
-          <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text ><span role="img" aria-label="search"><i className="fas fa-search"></i></span></InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl
-                  placeholder="What can we help you find?"
-                  aria-label="What can we help you find"
-                  onChange={onTextChanged}
-                  type='text'
-                  value={roomTitle}
-              />
-              <div className="mb-3 suggestion" ref={suggestionRef}>
-                {renderSuggestions()}
-              </div>
-          </InputGroup>
-        </div>
-        
-        {rooms.length === 0 ? <div className="firstUser-msg"><span>Feed is empty, create new room or Follow some interests</span></div> : null}
-        {roomsList()}
+  return (
+    <div className='main-div home-page'>
+      <NavBar pageTitle='Home'/>
+
+      <div className="searchBar" style={{visibility: showSearchBar}}>
+        <InputGroup>
+            <InputGroup.Prepend>
+              <InputGroup.Text ><span role="img" aria-label="search"><i className="fas fa-search"></i></span></InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+                placeholder="What can we help you find?"
+                aria-label="What can we help you find"
+                onChange={onTextChanged}
+                type='text'
+                value={roomTitle}
+            />
+            <div className="mb-3 suggestion" ref={suggestionRef}>
+              {renderSuggestions()}
+            </div>
+        </InputGroup>
       </div>
-    );
-  }
+
+      {rooms.length === 0 ? <div className="firstUser-msg"><span>Feed is empty, create new room or Follow some interests</span></div> : null}
+      {roomsList()}
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {

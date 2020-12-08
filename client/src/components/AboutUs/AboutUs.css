@@ -28,6 +28,17 @@
     text-align: left;
     font-size: 1.2rem;
 }
+
+.faq-list-item em{
+    transition: 0.2s;
+    cursor: pointer;
+}
+.faq-list-item em:hover{
+    transition: 0.2s;
+    padding-left: 0.1rem;
+    text-shadow: 0 0 1rem #1cbec7;
+}
+
 .faq-list-item em{
     transition: 0.2s;
     cursor: pointer;

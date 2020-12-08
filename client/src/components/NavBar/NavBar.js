@@ -26,6 +26,7 @@ const NavBar = ({ pageTitle, user }) => {
   const [titleMsg, setTitleMsg] = useState('');
   const [languageMsg, setLanguageMsg] = useState('');
   const [categoryMsg, setCategoryMsg] = useState('');
+  const [loggedIn, setLoggedIn] = useState(true);
 
   //language array for selection
   const [languageList] = useState(['English', 'Mandarin', 'Hindi', 'Spanish', 'French', 'Arabic', 'Bengali', 'Russian' ,'Portuguese', 'Indonesian', 'Urdu', 'German', 'Japanese', 'Swahili', 'Marathi', 'Telugu', 'Punjabi', 'Tamil', 'Turkish', 'Odia']);
@@ -43,7 +44,7 @@ const NavBar = ({ pageTitle, user }) => {
       return () => {
         socket.close();
         isMounted = false; }
-    }
+    } else if(user === false) {setLoggedIn(false)}
   }, [user]);
 
   const createRoom = () => {
@@ -147,8 +148,10 @@ const NavBar = ({ pageTitle, user }) => {
       </div>
     )
   }
-
-  if(redirect && user.userName) {
+  
+  if(!loggedIn) {
+    return <Redirect to='/' />;
+  } else if(redirect && user.userName) {
     return (<Redirect to ={`/chat?room=${title}&roomId=${roomId}`}/>)
   } else {
     return (
