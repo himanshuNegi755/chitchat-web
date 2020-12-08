@@ -87,12 +87,12 @@ input:focus, textarea:focus, select:focus{
 @media (max-width: 1000px){
   .popup-msg{
     width: 55.5vw;
-    bottom: 6.2rem;
+    bottom: 6.3rem;
   }
 }
 @media (max-width: 676px){
   .popup-msg{
-    width: 66vw;
+    width: 63.5vw;
     bottom: 4.7rem;
   }
   .sendButton span{
@@ -117,7 +117,10 @@ input:focus, textarea:focus, select:focus{
   }
 }
 @media (max-width: 449px){
-
+  .popup-msg{
+    width: 79vw;
+    bottom: 3.7rem;
+  }
   .popup-name{
     margin-left: 0.5rem;
     border-radius: 5px;
