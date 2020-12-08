@@ -6,6 +6,7 @@
   border-radius: 4px 4px 0 0;
   height: 60px;
   width: 100%;
+  z-index: 1;
 }
 .leftInnerContainer {
   flex: 0.9;
@@ -38,9 +39,10 @@
   box-shadow: 0 0 10px #00ff00;
 }
 .typing-status {
-  margin: auto 0.5rem 0.75rem 2.5rem;
-  font-size: 1.2rem;
-  font-family: 'Exo', sans-serif;
+  margin: auto 0.5rem 0.78rem 2.5rem;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+  font-family: 'Caveat Brush', cursive;
 }
 
 @media (max-width: 676px){

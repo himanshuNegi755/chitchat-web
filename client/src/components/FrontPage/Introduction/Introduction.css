@@ -11,18 +11,20 @@
 }
 .intro-text{
   text-align: center;
-  font-family: 'Alice', serif;
+  font-family: 'Prompt', sans-serif;
   font-size: 1.7rem;
   letter-spacing: 3px;
 }
 .info-section, .steps-to-use{
+  font-size: 1.2rem;
   text-align: justify;
   letter-spacing: 1px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Nunito', sans-serif;
+  line-height: 2rem;
 }
 .steps-to-use{
   line-height: 2rem;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
 }
 
 @media (max-width: 1000px){

@@ -44,12 +44,12 @@ const Chat = ({ location, user }) => {
   const [typing, setTyping] = useState(''); //typing status usestate
   const [online, setOnline] = useState(true); //state to store online/offline status
 
-  useEffect(() => {    
+  useEffect(() => {
     //online/offline event
     window.addEventListener('online', connectionChangeFun);
     window.addEventListener('offline', connectionChangeFun);
-    
-    if(user) {      
+
+    if(user) {
       const { room, roomId } = queryString.parse(location.search);
       socket = io(process.env.REACT_APP_SOCKET_ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
 
@@ -75,7 +75,7 @@ const Chat = ({ location, user }) => {
     return () => {
       if(user) socket.close();
       window.removeEventListener('online', connectionChangeFun);
-      window.removeEventListener('offline', connectionChangeFun);  
+      window.removeEventListener('offline', connectionChangeFun);
     }
     // eslint-disable-next-line
   }, [location.search, user]);
@@ -159,19 +159,19 @@ const Chat = ({ location, user }) => {
 
     return (list);
   }
-  
+
   //typing staus functions
   const typingFun = () => {
     socket.emit('typing', 'typing...');
     clearTimeout(typingTimeout);
     typingTimeout = setTimeout(function() { socket.emit('typing', ''); }, 1000);
   }
-  
+
   //online/offline status function along with socket reconnect
   const connectionChangeFun = () => {
     if(navigator.onLine) {
       setOnline(true);
-      
+
       if(!alert('you got disconnected')){window.location.reload();}
       /*if(!socket.connected) {
         const { room, roomId } = queryString.parse(location.search);
@@ -204,6 +204,7 @@ const Chat = ({ location, user }) => {
     return (
       <div className="outerContainer">
         <div className="container">
+          <img className="chatBox-img" src="https://st3.depositphotos.com/2800301/34478/v/950/depositphotos_344789902-stock-illustration-movie-cinema-set-pattern-doodle.jpg" />
           <InfoBar room={room} noOfMemberInRoom={users.length} showMemebers={showMembersModal} typingData={typing} onlineStatus={online}/>
           <div className="pop-div"><span id='reportStatus'> {reportStatus} </span></div>
           <Messages messages={messages} name={name} replyFun={sendReply} mutedUsers={mutedUsers} roomName={room} reportModal={showReportModal}/>
