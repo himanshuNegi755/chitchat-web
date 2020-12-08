@@ -9,6 +9,7 @@ import { fetchUser } from '../../../store/actions/authActions';
 import './Home.css';
 import NavBar from '../../NavBar/NavBar';
 import langIcon from '../../../icons/langIcon.svg';
+//import GoogleAd from '../../GoogleAd/GoogleAd.js';
 
 const Home = ({ user, fetch_user }) => {
   
@@ -127,7 +128,6 @@ const Home = ({ user, fetch_user }) => {
   return (
     <div className='main-div home-page'>
       <NavBar pageTitle='Home'/>
-
       <div className="searchBar" style={{visibility: showSearchBar}}>
         <InputGroup>
             <InputGroup.Prepend>
@@ -144,8 +144,7 @@ const Home = ({ user, fetch_user }) => {
               {renderSuggestions()}
             </div>
         </InputGroup>
-      </div>
-
+      </div>      
       {rooms.length === 0 ? <div className="firstUser-msg"><span>Feed is empty, create new room or Follow some interests</span></div> : null}
       {roomsList()}
     </div>
