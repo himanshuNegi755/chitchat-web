@@ -204,7 +204,7 @@ const Chat = ({ location, user }) => {
     return (
       <div className="outerContainer">
         <div className="container">
-          <img className="chatBox-img" src="https://st3.depositphotos.com/2800301/34478/v/950/depositphotos_344789902-stock-illustration-movie-cinema-set-pattern-doodle.jpg" />
+          <img className="chatBox-img" src="https://st3.depositphotos.com/2800301/34478/v/950/depositphotos_344789902-stock-illustration-movie-cinema-set-pattern-doodle.jpg" alt='background'/>
           <InfoBar room={room} noOfMemberInRoom={users.length} showMemebers={showMembersModal} typingData={typing} onlineStatus={online}/>
           <div className="pop-div"><span id='reportStatus'> {reportStatus} </span></div>
           <Messages messages={messages} name={name} replyFun={sendReply} mutedUsers={mutedUsers} roomName={room} reportModal={showReportModal}/>

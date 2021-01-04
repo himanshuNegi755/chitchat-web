@@ -65,7 +65,7 @@ const Interests = ({ user }) => {
 
   return (
     <div className='main-div interest-pg'>
-      <NavBar pageTitle='Interests'/>
+      <NavBar/>
       { user ? (user.userIsNew ? <div className="firstUser-msg">Please create an unique UserName in profile section to join chat room and follow any topic you like. You will get the existing rooms</div> : null) : null}
       <div className="interest-div">{topicItemList()}</div>
     </div>

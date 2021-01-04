@@ -6,10 +6,11 @@ import io from "socket.io-client";
 import { Modal, Form } from 'react-bootstrap';
 
 import './NavBar.css';
+import CcLogo from '../../icons/ccLogo512.png';
 
 let socket;
 
-const NavBar = ({ pageTitle, user }) => {
+const NavBar = ({ user }) => {
   const [showModal, setShowModal] = useState(false);
 
   //show modal entry field
@@ -157,18 +158,23 @@ const NavBar = ({ pageTitle, user }) => {
     return (
       <div>
         <nav className="home-nav navbar navbar-expand-lg navbar-dark">
-          <div className="topbar">
-            <p>{ pageTitle }</p>
-          </div>
-
+          
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavigation" aria-controls="myNavigation" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span></button>
+          
+          <div className="topbar">
+            <img className="navbar-logo" src={CcLogo} alt="logo"/>
+            <p>Chit-Chat</p>
+          </div>
+
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <span className="nav-link">{onlineUsers} Users Online</span>
+            </li>
+          </ul>
 
           <div className="collapse navbar-collapse" id="myNavigation">
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <span className="nav-link">{onlineUsers} Users Online</span>
-              </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/">Home</Link>
               </li>

@@ -67,7 +67,7 @@ const ProfilePage = ({ user }) => {
   } else {
     return (
       <div className='main-div profilePage'>
-        <NavBar pageTitle='Profile Page'/>
+        <NavBar/>
 
         <div className="overlap-div image-name row">
             <div className="col-lg-3 col-md-4 image-col-div">

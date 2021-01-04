@@ -127,7 +127,7 @@ const Home = ({ user, fetch_user }) => {
 
   return (
     <div className='main-div home-page'>
-      <NavBar pageTitle='Home'/>
+      <NavBar/>      
       <div className="searchBar" style={{visibility: showSearchBar}}>
         <InputGroup>
             <InputGroup.Prepend>
@@ -146,6 +146,7 @@ const Home = ({ user, fetch_user }) => {
         </InputGroup>
       </div>      
       {rooms.length === 0 ? <div className="firstUser-msg"><span>Feed is empty, create new room or Follow some interests</span></div> : null}
+      
       {roomsList()}
     </div>
   );

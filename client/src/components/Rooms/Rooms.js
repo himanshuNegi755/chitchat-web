@@ -80,7 +80,7 @@ const Rooms = ({ location, user }) => {
 
   return (
     <div className='main-div'>
-      <NavBar pageTitle='Rooms'/>
+      <NavBar/>
       {roomsList()}
     </div>
   );
