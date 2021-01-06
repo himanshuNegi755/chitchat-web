@@ -4,7 +4,7 @@
 .searchBar {
     display: flex;
     background-image: linear-gradient(#1fe5ff, #9cf3ff, #f5f5f5);
-    padding: 0.8rem 25% 2rem;
+    padding: 0.8rem 12% 2rem;
     width: inherit;
     text-align: left;
     margin: 0;
@@ -50,6 +50,38 @@
 .lang-icon {
   width: 23px;
   height: 23px;
+}
+.row{
+  margin: 0;
+}
+.interestHeading{
+  background-image: linear-gradient(#1fe5ff, #9cf3ff, #f5f5f5);
+  border-right: 0.1px solid #9cf3ff;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 2rem;
+}
+.interest-list{
+  box-shadow: 2px 3px 2px #f0f0f0;
+  padding: 0.1rem 1px;
+  min-height: 78vh;
+  font-size: 1.2rem;
+}
+.trial-interestDiv{
+  background-image: linear-gradient(to right, rgba(240, 0, 0, 0.6), rgba(250, 0, 0, 0.4), rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.01));
+  transition: 0.2s;
+  padding: 0.8rem 2.2rem;
+}
+.trial-interestDiv:hover{
+  background-color: #e0e0e0;
+}
+.add-int{
+  float: right;
+  border: 2px;
+  border-radius: 1.5rem;
+  padding: 0rem 0.6rem 0.2rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 4px #ee6666;
 }
 
 @media (max-width: 1360px){
