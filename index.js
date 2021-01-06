@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
 const cors = require('cors');
+const webpush =  require('web-push');
 
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -35,6 +36,42 @@ const corsOptions = {
   origin: true
 }
 
+/*************************************** web-push ********************************************/
+const publicVapidKey='BIOPEVktdDV7JzYMMB6Vf9MsrOx3uFBgDc4utrurfNYwf30SnvRzm34DRkUcTdNFdUqY069QE90MUCcxVJPxS2A';
+const privateVapidKey='vriGRMGLFjNBd_s30lG6v6FY8cn6ES1rmb_siuqwDAY';
+
+webpush.setVapidDetails("mailto:thekatohome@gmail.com", publicVapidKey, privateVapidKey);
+
+// Subscribe Route
+app.post("/subscribe", (req, res) => {
+  // Get pushSubscription object
+  const subscription = req.body;
+
+  // Send 201 - resource created
+  res.status(201).json({});
+
+  // Create payload
+  const payload = JSON.stringify({ title: "Push Test" });
+
+  // Pass object into sendNotification
+  webpush
+    .sendNotification(subscription, payload)
+    .catch(err => console.error(err));
+});
+
+
+
+/*
+=======================================
+
+Public Key:
+BIOPEVktdDV7JzYMMB6Vf9MsrOx3uFBgDc4utrurfNYwf30SnvRzm34DRkUcTdNFdUqY069QE90MUCcxVJPxS2A
+
+Private Key:
+vriGRMGLFjNBd_s30lG6v6FY8cn6ES1rmb_siuqwDAY
+*/
+
+/********************************************************************************************************************/
 const {ObjectId} = require('mongodb');
 var Room = mongoose.model('Room');
 var Chat = mongoose.model('Chat');
