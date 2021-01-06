@@ -12,9 +12,9 @@ import langIcon from '../../../icons/langIcon.svg';
 //import GoogleAd from '../../GoogleAd/GoogleAd.js';
 
 const Home = ({ user, fetch_user }) => {
-  
+
   useEffect(() => { fetch_user() }, [fetch_user])
-  
+
   const [rooms, setRooms] = useState([]); //rooms as per user follow interests
   const [allRoomsList, setAllRoomsList] = useState([]); //all rooms
   const [suggestions, setSuggestions] = useState([]);
@@ -22,13 +22,13 @@ const Home = ({ user, fetch_user }) => {
   const [showSearchBar, setShowSearchBar] = useState('hidden'); //for searching titles
 
   const suggestionRef = useRef(null);
-  
+
   useEffect(() => {
     let isMounted = true; //to avoid memory leak problem on unmounting component
     if(user) {
       axios.get(`${process.env.REACT_APP_BACKEND_API}/user-interests/${user.userEmail}`)
       .then(res => { if(isMounted) {
-        
+
         axios.get(`${process.env.REACT_APP_BACKEND_API}/room`, {
           params: { interests: res.data }
         })
@@ -36,12 +36,12 @@ const Home = ({ user, fetch_user }) => {
                    setShowSearchBar('visible')})
         }
       })
-      
+
     }
-    
+
     return () => { isMounted = false };
   }, [user]);
-  
+
   const entryValidation = (e, members, roomId) => {
     if(!user.userName) {
       alert('Please First create user name in profile');
@@ -127,6 +127,7 @@ const Home = ({ user, fetch_user }) => {
 
   return (
     <div className='main-div home-page'>
+<<<<<<< HEAD
       <NavBar/>      
       <div className="searchBar" style={{visibility: showSearchBar}}>
         <InputGroup>
@@ -148,6 +149,44 @@ const Home = ({ user, fetch_user }) => {
       {rooms.length === 0 ? <div className="firstUser-msg"><span>Feed is empty, create new room or Follow some interests</span></div> : null}
       
       {roomsList()}
+=======
+      <NavBar pageTitle='Home'/>
+      <div className="row">
+        <div className="col-2 interestHeading">Interest</div>
+        <div className="col-10 searchBar" style={{visibility: showSearchBar}}>
+          <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text ><span role="img" aria-label="search"><i className="fas fa-search"></i></span></InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                  placeholder="What can we help you find?"
+                  aria-label="What can we help you find"
+                  onChange={onTextChanged}
+                  type='text'
+                  value={roomTitle}
+              />
+              <div className="mb-3 suggestion" ref={suggestionRef}>
+                {renderSuggestions()}
+              </div>
+          </InputGroup>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-2 interest-list">
+          <div className="trial-interestDiv">Interest 1 <button className="add-int">+</button></div>
+          <div className="trial-interestDiv">Interest 2 <button className="add-int">+</button></div>
+          <div className="trial-interestDiv">Interest 3 <button className="add-int">+</button></div>
+          <div className="trial-interestDiv">Interest 4 <button className="add-int">+</button></div>
+          <div className="trial-interestDiv">Interest 5 <button className="add-int">+</button></div>
+        </div>
+        <div className="col-10 rooms-list">
+          {rooms.length === 0 ? <div className="firstUser-msg"><span>Feed is empty, create new room or Follow some interests</span></div> : null}
+          {roomsList()}
+        </div>
+      </div>
+
+>>>>>>> faf7e9afa53c58ab9770f324cdf6731b80983844
     </div>
   );
 }
