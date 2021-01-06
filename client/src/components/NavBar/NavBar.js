@@ -159,9 +159,6 @@ const NavBar = ({ user }) => {
       <div>
         <nav className="home-nav navbar navbar-expand-lg navbar-dark">
           
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavigation" aria-controls="myNavigation" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span></button>
-          
           <div className="topbar">
             <img className="navbar-logo" src={CcLogo} alt="logo"/>
             <p>Chit-Chat</p>
@@ -199,6 +196,10 @@ const NavBar = ({ user }) => {
               </li>
             </ul>
           </div>
+          
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavigation" aria-controls="myNavigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span></button>
+          
         </nav>
 
         {showCreateRoomModal(showModal)}

@@ -20,15 +20,21 @@ const Home = ({ user, fetch_user }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [roomTitle, setRoomTitle] = useState(''); //for searching titles
   const [showSearchBar, setShowSearchBar] = useState('hidden'); //for searching titles
+  const [topics, setTopics] = useState([]);
+  const [followedTopics, setFollowedTopics] = useState([]);
 
   const suggestionRef = useRef(null);
 
   useEffect(() => {
     let isMounted = true; //to avoid memory leak problem on unmounting component
     if(user) {
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/interests`)
+      .then(res => { setTopics(res.data) })
+      
       axios.get(`${process.env.REACT_APP_BACKEND_API}/user-interests/${user.userEmail}`)
       .then(res => { if(isMounted) {
-
+        
+        setFollowedTopics(res.data)
         axios.get(`${process.env.REACT_APP_BACKEND_API}/room`, {
           params: { interests: res.data }
         })
@@ -36,7 +42,7 @@ const Home = ({ user, fetch_user }) => {
                    setShowSearchBar('visible')})
         }
       })
-
+      
     }
 
     return () => { isMounted = false };
@@ -124,32 +130,46 @@ const Home = ({ user, fetch_user }) => {
   const handleClickOutside = (event) => {
     if(suggestionRef.current) { if (suggestionRef && !suggestionRef.current.contains(event.target)) { setSuggestions([]) } }
     }
+  
+  //list of interests
+  const topicItemList = () => {
+    const list = topics.map((item) =>
+        <div key={item._id} className='interest-col'>
+          <div className="trial-interestDiv">
+            <Link to={`/rooms?interests=${item.interests}`} className='linkI-div'>
+              {item.interests} 
+            </Link>
+            {followedTopics.includes(item.interests) ? <button onClick={ () => {unFollowInterests(item.interests) }}><i className="far fa-check-circle"></i></button> : <button onClick={ () => { followInterests((item.interests).toLowerCase()) }}><button className="add-int">+</button></button>}
+            </div>
+        </div>
+    );
+
+    return (list);
+  }
+  
+  //function to follow interests
+  const followInterests = (interests) => {
+    axios.put(`${process.env.REACT_APP_BACKEND_API}/user-interests/add`, {
+      userEmail: user.userEmail,
+      interests: interests
+    })
+    .then(res => { setFollowedTopics([...followedTopics, interests]); })
+  }
+
+  //function to unfollow interest
+  const unFollowInterests = (interests) => {
+    axios.put(`${process.env.REACT_APP_BACKEND_API}/user-interests/delete`, {
+      userEmail: user.userEmail,
+      interests: interests
+    })
+    .then(res => {
+      let followTopicsArray = followedTopics.filter(item => item !== interests);
+      setFollowedTopics(followTopicsArray);
+    })
+  }
 
   return (
     <div className='main-div home-page'>
-<<<<<<< HEAD
-      <NavBar/>      
-      <div className="searchBar" style={{visibility: showSearchBar}}>
-        <InputGroup>
-            <InputGroup.Prepend>
-              <InputGroup.Text ><span role="img" aria-label="search"><i className="fas fa-search"></i></span></InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-                placeholder="What can we help you find?"
-                aria-label="What can we help you find"
-                onChange={onTextChanged}
-                type='text'
-                value={roomTitle}
-            />
-            <div className="mb-3 suggestion" ref={suggestionRef}>
-              {renderSuggestions()}
-            </div>
-        </InputGroup>
-      </div>      
-      {rooms.length === 0 ? <div className="firstUser-msg"><span>Feed is empty, create new room or Follow some interests</span></div> : null}
-      
-      {roomsList()}
-=======
       <NavBar pageTitle='Home'/>
       <div className="row">
         <div className="col-2 interestHeading">Interest</div>
@@ -174,11 +194,7 @@ const Home = ({ user, fetch_user }) => {
 
       <div className="row">
         <div className="col-2 interest-list">
-          <div className="trial-interestDiv">Interest 1 <button className="add-int">+</button></div>
-          <div className="trial-interestDiv">Interest 2 <button className="add-int">+</button></div>
-          <div className="trial-interestDiv">Interest 3 <button className="add-int">+</button></div>
-          <div className="trial-interestDiv">Interest 4 <button className="add-int">+</button></div>
-          <div className="trial-interestDiv">Interest 5 <button className="add-int">+</button></div>
+          {topicItemList()}
         </div>
         <div className="col-10 rooms-list">
           {rooms.length === 0 ? <div className="firstUser-msg"><span>Feed is empty, create new room or Follow some interests</span></div> : null}
@@ -186,7 +202,6 @@ const Home = ({ user, fetch_user }) => {
         </div>
       </div>
 
->>>>>>> faf7e9afa53c58ab9770f324cdf6731b80983844
     </div>
   );
 }
