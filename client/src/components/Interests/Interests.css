@@ -7,7 +7,7 @@
   font-size: 1.4rem;
   font-family: 'Titillium Web', sans-serif;
   letter-spacing: 0.3px;
-  text-shadow: 0 0 10px #fff;
+  text-shadow: 0 0 10px #505050;
 }
 .interest-col{
   transition: 0.1s;
@@ -48,11 +48,6 @@
 .interest-name p:hover{
   transition: 0.2s;
   letter-spacing: 2px;
-}
-
-.linkI-div, .linkI-div:hover, .linkI-div:focus, .linkI-div:active{
-  text-decoration: none;
-  color: inherit;
 }
 
 .follow-div{

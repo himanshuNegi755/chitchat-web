@@ -149,7 +149,7 @@ const NavBar = ({ user }) => {
       </div>
     )
   }
-  
+
   if(!loggedIn) {
     return <Redirect to='/' />;
   } else if(redirect && user.userName) {
@@ -158,7 +158,7 @@ const NavBar = ({ user }) => {
     return (
       <div>
         <nav className="home-nav navbar navbar-expand-lg navbar-dark">
-          
+
           <div className="topbar">
             <img className="navbar-logo" src={CcLogo} alt="logo"/>
             <p>Chit-Chat</p>
@@ -196,10 +196,10 @@ const NavBar = ({ user }) => {
               </li>
             </ul>
           </div>
-          
+
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavigation" aria-controls="myNavigation" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span></button>
-          
+
         </nav>
 
         {showCreateRoomModal(showModal)}

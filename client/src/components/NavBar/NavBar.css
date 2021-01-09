@@ -1,12 +1,13 @@
 .topbar{
   font-family: 'Prompt', sans-serif;
   background: #202020;
-  padding: 0.8rem 2rem;
+  padding: 0.5rem 2rem;
   color: white;
 }
 .topbar p{
-  font-size: 2rem;
-  margin: 0;
+  font-size: 1.5rem;
+  display: inline-block;
+  margin: 0.2rem 0 0 1rem;
 }
 .home-nav.navbar{
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
@@ -104,8 +105,10 @@
 }
 
 .navbar-logo {
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
+  display: inline-block;
+  margin: 0 0 0.25rem;
 }
 
 /*############### Mobile ################*/

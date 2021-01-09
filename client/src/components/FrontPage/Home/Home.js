@@ -30,10 +30,10 @@ const Home = ({ user, fetch_user }) => {
     if(user) {
       axios.get(`${process.env.REACT_APP_BACKEND_API}/interests`)
       .then(res => { setTopics(res.data) })
-      
+
       axios.get(`${process.env.REACT_APP_BACKEND_API}/user-interests/${user.userEmail}`)
       .then(res => { if(isMounted) {
-        
+
         setFollowedTopics(res.data)
         axios.get(`${process.env.REACT_APP_BACKEND_API}/room`, {
           params: { interests: res.data }
@@ -42,7 +42,7 @@ const Home = ({ user, fetch_user }) => {
                    setShowSearchBar('visible')})
         }
       })
-      
+
     }
 
     return () => { isMounted = false };
@@ -130,23 +130,23 @@ const Home = ({ user, fetch_user }) => {
   const handleClickOutside = (event) => {
     if(suggestionRef.current) { if (suggestionRef && !suggestionRef.current.contains(event.target)) { setSuggestions([]) } }
     }
-  
+
   //list of interests
   const topicItemList = () => {
     const list = topics.map((item) =>
-        <div key={item._id} className='interest-col'>
-          <div className="trial-interestDiv">
-            <Link to={`/rooms?interests=${item.interests}`} className='linkI-div'>
-              {item.interests} 
+        <div key={item._id} className="trial-interestDiv">
+          <div className="interest-overlayer row">
+            <Link to={`/rooms?interests=${item.interests}`} className='linkI-div col-9'>
+              {item.interests}
             </Link>
-            {followedTopics.includes(item.interests) ? <button onClick={ () => {unFollowInterests(item.interests) }}><i className="far fa-check-circle"></i></button> : <button onClick={ () => { followInterests((item.interests).toLowerCase()) }}><button className="add-int">+</button></button>}
-            </div>
+            <div className="col-3">{followedTopics.includes(item.interests) ? <button className="add-int"><i  onClick={ () => {unFollowInterests(item.interests) }} className="far fa-check-circle"></i></button> : <button className="add-int"><i onClick={ () => { followInterests((item.interests).toLowerCase()) }} class="fas fa-plus-circle"></i></button>}</div>
+          </div>
         </div>
     );
 
     return (list);
   }
-  
+
   //function to follow interests
   const followInterests = (interests) => {
     axios.put(`${process.env.REACT_APP_BACKEND_API}/user-interests/add`, {
