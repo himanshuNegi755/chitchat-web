@@ -176,9 +176,6 @@ const NavBar = ({ user }) => {
                 <Link className="nav-link" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/interests">Interest</Link>
-              </li>
-              <li className="nav-item">
                 <Link className="nav-link" to="/profile">Profile</Link>
               </li>
               <li className="nav-item">

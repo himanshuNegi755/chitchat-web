@@ -134,9 +134,9 @@ const Home = ({ user, fetch_user }) => {
   //list of interests
   const topicItemList = () => {
     const list = topics.map((item) =>
-        <div key={item._id} className="trial-interestDiv">
+        <div key={item._id} className="trial-interestDiv" style={{backgroundImage: `url(${item.imageUrl})`}}>
           <div className="interest-overlayer row">
-            <Link to={`/rooms?interests=${item.interests}`} className='linkI-div col-9'>
+            <Link className='linkI-div col-9' onClick={() => selectedInterestsRoom(item.interests)}>
               {item.interests}
             </Link>
             <div className="col-3">{followedTopics.includes(item.interests) ? <button className="add-int"><i  onClick={ () => {unFollowInterests(item.interests) }} className="far fa-check-circle"></i></button> : <button className="add-int"><i onClick={ () => { followInterests((item.interests).toLowerCase()) }} class="fas fa-plus-circle"></i></button>}</div>
@@ -145,6 +145,14 @@ const Home = ({ user, fetch_user }) => {
     );
 
     return (list);
+  }
+  
+  //load the selected interests room
+  const selectedInterestsRoom = (interests) => {
+    axios.get(`${process.env.REACT_APP_BACKEND_API}/room/${interests}`)
+    .then(res => {
+      setRooms(res.data)
+    })
   }
 
   //function to follow interests
