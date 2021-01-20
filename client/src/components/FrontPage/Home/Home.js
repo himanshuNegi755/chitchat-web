@@ -134,7 +134,7 @@ const Home = ({ user, fetch_user }) => {
   //list of interests
   const topicItemList = () => {
     const list = topics.map((item) =>
-        <div key={item._id} className="trial-interestDiv" style={{backgroundImage: `url(${item.imageUrl})`}}>
+        <div key={item._id} className="interestDiv" style={{backgroundImage: `url(${item.imageUrl})`}}>
           <div className="interest-overlayer row">
             <Link className='linkI-div col-9' onClick={() => selectedInterestsRoom(item.interests)}>
               {item.interests}
@@ -146,7 +146,7 @@ const Home = ({ user, fetch_user }) => {
 
     return (list);
   }
-  
+
   //load the selected interests room
   const selectedInterestsRoom = (interests) => {
     axios.get(`${process.env.REACT_APP_BACKEND_API}/room/${interests}`)
@@ -179,36 +179,37 @@ const Home = ({ user, fetch_user }) => {
   return (
     <div className='main-div home-page'>
       <NavBar pageTitle='Home'/>
-      <div className="row">
-        <div className="col-2 interestHeading">Interest</div>
-        <div className="col-10 searchBar" style={{visibility: showSearchBar}}>
-          <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text ><span role="img" aria-label="search"><i className="fas fa-search"></i></span></InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl
-                  placeholder="What can we help you find?"
-                  aria-label="What can we help you find"
-                  onChange={onTextChanged}
-                  type='text'
-                  value={roomTitle}
-              />
-              <div className="mb-3 suggestion" ref={suggestionRef}>
-                {renderSuggestions()}
-              </div>
-          </InputGroup>
-        </div>
-      </div>
 
-      <div className="row">
-        <div className="col-2 interest-list">
-          {topicItemList()}
+        <div className="interestCol">
+          <div className="interestHeading">Interest</div>
+          <div className="interest-list">
+            {topicItemList()}
+          </div>
         </div>
-        <div className="col-10 rooms-list">
-          {rooms.length === 0 ? <div className="firstUser-msg"><span>Feed is empty, create new room or Follow some interests</span></div> : null}
-          {roomsList()}
+        <span className="interest-barIcon"><i class="fas fa-bars"></i></span>
+        <div className="roomCol" style={{visibility: showSearchBar}}>
+          <div className="searchBar">
+            <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text ><span role="img" aria-label="search"><i className="fas fa-search"></i></span></InputGroup.Text>
+                </InputGroup.Prepend>
+                <FormControl
+                    placeholder="What can we help you find?"
+                    aria-label="What can we help you find"
+                    onChange={onTextChanged}
+                    type='text'
+                    value={roomTitle}
+                />
+                <div className="mb-3 suggestion" ref={suggestionRef}>
+                  {renderSuggestions()}
+                </div>
+            </InputGroup>
+          </div>
+          <div className="rooms-list">
+            {rooms.length === 0 ? <div className="firstUser-msg"><span>Feed is empty, create new room or Follow some interests</span></div> : null}
+            {roomsList()}
+          </div>
         </div>
-      </div>
 
     </div>
   );

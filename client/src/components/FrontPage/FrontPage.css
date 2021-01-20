@@ -14,7 +14,7 @@
 /* *************************Scroll Bar******************** */
 /* width */
 ::-webkit-scrollbar {
-  width: 1rem;
+  width: 2px;
 }
 /* Track */
 ::-webkit-scrollbar-track {
@@ -31,7 +31,7 @@
 }
 @media (max-width: 676px){
   ::-webkit-scrollbar {
-    width: 0.5rem;
+    width: 0.1rem;
   }
   ::-webkit-scrollbar-thumb {
     border-radius: 5px;
