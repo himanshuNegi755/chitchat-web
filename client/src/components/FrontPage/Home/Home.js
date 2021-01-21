@@ -23,6 +23,9 @@ const Home = ({ user, fetch_user }) => {
   const [topics, setTopics] = useState([]);
   const [followedTopics, setFollowedTopics] = useState([]);
 
+  const [visibility, setVisibility] = useState('hidden'); //hiding the interests list
+  const [transform, setTransform] = useState('translateX(100)'); //translation motion of interest div
+
   const suggestionRef = useRef(null);
 
   useEffect(() => {
@@ -186,7 +189,10 @@ const Home = ({ user, fetch_user }) => {
             {topicItemList()}
           </div>
         </div>
-        <span className="interest-barIcon"><i class="fas fa-bars"></i></span>
+        <span className="interest-barIcon" onClick={ () => {
+            setVisibility('visible');
+            setTransform('translateX(0)');
+          }}><i class="fas fa-bars"></i></span>
         <div className="roomCol" style={{visibility: showSearchBar}}>
           <div className="searchBar">
             <InputGroup>
