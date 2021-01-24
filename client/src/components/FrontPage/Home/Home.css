@@ -135,6 +135,10 @@
     width : 20%;
     left: -20%;
   }
+  .interestColShow{
+    width : 20%;
+    left: 0;
+  }
   .interest-barIcon{
     display: inline-block;
   }

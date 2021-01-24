@@ -23,8 +23,9 @@ const Home = ({ user, fetch_user }) => {
   const [topics, setTopics] = useState([]);
   const [followedTopics, setFollowedTopics] = useState([]);
 
-  const [visibility, setVisibility] = useState('hidden'); //hiding the interests list
-  const [transform, setTransform] = useState('translateX(100)'); //translation motion of interest div
+  //const [visibility, setVisibility] = useState('hidden'); //hiding the interests list
+  const [position, setposition] = useState(0); //hiding the interests list
+  //const [transform, setTransform] = useState('translateX(100)'); //translation motion of interest div
 
   const suggestionRef = useRef(null);
 
@@ -183,16 +184,19 @@ const Home = ({ user, fetch_user }) => {
     <div className='main-div home-page'>
       <NavBar pageTitle='Home'/>
 
-        <div className="interestCol">
-          <div className="interestHeading">Interest</div>
+        <div className={(position === 0) ? 'interestCol' : 'interestCol interestColShow'}>
+          <div className="interestHeading"> <span onClick={ () => {
+            (position === 1) ? setposition(0) : setposition(1);
+          }}><i class="fas fa-bars"></i></span> Interest</div>
           <div className="interest-list">
             {topicItemList()}
           </div>
         </div>
+      
         <span className="interest-barIcon" onClick={ () => {
-            setVisibility('visible');
-            setTransform('translateX(0)');
+            setposition(1);
           }}><i class="fas fa-bars"></i></span>
+      
         <div className="roomCol" style={{visibility: showSearchBar}}>
           <div className="searchBar">
             <InputGroup>
