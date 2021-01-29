@@ -185,18 +185,16 @@ const Home = ({ user, fetch_user }) => {
       <NavBar pageTitle='Home'/>
 
         <div className={(position === 0) ? 'interestCol' : 'interestCol interestColShow'}>
-          <div className="interestHeading"> <span onClick={ () => {
-            (position === 1) ? setposition(0) : setposition(1);
-          }}><i class="fas fa-bars"></i></span> Interest</div>
+          <div className="interestHeading">Interest</div>
           <div className="interest-list">
             {topicItemList()}
           </div>
         </div>
-      
-        <span className="interest-barIcon" onClick={ () => {
-            setposition(1);
+
+        <span className={(position === 0) ? 'interest-barIcon' : 'insideBar'} onClick={ () => {
+            (position === 1) ? setposition(0) : setposition(1);
           }}><i class="fas fa-bars"></i></span>
-      
+
         <div className="roomCol" style={{visibility: showSearchBar}}>
           <div className="searchBar">
             <InputGroup>

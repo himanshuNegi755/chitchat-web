@@ -3,6 +3,7 @@
   background: #202020;
   padding: 0.5rem 2rem;
   color: white;
+  max-height: 10vh;
 }
 .topbar p{
   font-size: 1.5rem;
@@ -15,6 +16,7 @@
   position: relative;
   z-index: 4;
   padding: 0;
+  max-height: 10vh;
 }
 .nag {
   padding: 0;

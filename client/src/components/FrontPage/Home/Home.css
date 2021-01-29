@@ -72,19 +72,23 @@
   text-align: center;
   padding: 1rem 0;
   font-size: 2rem;
+  max-height: 16vh;
 }
-.interest-barIcon{
+.interest-barIcon, .insideBar{
   position: absolute;
   display: none;
-  border-radius: 0 0 1rem 0;
+  border-radius: 0;
   font-size: 1.2rem;
   padding: 1rem 1rem 1.6rem;
-  box-shadow: 0 -2px 3px #1fe5ff;
+}
+.row{
+  margin: 0;
 }
 .interest-list{
   box-shadow: 2px 3px 2px #202020;
+  background-color: black;
   padding: 0.1rem 1px;
-  max-height: 81.5vh;
+  max-height: 80vh;
   font-size: 1.2rem;
   overflow: scroll;
 }
@@ -132,15 +136,19 @@
 }
 @media (max-width: 1024px){
   .interestCol{
-    width : 20%;
-    left: -20%;
+    width : 25%;
+    left: -25%;
   }
   .interestColShow{
-    width : 20%;
+    width : 25%;
     left: 0;
   }
-  .interest-barIcon{
+  .interest-barIcon, .insideBar{
     display: inline-block;
+  }
+  .insideBar{
+    left: 20%;
+    z-index: 2
   }
   .roomCol{
     padding: 0;
@@ -163,6 +171,17 @@
   }
 }
 @media (max-width: 900px){
+  .interestCol{
+    width : 30%;
+    left: -30%;
+  }
+  .interestColShow{
+    width : 30%;
+    left: 0;
+  }
+  .insideBar{
+    left: 23%;
+  }
   .searchBar {
       padding: 0.8rem 20% 2rem;
   }
@@ -186,10 +205,34 @@
   }
 }
 @media (max-width: 686px){
+  .interestCol{
+    width : 40%;
+    left: -40%;
+  }
+  .interestColShow{
+    width : 40%;
+    left: 0;
+  }
+  .insideBar{
+    left: 30%;
+  }
   .lang-span{
     display: none;
   }
   .searchBar {
       padding: 0.7rem 20% 1.8rem;
+  }
+}
+@media (max-width: 480px){
+  .interestCol{
+    width : 60%;
+    left: -60%;
+  }
+  .interestColShow{
+    width : 60%;
+    left: 0;
+  }
+  .insideBar{
+    left: 46%;
   }
 }
